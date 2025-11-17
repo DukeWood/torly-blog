@@ -84,8 +84,8 @@ add_action('admin_init', 'torlyai_set_https_urls');
 
 // Enqueue Scripts and Styles
 function torlyai_enqueue_scripts() {
-    // Theme stylesheet
-    wp_enqueue_style('torlyai-style', get_stylesheet_uri(), array(), '1.0.0');
+    // Theme stylesheet (v2.0.0 - Granola.ai design with cache busting)
+    wp_enqueue_style('torlyai-style', get_stylesheet_uri(), array(), '2.0.0');
 
     // Custom JavaScript
     wp_enqueue_script('torlyai-script', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), '1.0.0', true);
