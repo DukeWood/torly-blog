@@ -11,6 +11,88 @@ TorlyAI WordPress Setup is a custom WordPress configuration for a UK Innovator V
 - Automated deployment scripts for full server setup
 - Custom REST API endpoints for visa assessments and contact forms
 
+---
+
+## 🎨 DESIGN SYSTEM - MANDATORY
+
+**CRITICAL:** All UI/UX work MUST follow the TorlyAI Design System documented in `TORLYAI_DESIGN_SYSTEM.md`.
+
+### Design System Rules
+
+1. **ALWAYS consult `TORLYAI_DESIGN_SYSTEM.md` before:**
+   - Creating new pages
+   - Adding UI components
+   - Writing CSS
+   - Building forms
+   - Implementing layouts
+
+2. **REQUIRED Design Elements:**
+   - ✅ Use exact colors from Section 1 (Color Palette)
+   - ✅ Use typography scale from Section 2 (no custom font sizes)
+   - ✅ Use spacing system from Section 3 (multiples of 0.25rem)
+   - ✅ Use component patterns from Section 4
+   - ✅ Apply gradient formulas from Section 10 (Granola.ai style)
+   - ✅ Implement glass-morphism for primary CTAs (Section 11)
+   - ✅ Follow responsive breakpoints from Section 8
+   - ✅ Ensure WCAG 2.1 AA accessibility (Section 9)
+
+3. **Color Usage:**
+   ```css
+   /* ALWAYS use these exact values */
+   --color-yellow: hsl(60, 100%, 50%);
+   --color-green: hsl(108, 100%, 50%);
+   --color-orange: hsl(30, 100%, 50%);
+   --color-chat-green: #10b981;
+   --text-primary: #000000;
+   --bg-primary: #ffffff;
+   ```
+
+4. **Typography Scale (NEVER use custom sizes):**
+   - Hero (H1): `clamp(2.25rem, 5vw, 4.5rem)` / font-weight: 800
+   - Section (H2): `clamp(1.875rem, 4vw, 3rem)` / font-weight: 700
+   - Card (H3): `clamp(1.25rem, 2.5vw, 1.5rem)` / font-weight: 600
+   - Body: `clamp(1rem, 1.5vw, 1.125rem)` / font-weight: 400
+
+5. **Component Checklist:**
+   - [ ] Buttons use glass-morphism (`.btn-primary`)
+   - [ ] Cards have hover effects (`.feature-card:hover`)
+   - [ ] Gradients use radial-gradient with HSL colors
+   - [ ] Icons have gradient backgrounds (`.feature-icon`)
+   - [ ] Forms follow validation patterns (Section 7)
+   - [ ] Animations use Intersection Observer (Section 6)
+
+6. **DO NOT:**
+   - ❌ Create custom colors outside the palette
+   - ❌ Use blue colors (old theme)
+   - ❌ Use arbitrary font sizes
+   - ❌ Skip hover states on interactive elements
+   - ❌ Ignore responsive breakpoints
+   - ❌ Forget focus states for accessibility
+
+### Quick Reference Commands
+
+```bash
+# View design system
+cat TORLYAI_DESIGN_SYSTEM.md
+
+# Copy component code (example: button)
+grep -A 20 "btn-primary" TORLYAI_DESIGN_SYSTEM.md
+
+# Check color palette
+grep -A 10 "Color Palette" TORLYAI_DESIGN_SYSTEM.md
+```
+
+### Example Implementation
+
+When creating a new page:
+1. Start with Section 12 (Usage Examples) template
+2. Use components from Section 4
+3. Apply gradients from Section 10
+4. Test responsive design per Section 8
+5. Verify accessibility per Section 9
+
+---
+
 ## Key Commands
 
 ### MCP Server
@@ -603,3 +685,68 @@ sudo -u www-data wp eval 'wp_mail("recipient@example.com", "Test Subject", "Test
 - Never commit SMTP passwords to version control
 - Use environment variables or secure credential storage for automation
 - Regularly rotate SMTP passwords for security
+
+## Recent Changes (November 17, 2025)
+
+### Blog Site Merge & Multisite Removal
+
+**Major architectural change:** WordPress converted from Multisite to single-site installation.
+
+**Changes:**
+1. **Blog Integration**
+   - Blog moved from `blog.torly.ai` subdomain to `torly.ai/blog/` path
+   - All 5 blog posts migrated successfully
+   - Permalink structure updated to `/blog/%postname%/`
+   - All posts accessible at `https://torly.ai/blog/article-slug/`
+
+2. **Multisite Removal**
+   - Disabled multisite constants in wp-config.php
+   - Updated .htaccess from multisite rules to standard WordPress rules
+   - Migrated files from `/wp-content/uploads/sites/2/` to `/wp-content/uploads/`
+   - Updated all post GUIDs from blog.torly.ai to torly.ai/blog/
+
+3. **Email Configuration**
+   - Admin email: `noreply@innovatorly.ai` (changed from admin@torly.ai)
+   - Reason: torly.ai has no email hosting/MX records, can only send via SMTP
+   - All notifications now sent to valid receiving address
+
+4. **Logo Updates**
+   - Using PNG logo (`torlyai-logo.png`) instead of SVG for exact design match
+   - File location: `/var/www/html/wp-content/themes/torly-theme/assets/torlyai-logo.png`
+   - Header updated at line 68 to reference PNG file
+
+5. **Blog Posts**
+   - 5 posts successfully imported:
+     - UK Innovator Visa 2026: Complete Guide for Entrepreneurs
+     - How to Prepare a Winning Business Plan for UK Innovator Visa
+     - Top 5 UK Endorsing Bodies for Innovator Visa in 2026
+     - UK Innovator Visa vs Scale-up Visa: Which is Right for You?
+     - Success Story: From Startup Idea to UK Permanent Residence
+   - Each post has custom SVG cover image in `theme/torly-theme/assets/blog-covers/`
+
+6. **Development Tools**
+   - Created development journal: `dev_journal.md`
+   - Created custom slash command: `/devjournal` (`.claude/commands/devjournal.md`)
+   - Comprehensive documentation of all work performed
+
+**Current Site Structure:**
+- **Main Site:** https://torly.ai
+- **Blog:** https://torly.ai/blog/
+- **Mode:** Single-site WordPress (multisite disabled)
+- **Logo:** PNG format (torlyai-logo.png)
+- **Admin Email:** noreply@innovatorly.ai
+- **SMTP:** Lark Suite (smtp.larksuite.com:465)
+
+**Files Modified:**
+- `/var/www/html/wp-config.php` - Multisite disabled
+- `/var/www/html/.htaccess` - Standard WordPress rules
+- `/var/www/html/wp-content/themes/torly-theme/header.php` - Logo and blog nav
+- Database: wp_posts, wp_postmeta, wp_options
+
+**Verification:**
+- ✅ All blog posts accessible at /blog/ URLs
+- ✅ Blog page loads at https://torly.ai/blog/
+- ✅ Email notifications working without bounces
+- ✅ Custom SVG covers displaying correctly
+- ✅ WordPress in single-site mode
+- ✅ Logo displaying exact PNG design
