@@ -145,25 +145,117 @@ function torlyai_register_sidebars() {
 }
 add_action('widgets_init', 'torlyai_register_sidebars');
 
+// API Permission Callbacks
+function torlyai_verify_nonce_permission($request) {
+    // Check for WordPress nonce in header or body
+    $nonce = $request->get_header('X-WP-Nonce');
+
+    if (empty($nonce)) {
+        $nonce = $request->get_param('_wpnonce');
+    }
+
+    if (empty($nonce)) {
+        return new WP_Error(
+            'rest_forbidden',
+            __('Authentication required. Missing nonce.', 'torlyai'),
+            array('status' => 401)
+        );
+    }
+
+    // Verify nonce
+    if (!wp_verify_nonce($nonce, 'wp_rest')) {
+        return new WP_Error(
+            'rest_forbidden',
+            __('Invalid nonce. Authentication failed.', 'torlyai'),
+            array('status' => 403)
+        );
+    }
+
+    // Rate limiting check
+    $rate_limit_check = torlyai_check_rate_limit($request);
+    if (is_wp_error($rate_limit_check)) {
+        return $rate_limit_check;
+    }
+
+    return true;
+}
+
+// Rate limiting function
+function torlyai_check_rate_limit($request) {
+    $ip_address = $_SERVER['REMOTE_ADDR'];
+    $endpoint = $request->get_route();
+
+    // Get rate limit data from transients
+    $rate_limit_key = 'torlyai_rate_limit_' . md5($ip_address . $endpoint);
+    $requests = get_transient($rate_limit_key);
+
+    // Rate limits: 10 requests per minute for POST endpoints
+    $max_requests = 10;
+    $time_window = 60; // seconds
+
+    if ($requests === false) {
+        // First request
+        set_transient($rate_limit_key, 1, $time_window);
+        return true;
+    }
+
+    if ($requests >= $max_requests) {
+        return new WP_Error(
+            'rest_rate_limited',
+            __('Too many requests. Please try again later.', 'torlyai'),
+            array('status' => 429)
+        );
+    }
+
+    // Increment request count
+    set_transient($rate_limit_key, $requests + 1, $time_window);
+    return true;
+}
+
+// Public permission callback (for blog-stats - read-only)
+function torlyai_public_permission() {
+    // Public endpoint, but still rate-limited
+    $ip_address = $_SERVER['REMOTE_ADDR'];
+    $rate_limit_key = 'torlyai_public_rate_' . md5($ip_address);
+    $requests = get_transient($rate_limit_key);
+
+    // More lenient rate limit for public endpoint: 30 requests per minute
+    if ($requests === false) {
+        set_transient($rate_limit_key, 1, 60);
+        return true;
+    }
+
+    if ($requests >= 30) {
+        return new WP_Error(
+            'rest_rate_limited',
+            __('Too many requests. Please try again later.', 'torlyai'),
+            array('status' => 429)
+        );
+    }
+
+    set_transient($rate_limit_key, $requests + 1, 60);
+    return true;
+}
+
 // Custom REST API Endpoints
 function torlyai_register_api_routes() {
     // Register custom API namespace
     register_rest_route('torlyai/v1', '/visa-assessment', array(
         'methods' => 'POST',
         'callback' => 'torlyai_visa_assessment_callback',
-        'permission_callback' => '__return_true',
+        'permission_callback' => 'torlyai_verify_nonce_permission',
     ));
-    
+
     register_rest_route('torlyai/v1', '/contact-form', array(
         'methods' => 'POST',
         'callback' => 'torlyai_contact_form_callback',
-        'permission_callback' => '__return_true',
+        'permission_callback' => 'torlyai_verify_nonce_permission',
     ));
-    
+
     register_rest_route('torlyai/v1', '/blog-stats', array(
         'methods' => 'GET',
         'callback' => 'torlyai_blog_stats_callback',
-        'permission_callback' => '__return_true',
+        'permission_callback' => 'torlyai_public_permission',
     ));
 }
 add_action('rest_api_init', 'torlyai_register_api_routes');

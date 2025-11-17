@@ -78,10 +78,18 @@ fi
 
 # Step 3: Create database
 print_status "Setting up MySQL database..."
+
+# Generate secure random password and save it
+DB_PASSWORD=$(openssl rand -base64 32)
+echo "$DB_PASSWORD" > /root/.torly_db_password
+chmod 600 /root/.torly_db_password
+
 mysql -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME};"
-mysql -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'localhost' IDENTIFIED BY '$(openssl rand -base64 32)';"
+mysql -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}';"
 mysql -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'localhost';"
 mysql -e "FLUSH PRIVILEGES;"
+
+print_status "Database password saved to /root/.torly_db_password"
 
 # Step 4: Download and configure WordPress
 print_status "Downloading WordPress..."
@@ -90,10 +98,14 @@ wp core download --allow-root
 
 # Step 5: Configure WordPress
 print_status "Configuring WordPress..."
+
+# Read database password from saved file
+DB_PASSWORD=$(cat /root/.torly_db_password)
+
 wp config create \
     --dbname=$DB_NAME \
     --dbuser=$DB_USER \
-    --dbpass=$(mysql -e "SELECT PASSWORD('${DB_USER}');" | tail -n1) \
+    --dbpass="$DB_PASSWORD" \
     --dbprefix=$DB_PREFIX \
     --allow-root
 
@@ -116,7 +128,7 @@ define('FORCE_SSL_ADMIN', true);
 define('FORCE_SSL_LOGIN', true);
 
 /* API Settings */
-define('JWT_AUTH_SECRET_KEY', 'your-secret-key-here');
+define('JWT_AUTH_SECRET_KEY', '$(openssl rand -base64 64 | tr -d "\n")');
 define('JWT_AUTH_CORS_ENABLE', true);
 EOF
 

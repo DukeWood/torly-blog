@@ -6,6 +6,7 @@
 *password*
 godaddy*.png
 *.png
+*.pdf
 
 # Environment variables (contains sensitive credentials)
 .env

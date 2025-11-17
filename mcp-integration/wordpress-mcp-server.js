@@ -21,6 +21,44 @@ dotenv.config();
 
 const execAsync = promisify(exec);
 
+// Input validation and sanitization helpers
+function sanitizeShellArg(arg) {
+  // Remove dangerous characters and escape single quotes
+  return arg.replace(/[;&|`$()\\<>]/g, '').replace(/'/g, "'\\''");
+}
+
+function validatePath(path) {
+  // Only allow alphanumeric, forward slash, dash, underscore, and dot
+  if (!/^[a-zA-Z0-9\/_.-]+$/.test(path)) {
+    throw new Error('Invalid path format');
+  }
+  // Prevent directory traversal
+  if (path.includes('..')) {
+    throw new Error('Directory traversal not allowed');
+  }
+  return path;
+}
+
+function validateCommand(command) {
+  // Whitelist of allowed WP-CLI commands
+  const allowedCommands = [
+    'post', 'page', 'plugin', 'theme', 'user', 'option', 'menu',
+    'term', 'site', 'core', 'config', 'cache', 'rewrite'
+  ];
+
+  const baseCommand = command.trim().split(' ')[0];
+  if (!allowedCommands.includes(baseCommand)) {
+    throw new Error(`Command '${baseCommand}' is not allowed`);
+  }
+
+  // Check for command injection patterns
+  if (/[;&|`$()\\<>]/.test(command)) {
+    throw new Error('Command contains invalid characters');
+  }
+
+  return command;
+}
+
 // WordPress configuration
 const WP_SITE_URL = process.env.WP_SITE_URL || 'https://torly.ai';
 const WP_API_URL = `${WP_SITE_URL}/wp-json/wp/v2`;
@@ -521,11 +559,13 @@ async function uploadMedia(args) {
 
 async function executeWpCli(args) {
   try {
-    const path = args.path || '/var/www/html';
+    const path = validatePath(args.path || '/var/www/html');
+    const command = validateCommand(args.command);
+
     const { stdout, stderr } = await execAsync(
-      `${WP_CLI_PATH} ${args.command} --path=${path}`
+      `${WP_CLI_PATH} ${command} --path=${path} --allow-root`
     );
-    
+
     return {
       success: true,
       output: stdout,
@@ -581,18 +621,22 @@ async function getDnsRecords(args) {
 
 async function createMenu(args) {
   try {
+    const menuName = sanitizeShellArg(args.name);
+
     // This would typically use WP-CLI or custom API endpoint
     const { stdout } = await execAsync(
-      `${WP_CLI_PATH} menu create "${args.name}"`
+      `${WP_CLI_PATH} menu create '${menuName}' --allow-root`
     );
-    
+
     // Add menu items
     for (const item of args.items) {
+      const title = sanitizeShellArg(item.title);
+      const url = sanitizeShellArg(item.url);
       await execAsync(
-        `${WP_CLI_PATH} menu item add-custom ${args.name} "${item.title}" ${item.url}`
+        `${WP_CLI_PATH} menu item add-custom '${menuName}' '${title}' '${url}' --allow-root`
       );
     }
-    
+
     return {
       success: true,
       message: `Menu "${args.name}" created with ${args.items.length} items`,
@@ -607,14 +651,19 @@ async function createMenu(args) {
 
 async function installPlugin(args) {
   try {
-    const installCmd = `${WP_CLI_PATH} plugin install ${args.slug}`;
+    // Validate plugin slug (only alphanumeric, dash, underscore)
+    if (!/^[a-z0-9-_]+$/.test(args.slug)) {
+      throw new Error('Invalid plugin slug format');
+    }
+
+    const installCmd = `${WP_CLI_PATH} plugin install ${args.slug} --allow-root`;
     const { stdout: installOutput } = await execAsync(installCmd);
-    
+
     if (args.activate) {
-      const activateCmd = `${WP_CLI_PATH} plugin activate ${args.slug}`;
+      const activateCmd = `${WP_CLI_PATH} plugin activate ${args.slug} --allow-root`;
       await execAsync(activateCmd);
     }
-    
+
     return {
       success: true,
       message: `Plugin ${args.slug} installed${args.activate ? ' and activated' : ''}`,
@@ -630,18 +679,20 @@ async function installPlugin(args) {
 
 async function configureMultisite(args) {
   try {
+    const title = sanitizeShellArg(args.title || 'TorlyAI Network');
+
     // Enable multisite in wp-config.php
-    const enableCmd = `${WP_CLI_PATH} config set WP_ALLOW_MULTISITE true --raw`;
+    const enableCmd = `${WP_CLI_PATH} config set WP_ALLOW_MULTISITE true --raw --allow-root`;
     await execAsync(enableCmd);
-    
+
     // Install multisite
-    const installCmd = `${WP_CLI_PATH} core multisite-install --title="${args.title}" --${args.subdomain_install ? 'subdomains' : 'subdirectories'}`;
+    const installCmd = `${WP_CLI_PATH} core multisite-install --title='${title}' --${args.subdomain_install ? 'subdomains' : 'subdirectories'} --allow-root`;
     await execAsync(installCmd);
-    
+
     // Create blog subdomain
-    const createBlogCmd = `${WP_CLI_PATH} site create --slug=blog --title="TorlyAI Blog"`;
+    const createBlogCmd = `${WP_CLI_PATH} site create --slug=blog --title='TorlyAI Blog' --allow-root`;
     await execAsync(createBlogCmd);
-    
+
     return {
       success: true,
       message: 'WordPress Multisite configured successfully',
@@ -676,16 +727,26 @@ async function submitVisaAssessment(args) {
 async function deployToOracleCloud(args) {
   try {
     const { vm_ip, ssh_key_path, ssh_username = 'ubuntu', deployment_script_path } = args;
-    const scriptPath = deployment_script_path || '/opt/torly-wordpress-setup/deployment/deploy-script.sh';
+
+    // Validate inputs
+    if (!/^[\d.]+$/.test(vm_ip)) {
+      throw new Error('Invalid VM IP address format');
+    }
+    if (!/^[a-z_][a-z0-9_-]*$/.test(ssh_username)) {
+      throw new Error('Invalid SSH username format');
+    }
+
+    const validatedKeyPath = validatePath(ssh_key_path);
+    const scriptPath = deployment_script_path ? validatePath(deployment_script_path) : '/opt/torly-wordpress-setup/deployment/deploy-script.sh';
 
     // Copy deployment script to VM
     const { stdout: scpOutput } = await execAsync(
-      `scp -i ${ssh_key_path} -o StrictHostKeyChecking=no ${scriptPath} ${ssh_username}@${vm_ip}:/tmp/deploy-script.sh`
+      `scp -i '${validatedKeyPath}' -o StrictHostKeyChecking=no '${scriptPath}' '${ssh_username}@${vm_ip}:/tmp/deploy-script.sh'`
     );
 
     // Execute deployment script on VM
     const { stdout: deployOutput } = await execAsync(
-      `ssh -i ${ssh_key_path} -o StrictHostKeyChecking=no ${ssh_username}@${vm_ip} "sudo bash /tmp/deploy-script.sh"`
+      `ssh -i '${validatedKeyPath}' -o StrictHostKeyChecking=no '${ssh_username}@${vm_ip}' "sudo bash /tmp/deploy-script.sh"`
     );
 
     return {
@@ -713,16 +774,18 @@ async function createBlogStructure(args) {
 
     // Create categories
     for (const catName of categories) {
+      const sanitizedName = sanitizeShellArg(catName);
       const { stdout } = await execAsync(
-        `${WP_CLI_PATH} term create category "${catName}" --porcelain`
+        `${WP_CLI_PATH} term create category '${sanitizedName}' --porcelain --allow-root`
       );
       createdCategories.push({ name: catName, id: parseInt(stdout.trim()) });
     }
 
     // Create tags
     for (const tagName of tags) {
+      const sanitizedName = sanitizeShellArg(tagName);
       const { stdout } = await execAsync(
-        `${WP_CLI_PATH} term create post_tag "${tagName}" --porcelain`
+        `${WP_CLI_PATH} term create post_tag '${sanitizedName}' --porcelain --allow-root`
       );
       createdTags.push({ name: tagName, id: parseInt(stdout.trim()) });
     }
@@ -761,8 +824,9 @@ async function bulkCreatePosts(args) {
       if (post.categories && post.categories.length > 0) {
         for (const catName of post.categories) {
           try {
+            const slug = sanitizeShellArg(catName.toLowerCase().replace(/\s+/g, '-'));
             const { stdout } = await execAsync(
-              `${WP_CLI_PATH} term list category --slug=${catName.toLowerCase().replace(/\s+/g, '-')} --field=term_id`
+              `${WP_CLI_PATH} term list category --slug='${slug}' --field=term_id --allow-root`
             );
             if (stdout.trim()) {
               categoryIds.push(parseInt(stdout.trim()));
@@ -778,8 +842,9 @@ async function bulkCreatePosts(args) {
       if (post.tags && post.tags.length > 0) {
         for (const tagName of post.tags) {
           try {
+            const slug = sanitizeShellArg(tagName.toLowerCase().replace(/\s+/g, '-'));
             const { stdout } = await execAsync(
-              `${WP_CLI_PATH} term list post_tag --slug=${tagName.toLowerCase().replace(/\s+/g, '-')} --field=term_id`
+              `${WP_CLI_PATH} term list post_tag --slug='${slug}' --field=term_id --allow-root`
             );
             if (stdout.trim()) {
               tagIds.push(parseInt(stdout.trim()));
