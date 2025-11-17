@@ -1,0 +1,70 @@
+# Environment variables (contains sensitive credentials)
+.env
+.env.*
+!.env.example
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.npm
+
+# WordPress core files (if installed locally)
+/wordpress/
+wp-admin/
+wp-includes/
+wp-content/uploads/
+wp-content/upgrade/
+wp-content/backup-db/
+wp-content/cache/
+wp-content/w3tc-config/
+
+# WordPress config
+wp-config.php
+.htaccess
+
+# Logs
+*.log
+logs/
+*.sql
+*.sqlite
+
+# Backups
+*.bak
+*.backup
+*.old
+backups/
+
+# System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+.sublime-workspace
+.sublime-project
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Build artifacts
+dist/
+build/
+
+# Claude Code (optional - uncomment if you don't want to commit)
+# .claude/settings.json
+# .claude/statusline-*.sh
