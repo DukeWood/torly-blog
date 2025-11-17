@@ -499,3 +499,107 @@ The MCP server is configured in `claude-code-config.json`. Update the paths and 
 - All automation scripts: $0
 
 **No credit card charges. No hidden fees. Truly zero budget.**
+
+## SMTP Configuration (Email Functionality)
+
+### Lark Suite SMTP Setup
+
+The WordPress installation is configured to send emails using Lark Suite (Feishu) SMTP service.
+
+**Current Configuration:**
+- **SMTP Host:** smtp.larksuite.com
+- **Port:** 465 (SSL encryption)
+- **From Email:** noreply@innovatorly.ai
+- **Authentication:** noreply@innovatorly.ai
+- **Plugin:** WP Mail SMTP v4.7.0
+
+**Configuration Script:** `deployment/configure-smtp.sh`
+
+**Key Features:**
+- Cross-domain email: WordPress runs on torly.ai, emails sent from innovatorly.ai
+- Separate configuration for both torly.ai and blog.torly.ai
+- Secure SSL encryption (port 465)
+- Automated test email functionality
+
+**Manual Configuration:**
+
+To update SMTP settings for both sites:
+
+```bash
+# For torly.ai main site
+sudo -u www-data wp option update wp_mail_smtp '{
+  "mail":{
+    "from_email":"noreply@innovatorly.ai",
+    "from_name":"Torly AI",
+    "mailer":"smtp",
+    "return_path":true
+  },
+  "smtp":{
+    "host":"smtp.larksuite.com",
+    "port":"465",
+    "encryption":"ssl",
+    "autotls":true,
+    "auth":true,
+    "user":"noreply@innovatorly.ai",
+    "pass":"YOUR_SMTP_PASSWORD"
+  }
+}' --format=json --url=https://torly.ai --path=/var/www/html
+
+# For blog.torly.ai site
+sudo -u www-data wp option update wp_mail_smtp '{
+  "mail":{
+    "from_email":"noreply@innovatorly.ai",
+    "from_name":"Torly AI Blog",
+    "mailer":"smtp",
+    "return_path":true
+  },
+  "smtp":{
+    "host":"smtp.larksuite.com",
+    "port":"465",
+    "encryption":"ssl",
+    "autotls":true,
+    "auth":true,
+    "user":"noreply@innovatorly.ai",
+    "pass":"YOUR_SMTP_PASSWORD"
+  }
+}' --format=json --url=https://blog.torly.ai --path=/var/www/html
+```
+
+**Send Test Email:**
+
+```bash
+sudo -u www-data wp eval 'wp_mail("recipient@example.com", "Test Subject", "Test message body");' --url=https://torly.ai --path=/var/www/html
+```
+
+**Troubleshooting SMTP:**
+
+1. **Authentication Errors:**
+   - Verify SMTP credentials are correct
+   - Check that the email account exists in Lark Suite
+   - Ensure IMAP/SMTP is enabled for the mailbox
+
+2. **Connection Errors:**
+   - Test connectivity: `telnet smtp.larksuite.com 465`
+   - Verify firewall allows outbound connections on port 465
+   - Try alternate port 587 with STARTTLS encryption
+
+3. **View Email Logs:**
+   ```bash
+   # Check WordPress debug log
+   tail -f /var/www/html/wp-content/debug.log
+
+   # Check Apache error log
+   tail -f /var/log/apache2/error.log
+   ```
+
+**Lark Suite SMTP Settings Reference:**
+- SSL Port: 465
+- STARTTLS Port: 587
+- SMTP Server: smtp.larksuite.com
+- Authentication: Required (use mailbox email and IMAP/SMTP password)
+
+**Security Notes:**
+- SMTP credentials are stored in WordPress database (wp_options table)
+- Never commit SMTP passwords to version control
+- Use environment variables or secure credential storage for automation
+- Regularly rotate SMTP passwords for security

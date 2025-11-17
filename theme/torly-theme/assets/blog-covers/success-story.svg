@@ -1,0 +1,95 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#FAFAFA"/>
+
+  <!-- Decorative gradient circles -->
+  <defs>
+    <linearGradient id="successGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#FF6B35;stop-opacity:0.1"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="200" cy="150" r="150" fill="url(#successGradient)"/>
+  <circle cx="1000" cy="500" r="180" fill="url(#successGradient)"/>
+
+  <!-- Journey path with milestones -->
+  <g transform="translate(150, 150)">
+    <!-- Path line -->
+    <path d="M0 150 Q200 150 250 100 T500 100 Q700 100 750 50" stroke="#E5E7EB" stroke-width="8" stroke-linecap="round" fill="none"/>
+    <path d="M0 150 Q200 150 250 100 T500 100 Q700 100 750 50" stroke="#10B981" stroke-width="8" stroke-linecap="round" fill="none" stroke-dasharray="0 900" opacity="0.6">
+      <animate attributeName="stroke-dasharray" from="0 900" to="900 0" dur="3s" fill="freeze"/>
+    </path>
+
+    <!-- Milestone 1: Idea -->
+    <g transform="translate(0, 120)">
+      <circle r="30" fill="#3B82F6"/>
+      <path d="M-10 0 L0 -15 L10 0 M0 -15 L0 5" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <text y="60" font-family="'Inter', Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2937" text-anchor="middle">Idea</text>
+    </g>
+
+    <!-- Milestone 2: Application -->
+    <g transform="translate(250, 70)">
+      <circle r="30" fill="#F59E0B"/>
+      <rect x="-12" y="-15" width="24" height="30" rx="2" fill="white"/>
+      <rect x="-8" y="-10" width="16" height="4" rx="1" fill="#F59E0B"/>
+      <rect x="-8" y="-2" width="16" height="4" rx="1" fill="#F59E0B"/>
+      <rect x="-8" y="6" width="16" height="4" rx="1" fill="#F59E0B"/>
+      <text y="60" font-family="'Inter', Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2937" text-anchor="middle">Apply</text>
+    </g>
+
+    <!-- Milestone 3: Approval -->
+    <g transform="translate(500, 70)">
+      <circle r="30" fill="#10B981"/>
+      <path d="M-10 0 L-3 8 L12 -8" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <text y="60" font-family="'Inter', Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2937" text-anchor="middle">Approved</text>
+    </g>
+
+    <!-- Milestone 4: Build -->
+    <g transform="translate(650, 40)">
+      <circle r="30" fill="#8B5CF6"/>
+      <rect x="-12" y="5" width="24" height="10" rx="1" fill="white"/>
+      <rect x="-10" y="-2" width="20" height="6" rx="1" fill="white"/>
+      <rect x="-6" y="-10" width="12" height="7" rx="1" fill="white"/>
+      <text y="60" font-family="'Inter', Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2937" text-anchor="middle">Build</text>
+    </g>
+
+    <!-- Milestone 5: Success -->
+    <g transform="translate(750, 20)">
+      <circle r="35" fill="#FF6B35"/>
+      <path d="M-8 8 L0 -12 L8 8" stroke="#FCD34D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <circle cx="0" cy="-12" r="4" fill="#FCD34D"/>
+      <text y="70" font-family="'Inter', Arial, sans-serif" font-size="18" font-weight="700" fill="#FF6B35" text-anchor="middle">ILR</text>
+    </g>
+  </g>
+
+  <!-- Person silhouette at start -->
+  <g transform="translate(100, 280)">
+    <circle cx="25" cy="20" r="18" fill="#6B7280"/>
+    <path d="M25 38 L25 70 M25 50 L10 60 M25 50 L40 60 M25 70 L15 90 M25 70 L35 90" stroke="#6B7280" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Celebration at end -->
+  <g transform="translate(880, 150)">
+    <circle cx="25" cy="20" r="18" fill="#10B981"/>
+    <path d="M25 38 L25 65 M25 48 L10 55 M25 48 L40 55 M25 65 L15 85 M25 65 L35 85" stroke="#10B981" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Arms up in celebration -->
+    <path d="M10 55 L5 40 M40 55 L45 40" stroke="#10B981" stroke-width="5" stroke-linecap="round"/>
+    <!-- Confetti -->
+    <circle cx="10" cy="10" r="3" fill="#FCD34D"/>
+    <circle cx="50" cy="15" r="3" fill="#FF6B35"/>
+    <circle cx="30" cy="5" r="3" fill="#3B82F6"/>
+    <circle cx="60" cy="25" r="3" fill="#10B981"/>
+  </g>
+
+  <!-- Title -->
+  <text x="150" y="480" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="52" font-weight="700" fill="#1F2937">
+    Success Story
+  </text>
+  <text x="150" y="535" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="38" font-weight="400" fill="#6B7280">
+    From Startup to UK Permanent Residence
+  </text>
+
+  <!-- Decorative line -->
+  <rect x="150" y="560" width="100" height="5" rx="2.5" fill="#10B981"/>
+</svg>

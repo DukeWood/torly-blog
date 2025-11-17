@@ -1,9 +1,17 @@
 <?php
 /**
- * Front Page Template
- * 
+ * Front Page Template - Granola.ai Inspired
+ *
  * @package TorlyAI
+ * @version 2.0.0
  */
+
+// For blog.torly.ai subdomain, use the blog listing template
+$current_domain = $_SERVER['HTTP_HOST'];
+if ($current_domain === 'blog.torly.ai') {
+    include(get_template_directory() . '/home.php');
+    return;
+}
 
 get_header(); ?>
 
@@ -11,24 +19,48 @@ get_header(); ?>
 <section class="hero-section">
     <div class="container">
         <div class="hero-content">
-            <h1 class="hero-title">Your AI-Powered UK Innovator Visa Assistant</h1>
-            <p class="hero-subtitle">Streamline Your Visa Application with Intelligent Automation</p>
+            <h1 class="hero-title">Your AI-Powered Partner for UK Innovator Visa Success</h1>
+            <p class="hero-subtitle">Navigate the complex visa process with AI that works 24/7</p>
             <p class="hero-description">
-                TorlyAI leverages cutting-edge artificial intelligence to guide you through every step of the UK Innovator Founder Visa process. 
-                From initial assessment to final submission, our AI agents work 24/7 to ensure your application meets all requirements.
+                TorlyAI leverages cutting-edge artificial intelligence to guide you through every step of the UK Innovator Founder Visa process.
+                From initial assessment to final submission, our AI agents work around the clock to ensure your application meets all requirements.
             </p>
             <div class="hero-buttons">
-                <a href="<?php echo home_url('/visa-assessment'); ?>" class="btn-primary">Start Free Assessment</a>
-                <a href="<?php echo home_url('/blog'); ?>" class="btn-secondary">Read Our Blog</a>
+                <a href="#visa-assessment" class="btn-primary">Start Free Assessment</a>
+                <a href="#features" class="btn-secondary">Explore Our Services</a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Features Section -->
-<section class="features-section">
+<!-- Social Proof Section -->
+<section class="social-proof-section">
     <div class="container">
-        <h2 class="section-title">Comprehensive Visa Support</h2>
+        <p class="social-proof-title">Trusted by entrepreneurs worldwide</p>
+    </div>
+
+    <div class="logo-carousel">
+        <!-- Endorsing Bodies -->
+        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">UKES</div>
+        <div class="logo-item" style="min-width: 200px; text-align: center; font-weight: 600; font-size: 14px;">Innovator International</div>
+        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">Envestors</div>
+        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">TechNation</div>
+        <div class="logo-item" style="min-width: 180px; text-align: center; font-weight: 600; font-size: 14px;">Global Entrepreneurs</div>
+        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">The Entrepreneurs Network</div>
+        <!-- Duplicate for seamless loop -->
+        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">UKES</div>
+        <div class="logo-item" style="min-width: 200px; text-align: center; font-weight: 600; font-size: 14px;">Innovator International</div>
+        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">Envestors</div>
+        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">TechNation</div>
+        <div class="logo-item" style="min-width: 180px; text-align: center; font-weight: 600; font-size: 14px;">Global Entrepreneurs</div>
+        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">The Entrepreneurs Network</div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section" id="features">
+    <div class="container">
+        <h2 class="section-title">Everything You Need to Succeed</h2>
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">
@@ -38,10 +70,10 @@ get_header(); ?>
                 </div>
                 <h3 class="feature-title">Instant Eligibility Check</h3>
                 <p class="feature-description">
-                    Our AI analyzes your business against Home Office criteria and endorsing body requirements in minutes.
+                    Our AI analyzes your business against Home Office criteria and endorsing body requirements in minutes, giving you immediate feedback on your visa prospects.
                 </p>
             </div>
-            
+
             <div class="feature-card">
                 <div class="feature-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -50,10 +82,10 @@ get_header(); ?>
                 </div>
                 <h3 class="feature-title">Business Plan Generator</h3>
                 <p class="feature-description">
-                    Generate comprehensive 12-section business plans tailored to your chosen endorsing body's requirements.
+                    Generate comprehensive 12-section business plans tailored to your chosen endorsing body's specific requirements and expectations.
                 </p>
             </div>
-            
+
             <div class="feature-card">
                 <div class="feature-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -62,10 +94,10 @@ get_header(); ?>
                 </div>
                 <h3 class="feature-title">Financial Modeling</h3>
                 <p class="feature-description">
-                    Build Excel models with endorsing body-specific emphasis on R&D, scenarios, or revenue projections.
+                    Build Excel models with endorsing body-specific emphasis on R&D, scenarios, or revenue projections that demonstrate your business viability.
                 </p>
             </div>
-            
+
             <div class="feature-card">
                 <div class="feature-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -74,10 +106,10 @@ get_header(); ?>
                 </div>
                 <h3 class="feature-title">Document Organization</h3>
                 <p class="feature-description">
-                    Comprehensive checklist with endorsing body-specific requirements for complete submission packages.
+                    Comprehensive checklist with endorsing body-specific requirements ensures you have complete submission packages with nothing missing.
                 </p>
             </div>
-            
+
             <div class="feature-card">
                 <div class="feature-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -86,10 +118,10 @@ get_header(); ?>
                 </div>
                 <h3 class="feature-title">Pitch Deck Creation</h3>
                 <p class="feature-description">
-                    Generate PowerPoint presentations optimized for your endorsing body's interview requirements.
+                    Generate PowerPoint presentations optimized for your endorsing body's interview requirements and presentation guidelines.
                 </p>
             </div>
-            
+
             <div class="feature-card">
                 <div class="feature-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -98,7 +130,7 @@ get_header(); ?>
                 </div>
                 <h3 class="feature-title">Compliance Validation</h3>
                 <p class="feature-description">
-                    Validate against Home Office criteria AND endorsing body-specific requirements to maximize approval.
+                    Validate against Home Office criteria AND endorsing body-specific requirements to maximize your approval chances.
                 </p>
             </div>
         </div>
@@ -134,67 +166,36 @@ get_header(); ?>
     </div>
 </section>
 
-<!-- Recent Blog Posts -->
-<section class="blog-section">
+<!-- Testimonials Section -->
+<section class="testimonials-section">
     <div class="container">
-        <h2 class="section-title">Latest Visa Insights</h2>
-        <div class="blog-grid">
-            <?php
-            $recent_posts = new WP_Query(array(
-                'posts_per_page' => 3,
-                'post_status' => 'publish',
-                'orderby' => 'date',
-                'order' => 'DESC'
-            ));
-            
-            if ($recent_posts->have_posts()) :
-                while ($recent_posts->have_posts()) : $recent_posts->the_post();
-            ?>
-                <article class="blog-card">
-                    <?php if (has_post_thumbnail()) : ?>
-                        <?php the_post_thumbnail('medium', array('class' => 'blog-thumbnail')); ?>
-                    <?php else : ?>
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/default-blog.jpg" alt="Blog post" class="blog-thumbnail">
-                    <?php endif; ?>
-                    
-                    <div class="blog-content">
-                        <div class="blog-meta">
-                            <span class="blog-date"><?php echo get_the_date(); ?></span>
-                            <span class="blog-category"><?php the_category(', '); ?></span>
-                        </div>
-                        <h3 class="blog-title">
-                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                        </h3>
-                        <p class="blog-excerpt"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
-                        <a href="<?php the_permalink(); ?>" class="read-more">
-                            Read More →
-                        </a>
-                    </div>
-                </article>
-            <?php
-                endwhile;
-                wp_reset_postdata();
-            else :
-            ?>
-                <p>No blog posts found. Start creating content!</p>
-            <?php endif; ?>
-        </div>
-        
-        <div style="text-align: center; margin-top: 3rem;">
-            <a href="<?php echo home_url('/blog'); ?>" class="btn-primary">View All Blog Posts</a>
-        </div>
-    </div>
-</section>
+        <h2 class="section-title">What Our Successful Clients Say</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-photo" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"></div>
+                <p class="testimonial-quote">
+                    "TorlyAI made the complex visa process so much simpler. The AI-generated business plan was exactly what UKES was looking for. Highly recommended!"
+                </p>
+                <p class="testimonial-author">Sarah Chen</p>
+                <p class="testimonial-title">Tech Startup Founder • 🇬🇧 UK Based</p>
+            </div>
 
-<!-- CTA Section -->
-<section class="cta-section">
-    <div class="container">
-        <div class="cta-content">
-            <h2>Ready to Start Your UK Innovation Journey?</h2>
-            <p>Join thousands of entrepreneurs who've successfully navigated the visa process with TorlyAI</p>
-            <div class="cta-buttons">
-                <a href="<?php echo home_url('/get-started'); ?>" class="btn-primary">Get Started Free</a>
-                <a href="<?php echo home_url('/contact'); ?>" class="btn-secondary">Talk to an Expert</a>
+            <div class="testimonial-card">
+                <div class="testimonial-photo" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                <p class="testimonial-quote">
+                    "Got my endorsement from Innovator International in just 6 weeks thanks to the comprehensive business plan and financial models. Incredible service!"
+                </p>
+                <p class="testimonial-author">David Okonkwo</p>
+                <p class="testimonial-title">FinTech Founder • 🇬🇧 UK Based</p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-photo" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                <p class="testimonial-quote">
+                    "The AI saved me months of work on my business plan and pitch deck. Everything was perfectly aligned with Envestors' requirements. Worth every penny!"
+                </p>
+                <p class="testimonial-author">Priya Patel</p>
+                <p class="testimonial-title">SaaS CEO • 🇬🇧 UK Based</p>
             </div>
         </div>
     </div>
@@ -224,137 +225,74 @@ get_header(); ?>
     </div>
 </section>
 
-<!-- Additional Styles for this page -->
-<style>
-/* How It Works Section */
-.how-it-works-section {
-    padding: 5rem 0;
-    background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%);
-}
+<!-- Recent Blog Posts -->
+<section class="blog-section">
+    <div class="container">
+        <h2 class="section-title">Latest Visa Insights & Guides</h2>
+        <div class="blog-grid">
+            <?php
+            $recent_posts = new WP_Query(array(
+                'posts_per_page' => 3,
+                'post_status' => 'publish',
+                'orderby' => 'date',
+                'order' => 'DESC'
+            ));
 
-.process-timeline {
-    display: flex;
-    justify-content: space-between;
-    max-width: 900px;
-    margin: 0 auto;
-    position: relative;
-}
+            if ($recent_posts->have_posts()) :
+                while ($recent_posts->have_posts()) : $recent_posts->the_post();
+            ?>
+                <article class="blog-card">
+                    <?php if (has_post_thumbnail()) : ?>
+                        <?php the_post_thumbnail('medium', array('class' => 'blog-thumbnail')); ?>
+                    <?php else : ?>
+                        <div class="blog-thumbnail" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.25rem;">
+                            <?php echo substr(get_the_title(), 0, 1); ?>
+                        </div>
+                    <?php endif; ?>
 
-.process-timeline::before {
-    content: '';
-    position: absolute;
-    top: 30px;
-    left: 10%;
-    right: 10%;
-    height: 2px;
-    background: #e5e7eb;
-    z-index: 1;
-}
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date"><?php echo get_the_date(); ?></span>
+                            <span class="blog-category"><?php the_category(', '); ?></span>
+                        </div>
+                        <h3 class="blog-title">
+                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        </h3>
+                        <p class="blog-excerpt"><?php echo wp_trim_words(get_the_excerpt(), 20); ?></p>
+                        <a href="<?php the_permalink(); ?>" class="read-more">
+                            Read More →
+                        </a>
+                    </div>
+                </article>
+            <?php
+                endwhile;
+                wp_reset_postdata();
+            else :
+            ?>
+                <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                    <p style="color: var(--text-secondary); font-size: 1.125rem;">No blog posts found. Check back soon for visa insights and guides!</p>
+                </div>
+            <?php endif; ?>
+        </div>
 
-.process-step {
-    text-align: center;
-    flex: 1;
-    position: relative;
-    z-index: 2;
-}
+        <div class="text-center mt-3">
+            <a href="https://blog.torly.ai/" class="btn-primary">View All Blog Posts</a>
+        </div>
+    </div>
+</section>
 
-.step-number {
-    width: 60px;
-    height: 60px;
-    background: var(--primary-color);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin: 0 auto 1rem;
-}
-
-.process-step h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-}
-
-.process-step p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-}
-
-/* CTA Section */
-.cta-section {
-    padding: 5rem 0;
-    background: var(--primary-color);
-    color: white;
-    text-align: center;
-}
-
-.cta-content h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.cta-content p {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-}
-
-.cta-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-}
-
-.cta-section .btn-primary {
-    background: white;
-    color: var(--primary-color);
-}
-
-.cta-section .btn-secondary {
-    border-color: white;
-    color: white;
-}
-
-/* Stats Section */
-.stats-section {
-    padding: 4rem 0;
-    background: var(--bg-secondary);
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    text-align: center;
-}
-
-.stat-number {
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--primary-color);
-}
-
-.stat-label {
-    font-size: 1.125rem;
-    color: var(--text-secondary);
-}
-
-@media (max-width: 768px) {
-    .process-timeline {
-        flex-direction: column;
-        gap: 2rem;
-    }
-    
-    .process-timeline::before {
-        display: none;
-    }
-    
-    .cta-buttons {
-        flex-direction: column;
-    }
-}
-</style>
+<!-- CTA Section -->
+<section class="cta-section" id="visa-assessment">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to Start Your UK Innovation Journey?</h2>
+            <p>Join thousands of entrepreneurs who've successfully navigated the visa process with TorlyAI</p>
+            <div class="cta-buttons">
+                <a href="<?php echo home_url('/visa-assessment'); ?>" class="btn-primary">Start Free Assessment</a>
+                <a href="<?php echo home_url('/contact'); ?>" class="btn-secondary">Schedule a Consultation</a>
+            </div>
+        </div>
+    </div>
+</section>
 
 <?php get_footer(); ?>

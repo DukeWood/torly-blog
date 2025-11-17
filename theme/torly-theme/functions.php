@@ -33,6 +33,39 @@ function torlyai_theme_setup() {
 }
 add_action('after_setup_theme', 'torlyai_theme_setup');
 
+// Enable SVG Upload Support
+function torlyai_enable_svg_upload($mimes) {
+    $mimes['svg'] = 'image/svg+xml';
+    $mimes['svgz'] = 'image/svg+xml';
+    return $mimes;
+}
+add_filter('upload_mimes', 'torlyai_enable_svg_upload');
+
+// Fix SVG display in media library
+function torlyai_fix_svg_display($response, $attachment, $meta) {
+    if ($response['mime'] === 'image/svg+xml' && empty($response['sizes'])) {
+        $svg_path = get_attached_file($attachment->ID);
+        if (file_exists($svg_path)) {
+            $svg_content = file_get_contents($svg_path);
+            if (preg_match('/viewBox=["\']([0-9\s\.]+)["\']/i', $svg_content, $matches)) {
+                $viewbox = explode(' ', $matches[1]);
+                if (count($viewbox) == 4) {
+                    $response['sizes'] = array(
+                        'full' => array(
+                            'url' => $response['url'],
+                            'width' => intval($viewbox[2]),
+                            'height' => intval($viewbox[3]),
+                            'orientation' => intval($viewbox[2]) > intval($viewbox[3]) ? 'landscape' : 'portrait'
+                        )
+                    );
+                }
+            }
+        }
+    }
+    return $response;
+}
+add_filter('wp_prepare_attachment_for_js', 'torlyai_fix_svg_display', 10, 3);
+
 // Force HTTPS in all URLs
 function torlyai_force_https() {
     if (!is_ssl() && !is_admin()) {

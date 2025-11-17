@@ -1,0 +1,13 @@
+{
+  "name": "torlyai-automation",
+  "version": "1.0.0",
+  "description": "Automation scripts for TorlyAI WordPress deployment",
+  "type": "module",
+  "scripts": {
+    "deploy": "node deploy-all.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "playwright": "^1.56.1"
+  }
+}

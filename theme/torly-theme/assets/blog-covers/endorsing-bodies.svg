@@ -1,0 +1,79 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#FAFAFA"/>
+
+  <!-- Decorative shapes -->
+  <circle cx="200" cy="150" r="120" fill="#10B981" opacity="0.08"/>
+  <circle cx="1000" cy="480" r="140" fill="#FF6B35" opacity="0.08"/>
+
+  <!-- Five organization buildings/badges -->
+  <g transform="translate(120, 120)">
+    <!-- Organization 1 -->
+    <rect width="150" height="200" rx="8" fill="#3B82F6" opacity="0.9"/>
+    <rect x="15" y="20" width="120" height="40" rx="4" fill="white" opacity="0.9"/>
+    <circle cx="75" cy="90" r="25" fill="white" opacity="0.8"/>
+    <text x="75" y="100" font-family="Arial" font-size="24" font-weight="700" fill="#3B82F6" text-anchor="middle">1</text>
+    <rect x="20" y="130" width="110" height="8" rx="2" fill="white" opacity="0.7"/>
+    <rect x="30" y="150" width="90" height="8" rx="2" fill="white" opacity="0.7"/>
+  </g>
+
+  <g transform="translate(310, 120)">
+    <!-- Organization 2 -->
+    <rect width="150" height="200" rx="8" fill="#10B981" opacity="0.9"/>
+    <rect x="15" y="20" width="120" height="40" rx="4" fill="white" opacity="0.9"/>
+    <circle cx="75" cy="90" r="25" fill="white" opacity="0.8"/>
+    <text x="75" y="100" font-family="Arial" font-size="24" font-weight="700" fill="#10B981" text-anchor="middle">2</text>
+    <rect x="20" y="130" width="110" height="8" rx="2" fill="white" opacity="0.7"/>
+    <rect x="30" y="150" width="90" height="8" rx="2" fill="white" opacity="0.7"/>
+  </g>
+
+  <g transform="translate(500, 120)">
+    <!-- Organization 3 -->
+    <rect width="150" height="200" rx="8" fill="#FF6B35" opacity="0.9"/>
+    <rect x="15" y="20" width="120" height="40" rx="4" fill="white" opacity="0.9"/>
+    <circle cx="75" cy="90" r="25" fill="white" opacity="0.8"/>
+    <text x="75" y="100" font-family="Arial" font-size="24" font-weight="700" fill="#FF6B35" text-anchor="middle">3</text>
+    <rect x="20" y="130" width="110" height="8" rx="2" fill="white" opacity="0.7"/>
+    <rect x="30" y="150" width="90" height="8" rx="2" fill="white" opacity="0.7"/>
+  </g>
+
+  <g transform="translate(690, 120)">
+    <!-- Organization 4 -->
+    <rect width="150" height="200" rx="8" fill="#F59E0B" opacity="0.9"/>
+    <rect x="15" y="20" width="120" height="40" rx="4" fill="white" opacity="0.9"/>
+    <circle cx="75" cy="90" r="25" fill="white" opacity="0.8"/>
+    <text x="75" y="100" font-family="Arial" font-size="24" font-weight="700" fill="#F59E0B" text-anchor="middle">4</text>
+    <rect x="20" y="130" width="110" height="8" rx="2" fill="white" opacity="0.7"/>
+    <rect x="30" y="150" width="90" height="8" rx="2" fill="white" opacity="0.7"/>
+  </g>
+
+  <g transform="translate(880, 120)">
+    <!-- Organization 5 -->
+    <rect width="150" height="200" rx="8" fill="#8B5CF6" opacity="0.9"/>
+    <rect x="15" y="20" width="120" height="40" rx="4" fill="white" opacity="0.9"/>
+    <circle cx="75" cy="90" r="25" fill="white" opacity="0.8"/>
+    <text x="75" y="100" font-family="Arial" font-size="24" font-weight="700" fill="#8B5CF6" text-anchor="middle">5</text>
+    <rect x="20" y="130" width="110" height="8" rx="2" fill="white" opacity="0.7"/>
+    <rect x="30" y="150" width="90" height="8" rx="2" fill="white" opacity="0.7"/>
+  </g>
+
+  <!-- Rating stars -->
+  <g transform="translate(350, 350)">
+    <path d="M12 2 L15 8 L22 9 L17 14 L18 21 L12 18 L6 21 L7 14 L2 9 L9 8 Z" fill="#FCD34D"/>
+    <path d="M52 2 L55 8 L62 9 L57 14 L58 21 L52 18 L46 21 L47 14 L42 9 L49 8 Z" fill="#FCD34D"/>
+    <path d="M92 2 L95 8 L102 9 L97 14 L98 21 L92 18 L86 21 L87 14 L82 9 L89 8 Z" fill="#FCD34D"/>
+    <path d="M132 2 L135 8 L142 9 L137 14 L138 21 L132 18 L126 21 L127 14 L122 9 L129 8 Z" fill="#FCD34D"/>
+    <path d="M172 2 L175 8 L182 9 L177 14 L178 21 L172 18 L166 21 L167 14 L162 9 L169 8 Z" fill="#FCD34D"/>
+  </g>
+
+  <!-- Title -->
+  <text x="150" y="460" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="52" font-weight="700" fill="#1F2937">
+    Top 5 UK Endorsing Bodies
+  </text>
+  <text x="150" y="515" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="38" font-weight="400" fill="#6B7280">
+    for Innovator Visa 2026
+  </text>
+
+  <!-- Decorative line -->
+  <rect x="150" y="545" width="110" height="5" rx="2.5" fill="#10B981"/>
+</svg>

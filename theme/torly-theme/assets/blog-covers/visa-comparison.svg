@@ -1,0 +1,99 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#F9FAFB"/>
+
+  <!-- Decorative circles -->
+  <circle cx="150" cy="100" r="100" fill="#3B82F6" opacity="0.08"/>
+  <circle cx="1050" cy="530" r="120" fill="#FF6B35" opacity="0.08"/>
+
+  <!-- VS Badge -->
+  <g transform="translate(550, 100)">
+    <circle cx="50" cy="50" r="50" fill="#FF6B35"/>
+    <text x="50" y="65" font-family="'Inter', Arial, sans-serif" font-size="36" font-weight="700" fill="white" text-anchor="middle">VS</text>
+  </g>
+
+  <!-- Left side - Innovator Visa -->
+  <g transform="translate(150, 180)">
+    <rect width="400" height="280" rx="16" fill="white" stroke="#3B82F6" stroke-width="4"/>
+
+    <!-- Icon: Lightbulb for innovation -->
+    <g transform="translate(30, 30)">
+      <circle cx="35" cy="35" r="30" fill="#FCD34D"/>
+      <rect x="25" y="60" width="20" height="25" rx="3" fill="#6B7280"/>
+      <line x1="10" y1="35" x2="0" y2="35" stroke="#3B82F6" stroke-width="3"/>
+      <line x1="60" y1="35" x2="70" y2="35" stroke="#3B82F6" stroke-width="3"/>
+    </g>
+
+    <!-- Title -->
+    <text x="120" y="55" font-family="'Inter', Arial, sans-serif" font-size="28" font-weight="700" fill="#1F2937">
+      Innovator Visa
+    </text>
+
+    <!-- Features -->
+    <g transform="translate(30, 110)">
+      <circle cx="8" cy="8" r="6" fill="#10B981"/>
+      <text x="25" y="13" font-family="'Inter', Arial, sans-serif" font-size="16" fill="#4B5563">£50,000 investment</text>
+    </g>
+    <g transform="translate(30, 145)">
+      <circle cx="8" cy="8" r="6" fill="#10B981"/>
+      <text x="25" y="13" font-family="'Inter', Arial, sans-serif" font-size="16" fill="#4B5563">3 years to settlement</text>
+    </g>
+    <g transform="translate(30, 180)">
+      <circle cx="8" cy="8" r="6" fill="#10B981"/>
+      <text x="25" y="13" font-family="'Inter', Arial, sans-serif" font-size="16" fill="#4B5563">Endorsement required</text>
+    </g>
+    <g transform="translate(30, 215)">
+      <circle cx="8" cy="8" r="6" fill="#10B981"/>
+      <text x="25" y="13" font-family="'Inter', Arial, sans-serif" font-size="16" fill="#4B5563">Own business</text>
+    </g>
+  </g>
+
+  <!-- Right side - Scale-up Visa -->
+  <g transform="translate(650, 180)">
+    <rect width="400" height="280" rx="16" fill="white" stroke="#FF6B35" stroke-width="4"/>
+
+    <!-- Icon: Rocket for scale-up -->
+    <g transform="translate(30, 25)">
+      <path d="M35 10 L45 50 L35 45 L25 50 Z" fill="#FF6B35"/>
+      <circle cx="35" cy="25" r="8" fill="#FCD34D"/>
+      <path d="M25 50 L15 60 L20 50 Z" fill="#F59E0B"/>
+      <path d="M45 50 L55 60 L50 50 Z" fill="#F59E0B"/>
+      <line x1="35" y1="15" x2="35" y2="5" stroke="#FCD34D" stroke-width="2"/>
+      <line x1="30" y1="18" x2="25" y2="13" stroke="#FCD34D" stroke-width="2"/>
+      <line x1="40" y1="18" x2="45" y2="13" stroke="#FCD34D" stroke-width="2"/>
+    </g>
+
+    <!-- Title -->
+    <text x="120" y="55" font-family="'Inter', Arial, sans-serif" font-size="28" font-weight="700" fill="#1F2937">
+      Scale-up Visa
+    </text>
+
+    <!-- Features -->
+    <g transform="translate(30, 110)">
+      <circle cx="8" cy="8" r="6" fill="#3B82F6"/>
+      <text x="25" y="13" font-family="'Inter', Arial, sans-serif" font-size="16" fill="#4B5563">Job offer required</text>
+    </g>
+    <g transform="translate(30, 145)">
+      <circle cx="8" cy="8" r="6" fill="#3B82F6"/>
+      <text x="25" y="13" font-family="'Inter', Arial, sans-serif" font-size="16" fill="#4B5563">5 years to settlement</text>
+    </g>
+    <g transform="translate(30, 180)">
+      <circle cx="8" cy="8" r="6" fill="#3B82F6"/>
+      <text x="25" y="13" font-family="'Inter', Arial, sans-serif" font-size="16" fill="#4B5563">£33,000+ salary</text>
+    </g>
+    <g transform="translate(30, 215)">
+      <circle cx="8" cy="8" r="6" fill="#3B82F6"/>
+      <text x="25" y="13" font-family="'Inter', Arial, sans-serif" font-size="16" fill="#4B5563">Work flexibility</text>
+    </g>
+  </g>
+
+  <!-- Title -->
+  <text x="150" y="540" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="48" font-weight="700" fill="#1F2937">
+    Innovator vs Scale-up Visa
+  </text>
+
+  <!-- Subtitle -->
+  <text x="150" y="585" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="32" font-weight="400" fill="#6B7280">
+    Which is Right for You?
+  </text>
+</svg>

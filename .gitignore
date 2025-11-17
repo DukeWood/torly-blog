@@ -1,3 +1,12 @@
+# SENSITIVE CREDENTIALS - NEVER COMMIT!
+.credentials/
+*.key
+*.pem
+*credentials*.json
+*password*
+godaddy*.png
+*.png
+
 # Environment variables (contains sensitive credentials)
 .env
 .env.*
