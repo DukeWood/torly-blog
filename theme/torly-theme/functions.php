@@ -159,6 +159,36 @@ function torlyai_enqueue_scripts() {
 }
 add_action('wp_enqueue_scripts', 'torlyai_enqueue_scripts');
 
+// Enqueue Waitlist Modal Assets
+function torlyai_enqueue_waitlist_assets() {
+    // Waitlist CSS
+    wp_enqueue_style(
+        'torlyai-waitlist-modal',
+        get_template_directory_uri() . '/assets/css/waitlist-modal.css',
+        [],
+        '2.0.0'
+    );
+
+    // Waitlist JavaScript
+    wp_enqueue_script(
+        'torlyai-waitlist-modal',
+        get_template_directory_uri() . '/assets/js/waitlist-modal.js',
+        [],
+        '2.0.0',
+        true
+    );
+
+    // Localize script for AJAX
+    wp_localize_script('torlyai-waitlist-modal', 'torlyaiWaitlist', [
+        'ajaxUrl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('torlyai_waitlist_nonce')
+    ]);
+}
+add_action('wp_enqueue_scripts', 'torlyai_enqueue_waitlist_assets');
+
+// Include Waitlist Functions
+require_once get_template_directory() . '/inc/waitlist-functions.php';
+
 // Register Custom Post Types
 function torlyai_register_post_types() {
     // Services Post Type
@@ -309,7 +339,7 @@ function torlyai_register_api_routes() {
     register_rest_route('torlyai/v1', '/contact-form', array(
         'methods' => 'POST',
         'callback' => 'torlyai_contact_form_callback',
-        'permission_callback' => 'torlyai_verify_nonce_permission',
+        'permission_callback' => 'torlyai_public_permission',
     ));
 
     register_rest_route('torlyai/v1', '/blog-stats', array(
@@ -332,7 +362,8 @@ function torlyai_register_api_routes() {
         'permission_callback' => 'torlyai_public_permission',
     ));
 
-    // Waitlist API (public with rate limiting)
+    // Waitlist API (public with rate limiting) - MOVED TO inc/waitlist-functions.php
+    /* Commented out - now handled in inc/waitlist-functions.php
     register_rest_route('torlyai/v1', '/waitlist', array(
         'methods' => 'POST',
         'callback' => 'torlyai_waitlist_callback',
@@ -346,6 +377,7 @@ function torlyai_register_api_routes() {
             ),
         ),
     ));
+    */
 }
 add_action('rest_api_init', 'torlyai_register_api_routes');
 
@@ -471,7 +503,8 @@ function torlyai_visa_requirements_callback() {
     return new WP_REST_Response($requirements, 200);
 }
 
-// Waitlist API Callback
+// Waitlist API Callback - MOVED TO inc/waitlist-functions.php
+/* Commented out to avoid duplicate declaration
 function torlyai_waitlist_callback($request) {
     global $wpdb;
     $params = $request->get_json_params();
@@ -652,6 +685,7 @@ function torlyai_send_waitlist_confirmation_email($email) {
 
     return wp_mail($to, $subject, $message, $headers);
 }
+*/ // End of commented duplicate functions
 
 // GEO Optimization: Endorsing Bodies API Callback
 function torlyai_endorsing_bodies_callback() {
