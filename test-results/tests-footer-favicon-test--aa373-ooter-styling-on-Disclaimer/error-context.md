@@ -1,0 +1,324 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - heading "Disclaimer" [level=1] [ref=e4]
+    - paragraph [ref=e5]: Important information about our services and limitations
+    - paragraph [ref=e6]: "Last updated: November 18, 2025"
+  - generic [ref=e9]:
+    - paragraph [ref=e11]:
+      - strong [ref=e12]: "CRITICAL NOTICE:"
+      - text: "TorlyAI is operated by Innovatorly Ltd, a business consultancy registered in England and Wales (Company number: 16674855). We are"
+      - strong [ref=e13]: NOT
+      - text: a law firm, immigration advisor, or regulated immigration service provider. Our services do NOT constitute legal advice or immigration advice.
+    - heading "1. Nature of Services" [level=2] [ref=e14]
+    - heading "1.1 What We Are" [level=3] [ref=e15]
+    - paragraph [ref=e16]:
+      - text: Innovatorly Ltd (trading as TorlyAI) is a
+      - strong [ref=e17]: business consultancy
+      - text: "that provides:"
+    - list [ref=e18]:
+      - listitem [ref=e19]: AI-powered information tools about UK Innovator Visa requirements
+      - listitem [ref=e20]: Educational content about visa application processes
+      - listitem [ref=e21]: Business guidance related to preparing visa applications
+      - listitem [ref=e22]: General information based on publicly available UK Home Office criteria
+    - heading "1.2 What We Are NOT" [level=3] [ref=e23]
+    - paragraph [ref=e24]:
+      - text: We are
+      - strong [ref=e25]: NOT
+      - text: ":"
+    - list [ref=e26]:
+      - listitem [ref=e27]: A law firm or legal practice
+      - listitem [ref=e28]: An immigration advisor regulated by the OISC (Office of the Immigration Services Commissioner)
+      - listitem [ref=e29]: An endorsing body for UK Innovator Visas
+      - listitem [ref=e30]: A UK Home Office representative or affiliate
+      - listitem [ref=e31]: A visa application service provider
+      - listitem [ref=e32]: Authorized to submit visa applications on your behalf
+    - heading "2. No Legal or Immigration Advice" [level=2] [ref=e33]
+    - paragraph [ref=e35]:
+      - strong [ref=e36]: "Important:"
+      - text: Nothing on this website or in our services constitutes legal advice, immigration advice, or professional advice of any kind. Our AI assessments, scores, and recommendations are for
+      - strong [ref=e37]: informational purposes only
+      - text: .
+    - paragraph [ref=e38]:
+      - text: You should
+      - strong [ref=e39]: NOT
+      - text: "rely solely on TorlyAI for:"
+    - list [ref=e40]:
+      - listitem [ref=e41]: Making visa application decisions
+      - listitem [ref=e42]: Understanding your specific legal rights or obligations
+      - listitem [ref=e43]: Interpreting UK immigration law
+      - listitem [ref=e44]: Determining your eligibility for any visa category
+      - listitem [ref=e45]: Assessing the likelihood of visa approval
+    - paragraph [ref=e46]:
+      - strong [ref=e47]: "You SHOULD:"
+    - list [ref=e48]:
+      - listitem [ref=e49]: Consult a qualified immigration lawyer or OISC-regulated advisor
+      - listitem [ref=e50]: Verify all information with official UK government sources
+      - listitem [ref=e51]: Seek professional advice tailored to your specific circumstances
+      - listitem [ref=e52]: Review the most current UK immigration rules and guidance
+    - heading "3. No Guarantees or Warranties" [level=2] [ref=e53]
+    - heading "3.1 Accuracy of Information" [level=3] [ref=e54]
+    - paragraph [ref=e55]:
+      - text: While we strive for accuracy, we make
+      - strong [ref=e56]: NO WARRANTIES
+      - text: "regarding:"
+    - list [ref=e57]:
+      - listitem [ref=e58]: The completeness or accuracy of information provided
+      - listitem [ref=e59]: The timeliness or currentness of immigration rules and criteria
+      - listitem [ref=e60]: The suitability of our assessments for your specific situation
+      - listitem [ref=e61]: The reliability of AI-generated recommendations
+    - paragraph [ref=e62]: UK immigration rules change frequently. Information on our platform may become outdated without notice.
+    - heading "3.2 No Guarantee of Results" [level=3] [ref=e63]
+    - paragraph [ref=e64]:
+      - text: We make
+      - strong [ref=e65]: NO GUARANTEES
+      - text: "that:"
+    - list [ref=e66]:
+      - listitem [ref=e67]: Your visa application will be approved
+      - listitem [ref=e68]: You will receive endorsement from any endorsing body
+      - listitem [ref=e69]: Our assessment scores reflect actual Home Office decisions
+      - listitem [ref=e70]: Following our recommendations will lead to visa success
+      - listitem [ref=e71]: Our service will meet your specific requirements or expectations
+    - heading "4. AI Technology Limitations" [level=2] [ref=e72]
+    - paragraph [ref=e73]: "Our visa assessment tool uses artificial intelligence and machine learning. You acknowledge that:"
+    - list [ref=e74]:
+      - listitem [ref=e75]:
+        - strong [ref=e76]: "AI is not perfect:"
+        - text: Algorithms may produce errors or unexpected results
+      - listitem [ref=e77]:
+        - strong [ref=e78]: "Limited scope:"
+        - text: AI cannot assess all factors that affect visa decisions
+      - listitem [ref=e79]:
+        - strong [ref=e80]: "No human judgment:"
+        - text: AI lacks the nuanced understanding of a qualified advisor
+      - listitem [ref=e81]:
+        - strong [ref=e82]: "Training data limitations:"
+        - text: AI is trained on historical data that may not reflect current policies
+      - listitem [ref=e83]:
+        - strong [ref=e84]: "No liability for AI errors:"
+        - text: We are not responsible for incorrect AI assessments
+    - paragraph [ref=e86]:
+      - strong [ref=e87]: "Critical:"
+      - text: Never make important immigration decisions based solely on AI-generated assessments. Always seek professional human advice.
+    - heading "5. Third-Party Links and Resources" [level=2] [ref=e88]
+    - paragraph [ref=e89]: "Our website may contain links to third-party websites, including:"
+    - list [ref=e90]:
+      - listitem [ref=e91]: UK Government official websites (gov.uk)
+      - listitem [ref=e92]: Immigration advisory services
+      - listitem [ref=e93]: Legal service providers
+      - listitem [ref=e94]: Educational resources
+    - paragraph [ref=e95]:
+      - text: We are
+      - strong [ref=e96]: NOT RESPONSIBLE
+      - text: "for:"
+    - list [ref=e97]:
+      - listitem [ref=e98]: The content or accuracy of third-party websites
+      - listitem [ref=e99]: Services provided by third parties
+      - listitem [ref=e100]: Privacy practices of external sites
+      - listitem [ref=e101]: Any transactions you enter into with third parties
+    - heading "6. User Responsibility" [level=2] [ref=e102]
+    - paragraph [ref=e103]: "By using TorlyAI, you acknowledge and agree that:"
+    - list [ref=e104]:
+      - listitem [ref=e105]: You are solely responsible for your visa application decisions
+      - listitem [ref=e106]: You will verify all information with official sources
+      - listitem [ref=e107]: You will seek professional advice before making important decisions
+      - listitem [ref=e108]: You understand the limitations of AI-powered tools
+      - listitem [ref=e109]: You will not rely solely on our assessments for legal or immigration matters
+      - listitem [ref=e110]: You accept all risks associated with using our informational services
+    - heading "7. No Attorney-Client or Advisory Relationship" [level=2] [ref=e111]
+    - paragraph [ref=e112]:
+      - text: Use of TorlyAI does
+      - strong [ref=e113]: NOT
+      - text: "create:"
+    - list [ref=e114]:
+      - listitem [ref=e115]: An attorney-client relationship
+      - listitem [ref=e116]: An advisor-client relationship
+      - listitem [ref=e117]: A fiduciary duty to you
+      - listitem [ref=e118]: Any professional relationship requiring confidentiality beyond our Privacy Policy
+    - paragraph [ref=e119]:
+      - text: Communications via our website or services are
+      - strong [ref=e120]: NOT CONFIDENTIAL
+      - text: in the legal sense and are not protected by legal professional privilege.
+    - heading "8. Limitation of Liability" [level=2] [ref=e121]
+    - generic [ref=e122]:
+      - paragraph [ref=e123]:
+        - strong [ref=e124]: "TO THE MAXIMUM EXTENT PERMITTED BY UK LAW:"
+      - list [ref=e125]:
+        - listitem [ref=e126]: Innovatorly Ltd is NOT LIABLE for any visa application rejections, delays, or denials
+        - listitem [ref=e127]: We are NOT RESPONSIBLE for any financial losses resulting from visa decisions
+        - listitem [ref=e128]: We are NOT LIABLE for any indirect, consequential, or punitive damages
+        - listitem [ref=e129]: Our total liability is limited to the amount you paid us (if any) in the 12 months prior to the claim
+    - paragraph [ref=e130]:
+      - text: You use our services
+      - strong [ref=e131]: AT YOUR OWN RISK
+      - text: .
+    - heading "9. Regulatory Information" [level=2] [ref=e132]
+    - heading "9.1 OISC Regulation" [level=3] [ref=e133]
+    - paragraph [ref=e134]:
+      - text: In the UK, immigration advice is regulated by the
+      - strong [ref=e135]: Office of the Immigration Services Commissioner (OISC)
+      - text: . Only OISC-registered advisors, solicitors, or barristers may provide immigration advice.
+    - paragraph [ref=e136]:
+      - text: Innovatorly Ltd is
+      - strong [ref=e137]: NOT OISC-regulated
+      - text: because we do not provide immigration advice. We provide business consultancy and informational tools only.
+    - heading "9.2 Authorized Professionals" [level=3] [ref=e138]
+    - paragraph [ref=e139]: "For immigration advice, you should consult:"
+    - list [ref=e140]:
+      - listitem [ref=e141]:
+        - strong [ref=e142]: OISC-regulated immigration advisors
+        - text: "- Find advisors at:"
+        - link "gov.uk/find-an-immigration-adviser" [ref=e143] [cursor=pointer]:
+          - /url: https://www.gov.uk/find-an-immigration-adviser
+      - listitem [ref=e144]:
+        - strong [ref=e145]: Solicitors
+        - text: "- Members of the Law Society with immigration law expertise"
+      - listitem [ref=e146]:
+        - strong [ref=e147]: Barristers
+        - text: "- Members of the Bar Council specializing in immigration"
+    - heading "10. Changes to UK Immigration Rules" [level=2] [ref=e148]
+    - paragraph [ref=e149]:
+      - text: UK immigration rules and policies change regularly. We are
+      - strong [ref=e150]: NOT RESPONSIBLE
+      - text: "for:"
+    - list [ref=e151]:
+      - listitem [ref=e152]: Updating our content immediately when rules change
+      - listitem [ref=e153]: Notifying you of changes to immigration policies
+      - listitem [ref=e154]: Ensuring our AI algorithms reflect the latest criteria
+      - listitem [ref=e155]: Maintaining historical accuracy of past assessments
+    - paragraph [ref=e156]:
+      - strong [ref=e157]: "Your responsibility:"
+      - text: Always check the latest UK government guidance at
+      - link "gov.uk/browse/visas-immigration" [ref=e158] [cursor=pointer]:
+        - /url: https://www.gov.uk/browse/visas-immigration
+    - heading "11. No Endorsement Relationship" [level=2] [ref=e159]
+    - paragraph [ref=e160]:
+      - text: TorlyAI has
+      - strong [ref=e161]: NO AFFILIATION
+      - text: "with:"
+    - list [ref=e162]:
+      - listitem [ref=e163]: UK Home Office
+      - listitem [ref=e164]: UK Endorsing Bodies (Tech Nation, Innovator International, etc.)
+      - listitem [ref=e165]: UK Government departments or agencies
+      - listitem [ref=e166]: Immigration tribunals or courts
+    - paragraph [ref=e167]: "We cannot:"
+    - list [ref=e168]:
+      - listitem [ref=e169]: Provide or facilitate endorsements
+      - listitem [ref=e170]: Influence endorsing body decisions
+      - listitem [ref=e171]: Guarantee endorsement approval
+      - listitem [ref=e172]: Act as an intermediary with endorsing bodies
+    - heading "12. Financial Disclaimers" [level=2] [ref=e173]
+    - heading "12.1 No Financial Advice" [level=3] [ref=e174]
+    - paragraph [ref=e175]:
+      - text: Information about business plans, investments, or financial projections is
+      - strong [ref=e176]: NOT
+      - text: financial advice. Consult a qualified financial advisor for investment decisions.
+    - heading "12.2 Cost Estimates" [level=3] [ref=e177]
+    - paragraph [ref=e178]: Any cost estimates provided (visa fees, application costs) are approximate and may be outdated. Verify current fees with official UK government sources.
+    - heading "13. Testimonials and Success Stories" [level=2] [ref=e179]
+    - paragraph [ref=e180]: "Any testimonials, case studies, or success stories on our website:"
+    - list [ref=e181]:
+      - listitem [ref=e182]: Reflect individual experiences, not guaranteed results
+      - listitem [ref=e183]: May not be representative of typical outcomes
+      - listitem [ref=e184]: Do not constitute evidence of our service effectiveness
+      - listitem [ref=e185]: Should not be relied upon as endorsement of our services
+    - paragraph [ref=e186]:
+      - strong [ref=e187]: Past performance does not guarantee future results.
+    - heading "14. International Users" [level=2] [ref=e188]
+    - paragraph [ref=e189]: "Our service is designed for UK immigration matters. If you are located outside the UK:"
+    - list [ref=e190]:
+      - listitem [ref=e191]: Consult local immigration laws and regulations
+      - listitem [ref=e192]: Verify that our information applies to your jurisdiction
+      - listitem [ref=e193]: Understand that UK immigration rules apply to UK visa applications
+      - listitem [ref=e194]: Seek advice from professionals licensed in your jurisdiction
+    - heading "15. Data Accuracy" [level=2] [ref=e195]
+    - paragraph [ref=e196]: "Information you provide to our AI assessment tool should be:"
+    - list [ref=e197]:
+      - listitem [ref=e198]: Accurate and truthful
+      - listitem [ref=e199]: Current and up-to-date
+      - listitem [ref=e200]: Complete to the best of your knowledge
+    - paragraph [ref=e201]:
+      - strong [ref=e202]: "Garbage in, garbage out:"
+      - text: Inaccurate input data will produce unreliable assessments. We are not responsible for errors resulting from incorrect information you provide.
+    - heading "16. Language and Translation" [level=2] [ref=e203]
+    - paragraph [ref=e204]: "Our primary language is English. Any translations provided:"
+    - list [ref=e205]:
+      - listitem [ref=e206]: May not be perfectly accurate
+      - listitem [ref=e207]: Should not be relied upon for legal purposes
+      - listitem [ref=e208]: May contain errors or omissions
+    - paragraph [ref=e209]: In case of discrepancies, the English version prevails.
+    - heading "17. Contact Information" [level=2] [ref=e210]
+    - paragraph [ref=e211]: "If you have questions about this Disclaimer or our services:"
+    - paragraph [ref=e213]:
+      - strong [ref=e214]: Innovatorly Ltd (trading as TorlyAI)
+      - text: "Email: contact@torly.ai"
+      - text: "Legal: legal@torly.ai"
+      - text: "Address: 167-169 Great Portland Street, London, W1W 5PF, United Kingdom"
+      - text: "Company Number: 16674855"
+      - text: Registered in England and Wales
+    - heading "18. Acceptance of Terms" [level=2] [ref=e215]
+    - paragraph [ref=e216]: "By using TorlyAI, you acknowledge that you have read, understood, and agree to this Disclaimer. You accept that:"
+    - list [ref=e217]:
+      - listitem [ref=e218]: We are a business consultancy, not a law firm or immigration advisor
+      - listitem [ref=e219]: Our services provide information only, not legal or immigration advice
+      - listitem [ref=e220]: You will seek professional advice for immigration matters
+      - listitem [ref=e221]: You use our services at your own risk
+      - listitem [ref=e222]: We are not liable for visa application outcomes
+    - paragraph [ref=e224]:
+      - strong [ref=e225]: "FINAL WARNING:"
+      - text: Do not make important immigration decisions based solely on information from TorlyAI. Always consult qualified professionals before submitting visa applications or making significant life changes based on immigration matters.
+  - contentinfo [ref=e226]:
+    - generic [ref=e227]:
+      - generic [ref=e228]:
+        - generic [ref=e229]:
+          - heading "TorlyAI" [level=3] [ref=e230]
+          - paragraph [ref=e231]: Your AI-powered UK Innovator Visa Assistant. Streamlining visa applications through intelligent automation.
+        - generic [ref=e232]:
+          - heading "Quick Links" [level=3] [ref=e233]
+          - list [ref=e234]:
+            - listitem [ref=e235]:
+              - link "Home" [ref=e236] [cursor=pointer]:
+                - /url: https://torly.ai/
+            - listitem [ref=e237]:
+              - link "Blog" [ref=e238] [cursor=pointer]:
+                - /url: https://torly.ai/blog/
+            - listitem [ref=e239]:
+              - link "About Us" [ref=e240] [cursor=pointer]:
+                - /url: https://torly.ai/about
+            - listitem [ref=e241]:
+              - link "Contact" [ref=e242] [cursor=pointer]:
+                - /url: https://torly.ai/contact
+        - generic [ref=e243]:
+          - heading "Resources" [level=3] [ref=e244]
+          - list [ref=e245]:
+            - listitem [ref=e246]:
+              - link "Visa Assessment" [ref=e247] [cursor=pointer]:
+                - /url: https://torly.ai/visa-assessment
+            - listitem [ref=e248]:
+              - link "Endorsing Bodies" [ref=e249] [cursor=pointer]:
+                - /url: https://torly.ai/endorsing-bodies
+            - listitem [ref=e250]:
+              - link "FAQ" [ref=e251] [cursor=pointer]:
+                - /url: https://torly.ai/faq
+            - listitem [ref=e252]:
+              - link "Support" [ref=e253] [cursor=pointer]:
+                - /url: https://torly.ai/support
+        - generic [ref=e254]:
+          - heading "Legal" [level=3] [ref=e255]
+          - list [ref=e256]:
+            - listitem [ref=e257]:
+              - link "Privacy Policy" [ref=e258] [cursor=pointer]:
+                - /url: https://torly.ai/privacy
+            - listitem [ref=e259]:
+              - link "Terms of Service" [ref=e260] [cursor=pointer]:
+                - /url: https://torly.ai/terms
+            - listitem [ref=e261]:
+              - link "Disclaimer" [ref=e262] [cursor=pointer]:
+                - /url: https://torly.ai/disclaimer
+            - listitem [ref=e263]:
+              - link "Cookies Policy" [ref=e264] [cursor=pointer]:
+                - /url: https://torly.ai/cookies
+      - paragraph [ref=e266]: © 2025 Torly AI. All rights reserved.
+```
