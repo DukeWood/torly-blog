@@ -63,6 +63,7 @@ function torlyai_ajax_waitlist_signup() {
 
     // Validate email
     if (empty($email) || !is_email($email)) {
+        error_log('TorlyAI Waitlist: Invalid email submitted: ' . $email);
         wp_send_json_error(['message' => 'Invalid email address']);
         return;
     }
@@ -79,6 +80,7 @@ function torlyai_ajax_waitlist_signup() {
 
     if ($existing) {
         // Email already exists - still return success
+        error_log('TorlyAI Waitlist: Duplicate signup attempt for existing email: ' . $email);
         wp_send_json_success([
             'message' => 'You are already on the waitlist!',
             'existing' => true
@@ -98,8 +100,11 @@ function torlyai_ajax_waitlist_signup() {
     );
 
     if ($result === false) {
+        error_log('TorlyAI Waitlist: Database insert failed for email: ' . $email . ' | Error: ' . $wpdb->last_error);
         wp_send_json_error(['message' => 'Database error. Please try again.']);
         return;
+    } else {
+        error_log('TorlyAI Waitlist: Successfully added email: ' . $email . ' | ID: ' . $wpdb->insert_id);
     }
 
     // Send confirmation email

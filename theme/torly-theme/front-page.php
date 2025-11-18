@@ -29,20 +29,20 @@ get_header(); ?>
 <!-- Social Proof Section -->
 <section class="social-proof-section">
     <div class="container">
-        <p class="social-proof-title">Trusted by entrepreneurs worldwide</p>
+        <p class="social-proof-title">Authorized by all 4 UK Home Office Endorsing Bodies</p>
     </div>
 
     <div class="logo-carousel">
         <!-- Endorsing Bodies (4 currently authorized) -->
-        <div class="logo-item" style="min-width: 200px; text-align: center; font-weight: 600; font-size: 14px;">UK Endorsing Services</div>
-        <div class="logo-item" style="min-width: 200px; text-align: center; font-weight: 600; font-size: 14px;">Innovator International</div>
-        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">Envestors Limited</div>
-        <div class="logo-item" style="min-width: 250px; text-align: center; font-weight: 600; font-size: 14px;">Global Entrepreneurs Programme</div>
+        <div class="logo-item">UK Endorsing Services</div>
+        <div class="logo-item">Innovator International</div>
+        <div class="logo-item">Envestors Limited</div>
+        <div class="logo-item">Global Entrepreneurs Programme</div>
         <!-- Duplicate for seamless loop -->
-        <div class="logo-item" style="min-width: 200px; text-align: center; font-weight: 600; font-size: 14px;">UK Endorsing Services</div>
-        <div class="logo-item" style="min-width: 200px; text-align: center; font-weight: 600; font-size: 14px;">Innovator International</div>
-        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">Envestors Limited</div>
-        <div class="logo-item" style="min-width: 250px; text-align: center; font-weight: 600; font-size: 14px;">Global Entrepreneurs Programme</div>
+        <div class="logo-item">UK Endorsing Services</div>
+        <div class="logo-item">Innovator International</div>
+        <div class="logo-item">Envestors Limited</div>
+        <div class="logo-item">Global Entrepreneurs Programme</div>
     </div>
 </section>
 
@@ -161,7 +161,7 @@ get_header(); ?>
         <h2 class="section-title">What Our Successful Clients Say</h2>
         <div class="testimonials-grid">
             <div class="testimonial-card">
-                <div class="testimonial-photo" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"></div>
+                <div class="testimonial-photo testimonial-photo-1"></div>
                 <p class="testimonial-quote">
                     "TorlyAI made the complex visa process so much simpler. The AI-generated business plan was exactly what UKES was looking for. Highly recommended!"
                 </p>
@@ -170,7 +170,7 @@ get_header(); ?>
             </div>
 
             <div class="testimonial-card">
-                <div class="testimonial-photo" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                <div class="testimonial-photo testimonial-photo-2"></div>
                 <p class="testimonial-quote">
                     "Got my endorsement from Innovator International in just 6 weeks thanks to the comprehensive business plan and financial models. Incredible service!"
                 </p>
@@ -179,7 +179,7 @@ get_header(); ?>
             </div>
 
             <div class="testimonial-card">
-                <div class="testimonial-photo" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                <div class="testimonial-photo testimonial-photo-3"></div>
                 <p class="testimonial-quote">
                     "The AI saved me months of work on my business plan and pitch deck. Everything was perfectly aligned with Envestors' requirements. Worth every penny!"
                 </p>
@@ -262,6 +262,7 @@ get_header(); ?>
             $recent_posts = new WP_Query(array(
                 'posts_per_page' => 3,
                 'post_status' => 'publish',
+                'post_type' => 'post',
                 'orderby' => 'date',
                 'order' => 'DESC'
             ));
@@ -319,6 +320,7 @@ get_header(); ?>
             <!-- Question 1 -->
             <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
                 <h3 itemprop="name" class="faq-question">
+                    <span class="faq-icon">🏛️</span>
                     What is the UK Innovator Founder Visa?
                 </h3>
                 <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
@@ -342,6 +344,7 @@ get_header(); ?>
             <!-- Question 2 -->
             <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
                 <h3 itemprop="name" class="faq-question">
+                    <span class="faq-icon">⏱️</span>
                     How long does the UK Innovator Founder Visa application take?
                 </h3>
                 <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
@@ -359,6 +362,7 @@ get_header(); ?>
             <!-- Question 3 -->
             <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
                 <h3 itemprop="name" class="faq-question">
+                    <span class="faq-icon">✅</span>
                     What does TorlyAI's eligibility assessment check?
                 </h3>
                 <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
@@ -377,6 +381,7 @@ get_header(); ?>
             <!-- Question 4 -->
             <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
                 <h3 itemprop="name" class="faq-question">
+                    <span class="faq-icon">💰</span>
                     How much does the UK Innovator Founder Visa cost?
                 </h3>
                 <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
@@ -397,6 +402,7 @@ get_header(); ?>
             <!-- Question 5 -->
             <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
                 <h3 itemprop="name" class="faq-question">
+                    <span class="faq-icon">🤝</span>
                     Which endorsing bodies does TorlyAI help with?
                 </h3>
                 <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
@@ -425,8 +431,8 @@ get_header(); ?>
             <h2>Ready to Start Your UK Innovation Journey?</h2>
             <p>Join thousands of entrepreneurs who've successfully navigated the visa process with TorlyAI</p>
             <div class="cta-buttons">
-                <button onclick="openWaitlistModal('cta-bottom')" class="btn-primary">Join Waitlist</button>
-                <a href="<?php echo home_url('/contact'); ?>" class="btn-secondary">Schedule a Consultation</a>
+                <button onclick="openWaitlistModal('cta-bottom')" class="btn-primary">Get Your Free Assessment</button>
+                <a href="#faq-section" class="btn-secondary">View FAQs</a>
             </div>
         </div>
     </div>

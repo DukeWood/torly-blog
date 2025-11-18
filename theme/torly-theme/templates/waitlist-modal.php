@@ -70,7 +70,7 @@
 
             <div class="cta-buttons">
                 <button class="btn-primary" onclick="showSurveyStep()">Answer Quick Questions</button>
-                <button class="btn-text" onclick="closeWaitlistModal()">Skip for Now</button>
+                <a href="https://www.patreon.com/innovatorly" class="btn-text">Skip for Now</a>
             </div>
         </div>
     </div>
@@ -175,13 +175,13 @@
             </svg>
         </div>
 
-        <h2 class="waitlist-title">Thank You!</h2>
-        <p class="waitlist-subtitle">We've saved your preferences. We'll tailor our communications to your business stage and timeline.</p>
+        <h2 class="waitlist-title">Welcome to the Tribe!</h2>
+        <p class="waitlist-subtitle">You're now part of the Innovatorly community. Join our exclusive tribe for insider tips, resources, and support on your UK visa journey.</p>
 
         <div class="final-cta">
-            <p class="final-message">Want to get started right away?</p>
+            <p class="final-message">Ready to connect with fellow innovators?</p>
             <div class="cta-buttons">
-                <a href="/visa-assessment" class="btn-primary">Take Free Assessment</a>
+                <a href="https://www.patreon.com/innovatorly" class="btn-primary">Join Innovatorly Tribe</a>
                 <button class="btn-text" onclick="closeWaitlistModal()">Close</button>
             </div>
         </div>

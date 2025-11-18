@@ -203,9 +203,19 @@
 
         // Submit to API
         submitEmailToAPI(email)
-            .then(() => {
-                // Success - show step 2
-                showStep(2);
+            .then((response) => {
+                // Check if this is a duplicate signup
+                if (response.data && response.data.existing) {
+                    // Show friendly duplicate message
+                    showError('waitlist-email', 'Good news! This email is already on our waitlist. We\'ll keep you updated!');
+                    // Still show success after 2 seconds
+                    setTimeout(() => {
+                        showStep(2);
+                    }, 2000);
+                } else {
+                    // New signup - show step 2 immediately
+                    showStep(2);
+                }
             })
             .catch((error) => {
                 console.error('Waitlist signup error:', error);
