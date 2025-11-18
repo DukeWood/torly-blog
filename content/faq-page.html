@@ -1,0 +1,874 @@
+<style>
+    /* TorlyAI Design System Variables */
+    :root {
+        --white: #ffffff;
+        --black: #000000;
+        --neutral-50: #f9fafb;
+        --neutral-100: #f3f4f6;
+        --neutral-200: #e5e7eb;
+        --color-chat-green: #10b981;
+        --text-primary: #000000;
+        --text-secondary: rgba(0, 0, 0, 0.7);
+        --text-tertiary: rgba(0, 0, 0, 0.5);
+        --border-color: #e5e7eb;
+    }
+
+    /* Base Styles */
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        color: var(--text-primary);
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Container */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    @media (min-width: 1024px) {
+        .container {
+            padding: 0 2rem;
+        }
+    }
+
+    /* Hero Section */
+    .faq-hero {
+        padding: 7rem 0 4rem;
+        background: var(--white);
+        background-image:
+            radial-gradient(at 53% 78%, hsla(60,100%,50%,0.3) 0px, transparent 50%),
+            radial-gradient(at 71% 91%, hsla(108,100%,50%,0.3) 0px, transparent 50%),
+            radial-gradient(at 31% 91%, hsla(30,100%,50%,0.17) 0px, transparent 50%);
+        text-align: center;
+    }
+
+    .hero-title {
+        font-size: clamp(2.25rem, 5vw, 4.5rem);
+        font-weight: 800;
+        line-height: 0.9;
+        letter-spacing: -0.020em;
+        color: var(--black);
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: clamp(1.125rem, 2vw, 1.5rem);
+        color: var(--text-secondary);
+        max-width: 800px;
+        margin: 0 auto 2rem;
+        line-height: 1.7;
+    }
+
+    /* FAQ Content Section */
+    .faq-content-section {
+        padding: 4rem 0;
+        background: var(--white);
+    }
+
+    /* Section Headers */
+    .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .section-title {
+        font-size: clamp(1.875rem, 4vw, 3rem);
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -0.015em;
+        color: var(--black);
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 3px solid var(--color-chat-green);
+        display: inline-block;
+    }
+
+    .category-title {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 700;
+        color: var(--black);
+        margin: 4rem 0 2rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid var(--color-chat-green);
+    }
+
+    /* FAQ Grid */
+    .faq-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+
+    /* FAQ Cards */
+    .faq-card {
+        background: var(--white);
+        border: 1px solid var(--border-color);
+        border-radius: 1rem;
+        padding: 2rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    .faq-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .faq-card:hover {
+        transform: translateY(-5px) scale(1.01);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .faq-question {
+        font-size: clamp(1.25rem, 2vw, 1.5rem);
+        font-weight: 600;
+        line-height: 1.3;
+        color: var(--black);
+        margin: 0 0 1rem 0;
+    }
+
+    .faq-answer {
+        color: var(--text-secondary);
+        line-height: 1.7;
+    }
+
+    .faq-answer p {
+        margin-bottom: 1rem;
+    }
+
+    .faq-answer ul, .faq-answer ol {
+        margin-bottom: 1rem;
+        padding-left: 1.5rem;
+    }
+
+    .faq-answer li {
+        margin-bottom: 0.5rem;
+    }
+
+    .faq-answer strong {
+        color: var(--black);
+        font-weight: 600;
+    }
+
+    .faq-source {
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-color);
+        font-size: 0.875rem;
+        color: var(--text-tertiary);
+    }
+
+    .faq-source a {
+        color: var(--color-chat-green);
+        text-decoration: none;
+    }
+
+    .faq-source a:hover {
+        text-decoration: underline;
+    }
+
+    /* Comparison Table */
+    .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+        font-size: 0.95rem;
+    }
+
+    .comparison-table thead {
+        background: var(--neutral-50);
+    }
+
+    .comparison-table th {
+        padding: 0.75rem;
+        text-align: left;
+        border: 1px solid var(--border-color);
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .comparison-table td {
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary);
+    }
+
+    .comparison-table tbody tr:hover {
+        background: var(--neutral-50);
+    }
+
+    /* CTA Section */
+    .cta-section {
+        padding: 5rem 0;
+        background: var(--black);
+        background-image:
+            radial-gradient(at 30% 50%, hsla(60,100%,50%,0.2) 0px, transparent 50%),
+            radial-gradient(at 70% 50%, hsla(108,100%,50%,0.2) 0px, transparent 50%);
+        color: var(--white);
+        text-align: center;
+        margin-top: 4rem;
+    }
+
+    .cta-section h2 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+        font-size: clamp(1.125rem, 2vw, 1.25rem);
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 2rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* Buttons - Glass Morphism */
+    .btn-primary {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        border-radius: 9999px;
+        padding: 0.75rem 2rem;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--black);
+        cursor: pointer;
+        transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateZ(0);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-primary:hover {
+        background: rgba(255, 255, 255, 0.8);
+        transform: scale(1.02) translateZ(0);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-secondary {
+        background: transparent;
+        border: 2px solid var(--white);
+        border-radius: 9999px;
+        padding: 0.75rem 2rem;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--white);
+        cursor: pointer;
+        transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-secondary:hover {
+        background: var(--white);
+        color: var(--black);
+        transform: scale(1.02);
+    }
+
+    /* Update Notice */
+    .update-notice {
+        background: #e0f2fe;
+        border-left: 4px solid #0284c7;
+        padding: 1rem 1.5rem;
+        margin-bottom: 1rem;
+        border-radius: 0.5rem;
+        font-size: 0.95rem;
+    }
+
+    .update-notice strong {
+        color: #0369a1;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .faq-hero {
+            padding: 5rem 0 3rem;
+        }
+
+        .faq-content-section {
+            padding: 3rem 0;
+        }
+
+        .cta-section {
+            padding: 4rem 0;
+        }
+
+        .comparison-table {
+            font-size: 0.85rem;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.5rem;
+        }
+    }
+</style>
+
+<!-- Hero Section -->
+<section class="faq-hero">
+    <div class="container">
+        <h1 class="hero-title">Frequently Asked Questions</h1>
+        <p class="hero-subtitle">
+            Everything you need to know about the UK Innovator Founder Visa application process, requirements, and how TorlyAI can help you succeed. Can't find your answer? <a href="/contact" style="color: var(--color-chat-green); text-decoration: none; font-weight: 600;">Contact us</a> for personalized guidance.
+        </p>
+    </div>
+</section>
+
+<!-- FAQ Content -->
+<section class="faq-content-section" itemscope itemtype="https://schema.org/FAQPage">
+    <div class="container">
+
+        <!-- Visa Eligibility -->
+        <h2 class="category-title">Visa Eligibility Questions</h2>
+        <div class="faq-grid">
+
+            <div class="faq-card fade-in-element" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">What is the UK Innovator Founder Visa?</h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p>The UK Innovator Founder Visa is an immigration route for experienced entrepreneurs who want to establish an innovative, viable, and scalable business in the United Kingdom.</p>
+                        <p><strong>Key Requirements:</strong></p>
+                        <ul>
+                            <li><strong>Investment:</strong> Minimum £50,000</li>
+                            <li><strong>Endorsement:</strong> Required from one of 4 authorized bodies</li>
+                            <li><strong>Innovation:</strong> Business must be new to UK market</li>
+                            <li><strong>Duration:</strong> 3 years initially, renewable</li>
+                            <li><strong>Settlement:</strong> Eligible for permanent residence after 3 years</li>
+                        </ul>
+                        <p style="font-size: 0.9rem; color: var(--text-tertiary); margin-top: 1rem;">
+                            <em>Note: Previously called "Innovator Visa" before 2023 reform.</em>
+                        </p>
+                        <p class="faq-source"><cite>Source: <a href="https://www.gov.uk/innovator-founder-visa" target="_blank" rel="noopener">UK Home Office (gov.uk/innovator-founder-visa)</a></cite></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-card fade-in-element" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">Who is eligible for the UK Innovator Founder Visa?</h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p>You're eligible if you meet ALL of these criteria:</p>
+                        <ul>
+                            <li>At least 18 years old</li>
+                            <li>Have a genuine, innovative business idea that's new to the UK market</li>
+                            <li>Can invest at least £50,000 in your business</li>
+                            <li>Can demonstrate business experience or skills</li>
+                            <li>Meet English language requirements (B2 level)</li>
+                            <li>Have sufficient personal savings (minimum £1,270)</li>
+                            <li>Can secure endorsement from an approved body</li>
+                        </ul>
+                        <p>TorlyAI's eligibility assessment checks all these criteria instantly.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-card fade-in-element" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">Can I switch to Innovator Founder Visa from inside the UK?</h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <div class="update-notice">
+                            <strong>NEW POLICY UPDATE (November 25, 2025):</strong> Student visa holders can now switch to Innovator Founder Visa without leaving the UK!
+                        </div>
+                        <p>Yes! You can switch to an Innovator Founder Visa from certain visa categories while remaining in the UK:</p>
+                        <p><strong>Allowed:</strong></p>
+                        <ul>
+                            <li><strong>Student visa</strong> (NEW as of Nov 25, 2025) - Must have completed your course</li>
+                            <li><strong>Graduate visa</strong> - Up to 2 years (3 years for PhD) to prepare your business</li>
+                            <li><strong>Skilled Worker visa</strong></li>
+                            <li><strong>Global Talent visa</strong></li>
+                            <li><strong>Scale-up visa</strong></li>
+                        </ul>
+                        <p><strong>Not allowed:</strong></p>
+                        <ul>
+                            <li>Short-term visitor visa</li>
+                            <li>Seasonal worker visa</li>
+                            <li>Domestic worker in private household</li>
+                        </ul>
+                        <p><strong>Requirements for Student visa holders:</strong></p>
+                        <ul>
+                            <li>Must have completed the course for which Student visa was issued</li>
+                            <li>Must apply while Student visa is still valid</li>
+                            <li>PhD students eligible after 24 months of full-time study</li>
+                        </ul>
+                        <p>Switching from inside the UK means you don't need to return to your home country to apply.</p>
+                        <p class="faq-source"><cite>Source: <a href="https://www.gov.uk/innovator-founder-visa/switch-to-this-visa" target="_blank" rel="noopener">UK Home Office Statement of Changes HC 1333 (October 2025)</a></cite></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-card fade-in-element" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">What if my business idea isn't "innovative" enough?</h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p>"Innovative" doesn't mean world-first invention. According to Home Office guidance, innovation means:</p>
+                        <ul>
+                            <li><strong>New to the UK market</strong> (not necessarily globally unique)</li>
+                            <li><strong>Different from existing competitors</strong> (unique selling proposition)</li>
+                            <li><strong>Uses technology or processes differently</strong></li>
+                            <li><strong>Improves on existing solutions</strong></li>
+                        </ul>
+                        <p>Example: A delivery app with AI route optimization would be innovative even though delivery apps exist.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-card fade-in-element" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">Do I need business experience to qualify?</h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p>While not officially required by Home Office, endorsing bodies typically expect:</p>
+                        <ul>
+                            <li>Previous startup or business management experience, OR</li>
+                            <li>Relevant industry expertise (5+ years), OR</li>
+                            <li>Strong track record in your field with demonstrable achievements</li>
+                        </ul>
+                        <p>First-time entrepreneurs with strong industry expertise are regularly approved.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Application Process -->
+        <h2 class="category-title">Application Process Questions</h2>
+        <div class="faq-grid">
+
+            <div class="faq-card fade-in-element" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">How long does the UK Innovator Founder Visa application process take?</h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p><strong>Total Timeline: 16-22 weeks (approximately 4-5 months)</strong></p>
+                        <p><strong>Stage 1: Endorsement (6-8 weeks)</strong></p>
+                        <ul>
+                            <li>Prepare business plan and documents: 2-4 weeks</li>
+                            <li>Submit to endorsing body: Immediate</li>
+                            <li>Endorsing body review: 4-6 weeks</li>
+                            <li>Interview (if required): 1-2 weeks wait time</li>
+                        </ul>
+                        <p><strong>Stage 2: Visa Application (10-14 weeks)</strong></p>
+                        <ul>
+                            <li>Complete visa application: 1 week</li>
+                            <li>Submit and pay fees: Immediate</li>
+                            <li>Biometrics appointment: 1-2 weeks</li>
+                            <li>UKVI processing: 8-12 weeks</li>
+                        </ul>
+                        <p>TorlyAI helps you prepare Stage 1 documents in days, not weeks.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-card fade-in-element" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">What documents do I need for the application?</h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p><strong>For Endorsement Stage:</strong></p>
+                        <ul>
+                            <li>Comprehensive business plan (typically 20-30 pages)</li>
+                            <li>Financial projections (3-5 years)</li>
+                            <li>Evidence of investment funds (£50,000+)</li>
+                            <li>CV/resume demonstrating experience</li>
+                            <li>Market research and competitive analysis</li>
+                            <li>Pitch deck (10-15 slides)</li>
+                        </ul>
+                        <p><strong>For Visa Application:</strong></p>
+                        <ul>
+                            <li>Valid passport</li>
+                            <li>Endorsement letter from approved body</li>
+                            <li>English language certificate (B2 level)</li>
+                            <li>TB test certificate (if from required country)</li>
+                            <li>Bank statements (maintenance funds)</li>
+                            <li>Criminal record certificate (if required)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-card fade-in-element" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">Can I reapply if my endorsement is rejected?</h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p>Yes! You can reapply:</p>
+                        <ul>
+                            <li><strong>Same endorsing body:</strong> Usually after 6 months, after addressing rejection reasons</li>
+                            <li><strong>Different endorsing body:</strong> Immediately, if your business fits their criteria better</li>
+                        </ul>
+                        <p>Common rejection reasons include:</p>
+                        <ul>
+                            <li>Insufficient innovation demonstration</li>
+                            <li>Weak financial projections</li>
+                            <li>Unclear market opportunity</li>
+                            <li>Poor interview performance</li>
+                        </ul>
+                        <p>TorlyAI identifies weak points before submission to maximize approval chances.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-card fade-in-element" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">What's the success rate for UK Innovator Founder Visa applications?</h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p><strong>Two-stage success rates (2024 statistics):</strong></p>
+                        <p><strong>Stage 1 - Endorsement Approval:</strong> ~36%</p>
+                        <p>Only about 1 in 3 applicants successfully obtain endorsement from an approved body. This is the most challenging part of the process.</p>
+                        <p><strong>Stage 2 - Visa Approval (after getting endorsement):</strong> 86-88%</p>
+                        <p>Once you have endorsement, visa approval rate is very high.</p>
+                        <p><strong>Overall Combined Success Rate:</strong> ~31%</p>
+                        <p>Of all initial applicants, approximately 31% successfully receive both endorsement and visa approval.</p>
+                        <p><strong>Why TorlyAI Helps:</strong></p>
+                        <ul>
+                            <li>We identify weaknesses before submission</li>
+                            <li>Well-prepared applications significantly improve endorsement chances</li>
+                            <li>Our users have above-average success rates</li>
+                        </ul>
+                        <p class="faq-source"><cite>Source: <a href="https://www.gov.uk/government/statistics/immigration-statistics-year-ending-march-2024" target="_blank" rel="noopener">UK Home Office Immigration Statistics (March 2024)</a></cite></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Costs & Finances -->
+        <h2 class="category-title">Costs & Financial Questions</h2>
+        <div class="faq-grid">
+
+            <div class="faq-card fade-in-element" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">How much does the UK Innovator Founder Visa cost in total?</h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p><strong>Total Cost Breakdown (2024-2025):</strong></p>
+                        <p><strong>Applying from outside UK:</strong></p>
+                        <ul>
+                            <li><strong>Visa application fee:</strong> £1,191</li>
+                            <li><strong>Immigration Health Surcharge:</strong> £1,035/year × 3 years = £3,105</li>
+                            <li><strong>Minimum business investment:</strong> £50,000</li>
+                            <li><strong>Endorsement body fee:</strong> £1,000 + VAT</li>
+                            <li><strong>Contact point meetings (2 required):</strong> £1,000 + VAT</li>
+                            <li><strong>English language test:</strong> £150 - £200</li>
+                            <li><strong>TB test (if required):</strong> £100 - £150</li>
+                        </ul>
+                        <p><strong>Minimum Total (outside UK): £56,550 - £56,650</strong></p>
+                        <p><strong>Applying from inside UK:</strong></p>
+                        <ul>
+                            <li><strong>Visa application fee:</strong> £1,486 (higher for in-country applications)</li>
+                            <li>All other costs remain the same</li>
+                        </ul>
+                        <p><strong>Minimum Total (inside UK): £56,850 - £56,950</strong></p>
+                        <p><strong>Professional Services (Optional):</strong></p>
+                        <ul>
+                            <li>Immigration consultant: £2,000 - £5,000</li>
+                            <li>Business plan writer: £1,000 - £3,000</li>
+                            <li>TorlyAI AI-powered preparation: From £99</li>
+                        </ul>
+                        <p><strong>Important Notes:</strong></p>
+                        <ul>
+                            <li>Dependants pay the same visa fees and IHS</li>
+                            <li>Contact point meetings are mandatory at 12 and 24 months</li>
+                            <li>All fees subject to change - check gov.uk for latest</li>
+                        </ul>
+                        <p class="faq-source"><cite>Source: <a href="https://www.gov.uk/innovator-founder-visa" target="_blank" rel="noopener">UK Home Office (Updated November 2025)</a></cite></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-card fade-in-element" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">Can I use borrowed money for the £50,000 investment?</h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p>Yes, with conditions:</p>
+                        <ul>
+                            <li><strong>Bank loans:</strong> Allowed if secured against assets</li>
+                            <li><strong>Family gifts:</strong> Allowed with gift letter and proof of funds</li>
+                            <li><strong>Investor funding:</strong> Allowed with investment agreement</li>
+                            <li><strong>NOT allowed:</strong> Unsecured personal loans without assets</li>
+                        </ul>
+                        <p>You must prove:</p>
+                        <ul>
+                            <li>Funds are genuinely available</li>
+                            <li>You have legal right to use them</li>
+                            <li>Funds will be invested in UK business</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-card fade-in-element" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">Do I need to create jobs immediately?</h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p><strong>No immediate job creation required.</strong> However:</p>
+                        <p><strong>At endorsement stage:</strong></p>
+                        <ul>
+                            <li>Show POTENTIAL for job creation in business plan</li>
+                            <li>Demonstrate scalability of business model</li>
+                        </ul>
+                        <p><strong>At renewal (3 years):</strong></p>
+                        <ul>
+                            <li>Must show significant progress</li>
+                            <li>Job creation helps demonstrate growth</li>
+                            <li>Alternative: revenue growth, customer acquisition, funding raised</li>
+                        </ul>
+                        <p>Most successful applicants project 5-10 jobs within 3 years.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Endorsing Bodies -->
+        <h2 class="category-title">Endorsing Body Questions</h2>
+        <div class="faq-grid">
+
+            <div class="faq-card fade-in-element" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">Which endorsing bodies are authorized for UK Innovator Founder Visa?</h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p><strong>As of October 2024, there are 4 active business endorsing bodies authorized to issue endorsements for new Innovator Founder applications:</strong></p>
+                        <ol>
+                            <li><strong>Envestors Limited</strong> - Investment-ready businesses</li>
+                            <li><strong>UK Endorsing Services (UKES)</strong> - General businesses</li>
+                            <li><strong>Innovator International</strong> - International entrepreneurs</li>
+                            <li><strong>Global Entrepreneurs Programme</strong> - High-growth businesses</li>
+                        </ol>
+                        <p><strong>Important Note:</strong> Other organizations may appear on legacy lists, but they can only provide endorsements for applicants they previously endorsed under the old Innovator or Start-up visa routes (before April 13, 2023). They cannot accept new initial applications.</p>
+                        <p>TorlyAI recommends the best fit based on your industry and business stage.</p>
+                        <p class="faq-source"><cite>Source: <a href="https://www.gov.uk/government/publications/endorsing-bodies-innovator-founder-and-scale-up-visas" target="_blank" rel="noopener">UK Home Office - Official List (Updated October 2024)</a></cite></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-card fade-in-element" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">How do I choose the right endorsing body?</h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p>Consider these factors when choosing from the 4 active endorsing bodies:</p>
+                        <p><strong>1. Industry Focus:</strong></p>
+                        <ul>
+                            <li>Tech/digital businesses → Innovator International or Global Entrepreneurs Programme</li>
+                            <li>General business → UKES or Envestors</li>
+                            <li>Investment-backed → Envestors Limited</li>
+                        </ul>
+                        <p><strong>2. Endorsement Fee:</strong></p>
+                        <ul>
+                            <li>Standard fee: £1,000 + VAT per person</li>
+                            <li>Check each body's website for current pricing</li>
+                        </ul>
+                        <p><strong>3. Processing Time:</strong></p>
+                        <ul>
+                            <li>Typical range: 4-8 weeks for decision</li>
+                            <li>Varies by application complexity and current workload</li>
+                        </ul>
+                        <p><strong>4. Specific Requirements:</strong></p>
+                        <ul>
+                            <li>Each body has slightly different criteria</li>
+                            <li>Review their website and eligibility guidelines</li>
+                            <li>Some may specialize in certain sectors</li>
+                        </ul>
+                        <p><strong>TorlyAI Recommendation:</strong> We analyze your business profile and recommend the endorsing body most likely to approve your application based on their track record and criteria.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TorlyAI Services -->
+        <h2 class="category-title">TorlyAI Services Questions</h2>
+        <div class="faq-grid">
+
+            <div class="faq-card fade-in-element" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">What does TorlyAI's eligibility assessment check?</h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p>Our AI analyzes your business against three Home Office criteria:</p>
+                        <p><strong>1. Innovation (Is it new?):</strong></p>
+                        <ul>
+                            <li>Uniqueness in UK market</li>
+                            <li>Competitive differentiation</li>
+                            <li>Technology or process innovation</li>
+                        </ul>
+                        <p><strong>2. Viability (Will it work?):</strong></p>
+                        <ul>
+                            <li>Business model sustainability</li>
+                            <li>Financial projections realism</li>
+                            <li>Market opportunity size</li>
+                        </ul>
+                        <p><strong>3. Scalability (Can it grow?):</strong></p>
+                        <ul>
+                            <li>Job creation potential</li>
+                            <li>Market expansion opportunities</li>
+                            <li>Revenue growth trajectory</li>
+                        </ul>
+                        <p>You receive instant feedback with specific improvement recommendations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-card fade-in-element" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">How is TorlyAI different from immigration consultants?</h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>TorlyAI</th>
+                                    <th>Traditional Consultants</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Speed</strong></td>
+                                    <td>Instant assessment</td>
+                                    <td>2-4 weeks wait</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cost</strong></td>
+                                    <td>From £99</td>
+                                    <td>£3,000-£5,000</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Availability</strong></td>
+                                    <td>24/7</td>
+                                    <td>Business hours only</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Documents</strong></td>
+                                    <td>AI-generated, customized</td>
+                                    <td>Manual preparation</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Revisions</strong></td>
+                                    <td>Unlimited</td>
+                                    <td>Limited (extra fees)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p><strong>Best of both:</strong> Use TorlyAI for preparation, consultant for final review if needed.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-card fade-in-element" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">What happens after I submit my information to TorlyAI?</h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p><strong>Step 1: Instant Analysis (2 minutes)</strong></p>
+                        <ul>
+                            <li>AI analyzes your business idea</li>
+                            <li>Checks against Home Office criteria</li>
+                            <li>Generates eligibility score (0-100)</li>
+                        </ul>
+                        <p><strong>Step 2: Personalized Report</strong></p>
+                        <ul>
+                            <li>Detailed assessment of innovation, viability, scalability</li>
+                            <li>Recommended endorsing bodies (from the 4 active bodies)</li>
+                            <li>Specific improvement areas</li>
+                            <li>Timeline estimate</li>
+                        </ul>
+                        <p><strong>Step 3: Action Plan</strong></p>
+                        <ul>
+                            <li>Document checklist</li>
+                            <li>Business plan outline</li>
+                            <li>Financial modeling templates</li>
+                            <li>Next steps guidance</li>
+                        </ul>
+                        <p><strong>Step 4: Ongoing Support</strong></p>
+                        <ul>
+                            <li>AI chat assistant for questions</li>
+                            <li>Document generation tools</li>
+                            <li>Application tracking dashboard</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-card fade-in-element" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">Is TorlyAI's assessment legally binding?</h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p><strong>No,</strong> TorlyAI provides guidance, not legal advice. Our assessment:</p>
+                        <p><strong>What it IS:</strong></p>
+                        <ul>
+                            <li>AI-powered analysis based on Home Office guidelines</li>
+                            <li>Probability indicator for endorsement success</li>
+                            <li>Identification of application strengths/weaknesses</li>
+                            <li>Preparation tool to improve application quality</li>
+                        </ul>
+                        <p><strong>What it is NOT:</strong></p>
+                        <ul>
+                            <li>Legal immigration advice</li>
+                            <li>Guarantee of visa approval</li>
+                            <li>Substitute for endorsing body decision</li>
+                            <li>Official UKVI assessment</li>
+                        </ul>
+                        <p><strong>Final decisions are made by:</strong></p>
+                        <ul>
+                            <li>Endorsing body → Endorsement approval/rejection</li>
+                            <li>UK Visas & Immigration → Visa approval/rejection</li>
+                        </ul>
+                        <p>TorlyAI maximizes your chances but cannot guarantee outcomes.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Still Have Questions?</h2>
+        <p>Get personalized answers and start your UK Innovator Founder Visa journey today.</p>
+        <div class="cta-buttons">
+            <a href="/visa-assessment" class="btn-primary">Start Free Assessment</a>
+            <a href="/contact" class="btn-secondary">Contact Us</a>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    // Observe all fade-in elements
+    document.querySelectorAll('.fade-in-element').forEach(el => {
+        observer.observe(el);
+    });
+</script>

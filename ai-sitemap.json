@@ -1,0 +1,121 @@
+{
+  "sitemap_version": "1.0",
+  "site_name": "TorlyAI",
+  "site_url": "https://torly.ai",
+  "description": "AI-powered UK Innovator Founder Visa guidance platform",
+  "last_updated": "2026-01-18",
+  "content_types": [
+    "faq",
+    "api",
+    "guides",
+    "statistics"
+  ],
+  "api_endpoints": [
+    {
+      "endpoint": "/wp-json/torlyai/v1/visa-requirements",
+      "method": "GET",
+      "description": "Structured data about UK Innovator Founder Visa requirements, costs, timeline, and success rates",
+      "format": "JSON",
+      "public": true,
+      "last_updated": "2026-01-18"
+    },
+    {
+      "endpoint": "/wp-json/torlyai/v1/endorsing-bodies",
+      "method": "GET",
+      "description": "List of 8 authorized endorsing bodies with success rates, processing times, and fees",
+      "format": "JSON",
+      "public": true,
+      "last_updated": "2026-01-18"
+    }
+  ],
+  "key_pages": [
+    {
+      "url": "https://torly.ai/",
+      "title": "Homepage",
+      "description": "UK Innovator Founder Visa AI assistant with FAQ section and official statistics",
+      "content_type": "landing_page",
+      "schema_markup": ["FAQPage", "Organization"],
+      "last_updated": "2026-01-18"
+    },
+    {
+      "url": "https://torly.ai/about/",
+      "title": "About TorlyAI",
+      "description": "Conversational Q&A format explaining TorlyAI services, success rates, and pricing with gov.uk citations",
+      "content_type": "about",
+      "schema_markup": [],
+      "gov_uk_citations": 6,
+      "last_updated": "2026-01-18"
+    },
+    {
+      "url": "https://torly.ai/faq/",
+      "title": "Frequently Asked Questions",
+      "description": "Comprehensive 18-question FAQ covering visa eligibility, application process, costs, endorsing bodies, and TorlyAI services",
+      "content_type": "faq",
+      "schema_markup": ["FAQPage"],
+      "question_count": 18,
+      "gov_uk_citations": 8,
+      "last_updated": "2026-01-18"
+    }
+  ],
+  "blog_posts": [
+    {
+      "url": "https://torly.ai/blog/navigating-the-uk-innovator-founder-visa-route-with-ai-powered-precision/",
+      "title": "Navigating the UK Innovator Founder Visa Route with AI-Powered Precision",
+      "description": "Complete guide to UK Innovator Founder Visa with auto-injected FAQ section",
+      "content_type": "blog_post",
+      "schema_markup": ["FAQPage", "BlogPosting"],
+      "faq_questions": 5,
+      "last_updated": "2026-01-17"
+    },
+    {
+      "url": "https://torly.ai/blog/success-story-from-startup-idea-to-uk-permanent-residence/",
+      "title": "Success Story: From Startup Idea to UK Permanent Residence",
+      "description": "Real success story of entrepreneur's visa journey with FAQ section",
+      "content_type": "blog_post",
+      "schema_markup": ["FAQPage", "BlogPosting"],
+      "faq_questions": 5,
+      "last_updated": "2026-01-17"
+    }
+  ],
+  "structured_data": {
+    "faq_pages": 3,
+    "total_faq_questions": 28,
+    "schema_org_types": ["FAQPage", "Organization", "BlogPosting"],
+    "gov_uk_citations": 14
+  },
+  "seo_keywords": [
+    "UK Innovator Founder Visa",
+    "Innovator Founder Visa requirements",
+    "UK visa for entrepreneurs",
+    "Innovator Visa 2026",
+    "UK business visa",
+    "endorsing bodies UK",
+    "UK visa costs",
+    "UK visa timeline"
+  ],
+  "official_sources": [
+    {
+      "title": "UK Home Office - Innovator Founder Visa",
+      "url": "https://www.gov.uk/innovator-founder-visa"
+    },
+    {
+      "title": "UK Home Office - Immigration Statistics 2025",
+      "url": "https://www.gov.uk/government/statistics/immigration-statistics-year-ending-september-2025"
+    },
+    {
+      "title": "UK Home Office - Endorsing Bodies List",
+      "url": "https://www.gov.uk/government/publications/endorsing-bodies-innovator-founder"
+    }
+  ],
+  "robots_txt": "https://torly.ai/robots.txt",
+  "xml_sitemap": "https://torly.ai/wp-sitemap.xml",
+  "ai_friendly_features": [
+    "Structured JSON APIs for visa data",
+    "FAQPage Schema.org markup on 3 pages",
+    "Question-answer format content",
+    "Gov.uk source citations throughout",
+    "Explicit terminology (Innovator Founder Visa)",
+    "Quantifiable data (costs, timelines, success rates)",
+    "AI crawler access in robots.txt"
+  ]
+}

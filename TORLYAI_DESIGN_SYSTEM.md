@@ -17,6 +17,9 @@
 7. [Forms](#forms)
 8. [Responsive Design](#responsive-design)
 9. [Accessibility](#accessibility)
+10. [WordPress Integration](#wordpress-integration)
+11. [Implementation Best Practices](#implementation-best-practices)
+12. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -934,19 +937,41 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 }
 ```
 
-### Responsive Typography
+### Responsive Typography (Recommended Approach)
+
+**Use `clamp()` for fluid, responsive typography without breakpoints:**
 
 ```css
-/* Fluid Typography Formula */
-.fluid-text {
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-}
-
-/* Example: Hero Title */
+/* Hero Title - Fluid scaling from mobile to desktop */
 .hero-title {
     font-size: clamp(2.25rem, 5vw, 4.5rem);
+    /* Mobile: 36px | Scales with viewport | Desktop: 72px */
+}
+
+/* Section Title - Fluid scaling */
+.section-title {
+    font-size: clamp(1.875rem, 4vw, 3rem);
+    /* Mobile: 30px | Scales with viewport | Desktop: 48px */
+}
+
+/* Card Title - Fluid scaling */
+.card-title {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    /* Mobile: 20px | Scales with viewport | Desktop: 24px */
+}
+
+/* Body Text - Fluid scaling */
+body {
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    /* Mobile: 16px | Scales with viewport | Desktop: 18px */
 }
 ```
+
+**Why clamp():**
+- No breakpoints needed
+- Smooth scaling across all screen sizes
+- Better performance (no media queries to parse)
+- More maintainable code
 
 ### Mobile-First Grid
 
@@ -1460,6 +1485,600 @@ window.addEventListener('scroll', debounce(() => {
     font-weight: 600;
 }
 ```
+
+---
+
+## 19. WordPress Integration
+
+### 19.1 Content Filtering Issues
+
+**Problem:** WordPress automatically filters post content with `wpautop`, converting `<style>` tags to `<p>` tags.
+
+**Solution 1: Add Styles to Theme CSS**
+```bash
+# Add custom styles to theme's style.css
+cat >> wp-content/themes/torly-theme/style.css << 'CSS'
+/* Custom Page Styles */
+.form-input,
+.form-textarea {
+    border-radius: 0.75rem !important;
+    /* Other styles */
+}
+CSS
+```
+
+**Solution 2: Disable Content Filters (Must-Use Plugin)**
+```php
+<?php
+/**
+ * Plugin Name: Preserve HTML Content
+ * Description: Disables wpautop for specific pages
+ */
+
+add_filter('the_content', 'preserve_html_content', 0);
+function preserve_html_content($content) {
+    if (is_page(array('about', 'contact'))) {
+        remove_filter('the_content', 'wpautop');
+        remove_filter('the_content', 'wptexturize');
+    }
+    return $content;
+}
+```
+
+**Save to:** `wp-content/mu-plugins/preserve-content.php`
+
+### 19.2 Deploying Pages to WordPress
+
+**Via WP-CLI:**
+```bash
+# Upload file to server
+scp page-content.html user@server:/tmp/
+
+# Update WordPress post
+ssh user@server "sudo -u www-data wp post update POST_ID \
+  --post_content='\$(cat /tmp/page-content.html)' \
+  --path=/var/www/html"
+```
+
+**Important Notes:**
+- Post content is HTML-only (no `<html>`, `<head>`, or `<body>` tags)
+- Include inline `<style>` tags at the top of content
+- Include inline `<script>` tags at the bottom
+- WordPress may strip certain HTML - test after deployment
+
+### 19.3 Page Template Requirements
+
+**Create `page.php` if missing:**
+```php
+<?php
+/**
+ * The template for displaying all pages
+ *
+ * @package TorlyAI
+ */
+
+get_header(); ?>
+
+<main class="site-main">
+    <?php
+    while (have_posts()) : the_post();
+        the_content();
+    endwhile;
+    ?>
+</main>
+
+<?php get_footer(); ?>
+```
+
+**File Location:** `wp-content/themes/torly-theme/page.php`
+
+### 19.4 Theme CSS Integration
+
+**Add design system styles to `style.css`:**
+```css
+/* TorlyAI Design System Styles */
+
+/* Form Inputs */
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.75rem !important;
+    background: #ffffff;
+    color: #000000;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+```
+
+---
+
+## 20. Implementation Best Practices
+
+### 20.1 Page Structure
+
+**Correct HTML structure for WordPress pages:**
+```html
+<style>
+    /* All CSS styles here */
+    :root {
+        --white: #ffffff;
+        --black: #000000;
+        /* More variables */
+    }
+
+    .hero-section { /* styles */ }
+    .feature-card { /* styles */ }
+    /* etc. */
+</style>
+
+<!-- Page Content -->
+<section class="hero-section">
+    <!-- Content -->
+</section>
+
+<section class="features-section">
+    <!-- Content -->
+</section>
+
+<script>
+    // All JavaScript here
+    const observer = new IntersectionObserver(/* ... */);
+</script>
+```
+
+### 20.2 Responsive Typography Best Practices
+
+**Always use clamp() for main typography:**
+```css
+/* ✅ Good - Fluid scaling */
+.hero-title {
+    font-size: clamp(2.25rem, 5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.020em;
+}
+
+/* ❌ Avoid - Multiple breakpoints */
+.hero-title {
+    font-size: 2.25rem;
+}
+@media (min-width: 768px) {
+    .hero-title { font-size: 3rem; }
+}
+@media (min-width: 1024px) {
+    .hero-title { font-size: 4.5rem; }
+}
+```
+
+### 20.3 Button Implementation
+
+**Glass-morphism primary button:**
+```css
+.btn-primary {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);  /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 9999px;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--black);
+    cursor: pointer;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateZ(0);  /* GPU acceleration */
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: scale(1.02) translateZ(0);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+```
+
+### 20.4 Form Styling
+
+**Complete form input styling:**
+```css
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.75rem;  /* 12px - design system compliant */
+    background: #ffffff;
+    color: #000000;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.form-textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+```
+
+### 20.5 Scroll Animations
+
+**Use Intersection Observer (modern approach):**
+```javascript
+// Initialize observer
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            // Optional: stop observing after animation
+            observer.unobserve(entry.target);
+        }
+    });
+}, {
+    threshold: 0.1,  // Trigger when 10% visible
+    rootMargin: '0px 0px -50px 0px'  // Trigger slightly before entering viewport
+});
+
+// Observe all animated elements
+document.querySelectorAll('.fade-in-element').forEach(el => {
+    observer.observe(el);
+});
+```
+
+**CSS for animated elements:**
+```css
+.fade-in-element {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in-element.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+```
+
+---
+
+## 21. Troubleshooting
+
+### 21.1 Styles Not Applying in WordPress
+
+**Problem:** CSS styles appearing as plain text on page.
+
+**Diagnosis:**
+```bash
+# Check if styles are being filtered
+curl -s https://your-site.com/page/ | grep -A2 "<style>"
+```
+
+**Solutions:**
+1. Add styles to theme's `style.css` file
+2. Install mu-plugin to disable content filtering
+3. Use WordPress Custom CSS feature (Appearance > Customize > Additional CSS)
+
+### 21.2 Form Inputs Have No Border Radius
+
+**Problem:** Form inputs showing 0px border-radius in tests.
+
+**Cause:** WordPress or theme CSS overriding styles with higher specificity.
+
+**Solution:**
+```css
+/* Add !important or increase specificity */
+.form-input,
+.form-textarea {
+    border-radius: 0.75rem !important;
+}
+
+/* OR increase specificity */
+.contact-form .form-input,
+.contact-form .form-textarea {
+    border-radius: 0.75rem;
+}
+```
+
+### 21.3 Glass-Morphism Not Working
+
+**Problem:** Buttons appear solid instead of translucent.
+
+**Cause:** `backdrop-filter` not supported or disabled.
+
+**Solution:**
+```css
+.btn-primary {
+    background: rgba(255, 255, 255, 0.9);  /* Fallback */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+/* Fallback for unsupported browsers */
+@supports not (backdrop-filter: blur(16px)) {
+    .btn-primary {
+        background: rgba(255, 255, 255, 0.95);
+    }
+}
+```
+
+### 21.4 Hero Section Too Tall/Short
+
+**Problem:** Hero section height not working correctly.
+
+**Fix min-height and padding:**
+```css
+.hero-section {
+    min-height: 100vh;
+    min-height: 100dvh;  /* Dynamic viewport height for mobile */
+    padding: 7rem 0 4rem;
+    display: flex;
+    align-items: center;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: auto;
+        padding: 5rem 0 3rem;
+    }
+}
+```
+
+### 21.5 Animations Not Triggering
+
+**Problem:** Scroll animations not working.
+
+**Checklist:**
+1. Verify JavaScript is loading
+2. Check browser console for errors
+3. Verify elements have correct class names
+4. Test Intersection Observer support
+
+**Debug code:**
+```javascript
+// Test if Intersection Observer is supported
+if ('IntersectionObserver' in window) {
+    console.log('✅ IntersectionObserver supported');
+} else {
+    console.log('❌ IntersectionObserver not supported');
+}
+
+// Log when elements become visible
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        console.log('Element:', entry.target, 'Visible:', entry.isIntersecting);
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1 });
+```
+
+### 21.6 Mobile Spacing Issues
+
+**Problem:** Content too cramped or too spaced on mobile.
+
+**Solution: Adjust container padding:**
+```css
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;  /* Minimum mobile padding */
+}
+
+@media (min-width: 640px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        padding: 0 2rem;
+    }
+}
+```
+
+---
+
+## 22. Real-World Implementation Examples
+
+### 22.1 About Page Pattern
+
+**Proven structure from production:**
+```html
+<style>
+    /* Design system variables */
+    :root {
+        --white: #ffffff;
+        --black: #000000;
+        --color-chat-green: #10b981;
+        --border-color: #e5e7eb;
+        --space-16: 4rem;
+    }
+
+    /* Hero section with gradients */
+    .hero-section {
+        padding: 7rem 0 4rem;
+        background: var(--white);
+        background-image:
+            radial-gradient(at 53% 78%, hsla(60,100%,50%,0.3) 0px, transparent 50%),
+            radial-gradient(at 71% 91%, hsla(108,100%,50%,0.3) 0px, transparent 50%),
+            radial-gradient(at 31% 91%, hsla(30,100%,50%,0.17) 0px, transparent 50%);
+    }
+
+    .hero-title {
+        font-size: clamp(2.25rem, 5vw, 4.5rem);
+        font-weight: 800;
+        line-height: 0.9;
+        letter-spacing: -0.020em;
+        color: var(--black);
+        margin-bottom: 1.5rem;
+    }
+
+    /* Feature cards with hover effects */
+    .feature-card {
+        background: var(--white);
+        border: 1px solid var(--border-color);
+        border-radius: 1rem;
+        padding: 2rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px) scale(1.01);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<!-- Content sections -->
+<section class="hero-section">
+    <div class="container">
+        <h1 class="hero-title">Your AI-Powered Partner for UK Innovator Visa Success</h1>
+        <p class="hero-subtitle">Navigate the complex visa process with confidence</p>
+    </div>
+</section>
+
+<script>
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in-element').forEach(el => {
+        observer.observe(el);
+    });
+</script>
+```
+
+### 22.2 Contact Page Pattern
+
+**Working contact form implementation:**
+```html
+<style>
+    .form-input,
+    .form-textarea {
+        width: 100%;
+        padding: 1rem 1.25rem;
+        font-size: 1rem;
+        border: 2px solid var(--border-color);
+        border-radius: 0.75rem;
+        background: var(--white);
+        color: var(--black);
+        transition: all 0.2s;
+        font-family: inherit;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+        outline: none;
+        border-color: var(--color-chat-green);
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+</style>
+
+<section class="contact-section">
+    <div class="container">
+        <form id="contact-form" class="modern-form">
+            <div class="form-group">
+                <label class="form-label required" for="name">Name</label>
+                <input type="text" id="name" name="name" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required" for="email">Email</label>
+                <input type="email" id="email" name="email" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required" for="message">Message</label>
+                <textarea id="message" name="message" class="form-textarea" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary btn-submit">Send Message</button>
+        </form>
+    </div>
+</section>
+
+<script>
+    document.getElementById('contact-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        // Form submission logic
+    });
+</script>
+```
+
+---
+
+## 23. Testing & Validation
+
+### 23.1 Design Compliance Tests
+
+**Run automated tests:**
+```bash
+# Install Playwright
+npm install --save-dev @playwright/test
+npx playwright install chromium
+
+# Run design system compliance tests
+npx playwright test tests/design-system-compliance.spec.js --reporter=list
+```
+
+**Expected results:**
+- ✅ Hero typography: 64-72px font, 800 weight
+- ✅ Section titles: 48px font, 700 weight
+- ✅ Card styling: 16px border-radius
+- ✅ Button styling: 9999px border-radius (pill shape)
+- ✅ Form inputs: 12px border-radius
+- ✅ Section spacing: 64px padding
+- ✅ Mobile responsive: 36px hero font
+- ✅ Color contrast: WCAG AA compliant
+
+### 23.2 Manual Testing Checklist
+
+**Desktop (1280px+):**
+- [ ] Hero title 64-72px
+- [ ] Glass-morphism buttons with blur effect
+- [ ] Hover effects on cards (lift + shadow)
+- [ ] Radial gradients visible in hero
+- [ ] 64px section padding
+
+**Tablet (768px):**
+- [ ] Text scales proportionally
+- [ ] Grid changes to 2 columns
+- [ ] Buttons remain readable
+- [ ] Forms remain usable
+
+**Mobile (375px):**
+- [ ] Hero title 36px
+- [ ] Single column layout
+- [ ] Buttons full-width or stacked
+- [ ] Form inputs easy to tap (44px+ height)
+- [ ] 48px section padding
 
 ---
 

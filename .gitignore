@@ -78,3 +78,4 @@ build/
 # Claude Code (optional - uncomment if you don't want to commit)
 # .claude/settings.json
 # .claude/statusline-*.sh
+google-analytics-stream.json

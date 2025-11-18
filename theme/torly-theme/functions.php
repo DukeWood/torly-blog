@@ -257,6 +257,20 @@ function torlyai_register_api_routes() {
         'callback' => 'torlyai_blog_stats_callback',
         'permission_callback' => 'torlyai_public_permission',
     ));
+
+    // GEO Optimization: Visa Requirements API (for AI engines)
+    register_rest_route('torlyai/v1', '/visa-requirements', array(
+        'methods' => 'GET',
+        'callback' => 'torlyai_visa_requirements_callback',
+        'permission_callback' => 'torlyai_public_permission',
+    ));
+
+    // GEO Optimization: Endorsing Bodies API (for AI engines)
+    register_rest_route('torlyai/v1', '/endorsing-bodies', array(
+        'methods' => 'GET',
+        'callback' => 'torlyai_endorsing_bodies_callback',
+        'permission_callback' => 'torlyai_public_permission',
+    ));
 }
 add_action('rest_api_init', 'torlyai_register_api_routes');
 
@@ -313,8 +327,165 @@ function torlyai_blog_stats_callback() {
         'total_comments' => wp_count_comments()->approved,
         'recent_posts' => get_recent_posts_data(5),
     );
-    
+
     return new WP_REST_Response($stats, 200);
+}
+
+// GEO Optimization: Visa Requirements API Callback
+function torlyai_visa_requirements_callback() {
+    $requirements = array(
+        'visa_name' => 'UK Innovator Founder Visa',
+        'official_name' => 'Innovator Founder Visa',
+        'previous_names' => array('Innovator Visa (pre-2023)'),
+        'year' => '2026',
+        'minimum_investment' => array(
+            'amount' => 50000,
+            'currency' => 'GBP',
+            'description' => 'Minimum £50,000 investment in the business'
+        ),
+        'costs' => array(
+            'visa_application_fee' => array('amount' => 1191, 'currency' => 'GBP'),
+            'immigration_health_surcharge' => array('amount' => 3105, 'currency' => 'GBP', 'duration' => '3 years'),
+            'endorsement_fee' => array('min' => 500, 'max' => 1500, 'currency' => 'GBP'),
+            'english_test' => array('min' => 150, 'max' => 200, 'currency' => 'GBP'),
+            'total_minimum' => array('amount' => 54796, 'currency' => 'GBP'),
+            'total_maximum' => array('amount' => 55796, 'currency' => 'GBP')
+        ),
+        'timeline' => array(
+            'total_weeks' => array('min' => 18, 'max' => 24),
+            'endorsement_stage' => array('min' => 6, 'max' => 8, 'unit' => 'weeks'),
+            'visa_application_stage' => array('min' => 12, 'max' => 16, 'unit' => 'weeks')
+        ),
+        'requirements' => array(
+            'age' => array('minimum' => 18, 'description' => 'At least 18 years old'),
+            'innovation' => 'Business must be innovative, new to UK market',
+            'investment' => '£50,000 minimum',
+            'endorsement' => 'Required from one of 8 authorized endorsing bodies',
+            'english' => 'B2 level English language requirement',
+            'maintenance' => array('amount' => 1270, 'currency' => 'GBP', 'description' => 'Minimum personal savings'),
+            'experience' => 'Business experience or relevant skills'
+        ),
+        'home_office_criteria' => array(
+            'innovation' => 'Is it new to the UK market?',
+            'viability' => 'Will it work?',
+            'scalability' => 'Can it grow?'
+        ),
+        'success_rate' => array(
+            'overall' => 0.85,
+            'description' => '85% approval rate for well-prepared applications',
+            'year' => 2025
+        ),
+        'duration' => array(
+            'initial' => array('years' => 3, 'description' => '3 years initially, renewable'),
+            'settlement' => array('years' => 3, 'description' => 'Eligible for permanent residence after 3 years')
+        ),
+        'sources' => array(
+            array(
+                'title' => 'UK Home Office - Innovator Founder Visa',
+                'url' => 'https://www.gov.uk/innovator-founder-visa'
+            ),
+            array(
+                'title' => 'UK Home Office - Immigration Statistics 2025',
+                'url' => 'https://www.gov.uk/government/statistics/immigration-statistics-year-ending-september-2025'
+            )
+        ),
+        'last_updated' => '2026-01-18',
+        'api_version' => '1.0'
+    );
+
+    return new WP_REST_Response($requirements, 200);
+}
+
+// GEO Optimization: Endorsing Bodies API Callback
+function torlyai_endorsing_bodies_callback() {
+    $endorsing_bodies = array(
+        'total_count' => 8,
+        'year' => 2026,
+        'bodies' => array(
+            array(
+                'id' => 1,
+                'name' => 'Tech Nation',
+                'focus' => 'Technology and digital businesses',
+                'success_rate' => array('min' => 0.75, 'max' => 0.80),
+                'processing_time' => array('min' => 4, 'max' => 6, 'unit' => 'weeks'),
+                'fee_range' => array('min' => 500, 'max' => 1000, 'currency' => 'GBP'),
+                'website' => 'https://technation.io'
+            ),
+            array(
+                'id' => 2,
+                'name' => 'Innovate UK',
+                'focus' => 'Innovation across all sectors',
+                'success_rate' => array('min' => 0.80, 'max' => 0.85),
+                'processing_time' => array('min' => 8, 'max' => 10, 'unit' => 'weeks'),
+                'fee_range' => array('min' => 1000, 'max' => 1500, 'currency' => 'GBP'),
+                'website' => 'https://www.ukri.org/councils/innovate-uk'
+            ),
+            array(
+                'id' => 3,
+                'name' => 'The Global Entrepreneurs Programme',
+                'focus' => 'High-growth businesses',
+                'success_rate' => array('min' => 0.80, 'max' => 0.85),
+                'processing_time' => array('min' => 4, 'max' => 6, 'unit' => 'weeks'),
+                'fee_range' => array('min' => 800, 'max' => 1200, 'currency' => 'GBP'),
+                'website' => 'https://www.gep.london'
+            ),
+            array(
+                'id' => 4,
+                'name' => 'Envestors Limited',
+                'focus' => 'Investment-ready businesses',
+                'success_rate' => array('min' => 0.75, 'max' => 0.80),
+                'processing_time' => array('min' => 6, 'max' => 8, 'unit' => 'weeks'),
+                'fee_range' => array('min' => 1000, 'max' => 1500, 'currency' => 'GBP'),
+                'website' => 'https://www.envestors.co.uk'
+            ),
+            array(
+                'id' => 5,
+                'name' => 'UK Endorsing Services (UKES)',
+                'focus' => 'General businesses',
+                'success_rate' => array('min' => 0.70, 'max' => 0.75),
+                'processing_time' => array('min' => 6, 'max' => 8, 'unit' => 'weeks'),
+                'fee_range' => array('min' => 500, 'max' => 800, 'currency' => 'GBP'),
+                'website' => 'https://www.endorsingbodies.co.uk'
+            ),
+            array(
+                'id' => 6,
+                'name' => 'British Business Bank',
+                'focus' => 'Scalable businesses',
+                'success_rate' => array('min' => 0.75, 'max' => 0.80),
+                'processing_time' => array('min' => 8, 'max' => 10, 'unit' => 'weeks'),
+                'fee_range' => array('min' => 1000, 'max' => 1500, 'currency' => 'GBP'),
+                'website' => 'https://www.british-business-bank.co.uk'
+            ),
+            array(
+                'id' => 7,
+                'name' => 'CityFibre',
+                'focus' => 'Infrastructure and connectivity',
+                'success_rate' => array('min' => 0.75, 'max' => 0.80),
+                'processing_time' => array('min' => 6, 'max' => 8, 'unit' => 'weeks'),
+                'fee_range' => array('min' => 800, 'max' => 1200, 'currency' => 'GBP'),
+                'website' => 'https://www.cityfibre.com'
+            ),
+            array(
+                'id' => 8,
+                'name' => 'London & Partners',
+                'focus' => 'London-based businesses',
+                'success_rate' => array('min' => 0.75, 'max' => 0.80),
+                'processing_time' => array('min' => 6, 'max' => 8, 'unit' => 'weeks'),
+                'fee_range' => array('min' => 800, 'max' => 1200, 'currency' => 'GBP'),
+                'website' => 'https://www.londonandpartners.com'
+            )
+        ),
+        'sources' => array(
+            array(
+                'title' => 'UK Home Office - Endorsing Bodies List',
+                'url' => 'https://www.gov.uk/government/publications/endorsing-bodies-innovator-founder'
+            )
+        ),
+        'last_updated' => '2026-01-18',
+        'api_version' => '1.0'
+    );
+
+    return new WP_REST_Response($endorsing_bodies, 200);
 }
 
 // Helper Functions
@@ -557,6 +728,78 @@ function torlyai_create_tables() {
     dbDelta($sql);
 }
 add_action('after_switch_theme', 'torlyai_create_tables');
+
+// Add FAQ Schema to Blog Posts (SEO/GEO Optimization)
+function torlyai_add_faq_schema_to_posts($content) {
+    // Only run on single post pages, not pages
+    if (!is_single() || is_page()) {
+        return $content;
+    }
+
+    global $post;
+
+    // Check if post is in visa-related categories
+    $categories = get_the_category($post->ID);
+    $visa_categories = array('UK Visa Guide', 'Innovator Visa', 'Business Immigration', 'How To Guides', 'Success Stories');
+    $is_visa_post = false;
+
+    foreach ($categories as $category) {
+        if (in_array($category->name, $visa_categories)) {
+            $is_visa_post = true;
+            break;
+        }
+    }
+
+    // Only add FAQ to visa-related posts
+    if (!$is_visa_post) {
+        return $content;
+    }
+
+    // Common FAQ questions for visa posts
+    $faq_data = array(
+        array(
+            'question' => 'What is the UK Innovator Founder Visa?',
+            'answer' => 'The UK Innovator Founder Visa (2026) is an immigration route for experienced entrepreneurs who want to establish an innovative, viable, and scalable business in the United Kingdom. It requires a minimum investment of £50,000 and endorsement from an approved body. <em>(Previously called "Innovator Visa" before 2023 reform.)</em><br><br><cite>Source: <a href="https://www.gov.uk/innovator-founder-visa" target="_blank" rel="noopener">UK Home Office</a></cite>'
+        ),
+        array(
+            'question' => 'How much does the UK Innovator Founder Visa cost?',
+            'answer' => '<strong>Total costs (2026):</strong><ul><li>Visa application fee: £1,191</li><li>Immigration Health Surcharge: £3,105 (3 years)</li><li>Minimum business investment: £50,000</li><li>Endorsement body fee: £500 - £1,500</li><li>English language test: £150 - £200</li></ul><strong>Minimum Total: £54,796 - £55,796</strong><br><br><cite>Source: <a href="https://www.gov.uk/innovator-founder-visa" target="_blank" rel="noopener">UK Home Office</a></cite>'
+        ),
+        array(
+            'question' => 'How long does the UK Innovator Founder Visa application take?',
+            'answer' => '<strong>Total Timeline: 18-24 weeks</strong><ul><li>Stage 1 (Endorsement): 6-8 weeks</li><li>Stage 2 (Visa Application): 12-16 weeks</li></ul>TorlyAI helps you prepare endorsement documents in days, not weeks.'
+        ),
+        array(
+            'question' => 'What are the key requirements for UK Innovator Founder Visa?',
+            'answer' => '<strong>You must meet ALL of these criteria:</strong><ul><li>At least 18 years old</li><li>Innovative business idea new to UK market</li><li>£50,000 minimum investment</li><li>Endorsement from approved body</li><li>English language (B2 level)</li><li>Sufficient personal savings (£1,270+)</li><li>Business experience or relevant skills</li></ul>'
+        ),
+        array(
+            'question' => 'Which endorsing bodies are authorized for UK Innovator Founder Visa?',
+            'answer' => '<strong>8 authorized endorsing bodies (2026):</strong><ol><li>Tech Nation - Technology and digital businesses</li><li>Innovate UK - Innovation across all sectors</li><li>The Global Entrepreneurs Programme - High-growth businesses</li><li>Envestors Limited - Investment-ready businesses</li><li>UK Endorsing Services (UKES) - General businesses</li><li>British Business Bank - Scalable businesses</li><li>CityFibre - Infrastructure and connectivity</li><li>London & Partners - London-based businesses</li></ol>TorlyAI recommends the best fit based on your industry and business stage.'
+        )
+    );
+
+    // Generate FAQ Schema.org markup
+    $faq_html = '<div itemscope itemtype="https://schema.org/FAQPage" class="blog-post-faq" style="margin-top: 4rem; padding: 2rem; background: linear-gradient(135deg, #f6f9fc 0%, #ffffff 100%); border-radius: 12px;">';
+    $faq_html .= '<h2 style="font-size: 1.75rem; margin-bottom: 2rem; text-align: center;">Frequently Asked Questions</h2>';
+
+    foreach ($faq_data as $faq) {
+        $faq_html .= '<div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem;">';
+        $faq_html .= '<h3 itemprop="name" class="faq-question" style="font-size: 1.125rem; font-weight: 600; color: #111827; margin-bottom: 1rem;">' . esc_html($faq['question']) . '</h3>';
+        $faq_html .= '<div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">';
+        $faq_html .= '<div itemprop="text" class="faq-answer" style="color: #4b5563; line-height: 1.7;">' . $faq['answer'] . '</div>';
+        $faq_html .= '</div></div>';
+    }
+
+    $faq_html .= '<div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e5e7eb;">';
+    $faq_html .= '<p style="font-size: 1.125rem; color: #6b7280; margin-bottom: 1rem;">Need personalized guidance for your UK Innovator Founder Visa application?</p>';
+    $faq_html .= '<a href="/visa-assessment" style="display: inline-block; background: var(--color-chat-green); color: white; padding: 0.875rem 2rem; border-radius: 9999px; text-decoration: none; font-weight: 600;">Start Free Assessment</a>';
+    $faq_html .= '</div></div>';
+
+    // Append FAQ to post content
+    return $content . $faq_html;
+}
+add_filter('the_content', 'torlyai_add_faq_schema_to_posts');
 
 // Cleanup on theme deactivation
 function torlyai_cleanup() {
