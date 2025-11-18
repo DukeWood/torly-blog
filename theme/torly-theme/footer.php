@@ -32,6 +32,7 @@
                     <li><a href="https://torly.ai/privacy">Privacy Policy</a></li>
                     <li><a href="https://torly.ai/terms">Terms of Service</a></li>
                     <li><a href="https://torly.ai/disclaimer">Disclaimer</a></li>
+                    <li><a href="https://torly.ai/cookies">Cookies Policy</a></li>
                 </ul>
             </div>
         </div>

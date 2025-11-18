@@ -1483,11 +1483,9 @@ html {
    ============================================ */
 
 @media (max-width: 768px) {
-    .main-navigation ul {
-        flex-direction: column;
-        gap: 1rem;
-        display: none; /* Will implement mobile menu later */
-    }
+    /* Mobile menu styles moved to lines 222-311 - removed duplicate display:none */
+
+    /* .main-navigation ul styles handled in mobile menu section above */
 
     .hero-buttons {
         flex-direction: column;
