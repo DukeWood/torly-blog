@@ -68,6 +68,13 @@
                 <img src="<?php echo get_template_directory_uri(); ?>/assets/torlyai-logo.png" alt="Torly AI" class="logo-image" />
             </a>
 
+            <!-- Mobile Menu Toggle -->
+            <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
             <nav class="main-navigation">
                 <ul>
                     <li><a href="https://torly.ai/">Home</a></li>

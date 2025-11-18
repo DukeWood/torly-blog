@@ -84,11 +84,11 @@ add_action('admin_init', 'torlyai_set_https_urls');
 
 // Enqueue Scripts and Styles
 function torlyai_enqueue_scripts() {
-    // Theme stylesheet (v2.0.0 - Granola.ai design with cache busting)
-    wp_enqueue_style('torlyai-style', get_stylesheet_uri(), array(), '2.0.0');
+    // Theme stylesheet (v2.1.0 - Added mobile hamburger menu)
+    wp_enqueue_style('torlyai-style', get_stylesheet_uri(), array(), '2.1.0');
 
-    // Custom JavaScript
-    wp_enqueue_script('torlyai-script', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), '1.0.0', true);
+    // Custom JavaScript (v2.1.0 - Enhanced mobile menu with accessibility)
+    wp_enqueue_script('torlyai-script', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), '2.1.0', true);
 
     // Localize script for AJAX
     wp_localize_script('torlyai-script', 'torlyai_ajax', array(

@@ -319,9 +319,12 @@
         if (!menuToggle || !nav) return;
 
         menuToggle.addEventListener('click', () => {
-            nav.classList.toggle('active');
+            const isActive = nav.classList.toggle('active');
             menuToggle.classList.toggle('active');
             document.body.classList.toggle('menu-open');
+
+            // Update aria-expanded for accessibility
+            menuToggle.setAttribute('aria-expanded', isActive);
         });
 
         // Close menu when clicking outside
@@ -330,7 +333,30 @@
                 nav.classList.remove('active');
                 menuToggle.classList.remove('active');
                 document.body.classList.remove('menu-open');
+                menuToggle.setAttribute('aria-expanded', 'false');
             }
+        });
+
+        // Close menu when pressing Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                menuToggle.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.focus(); // Return focus to button
+            }
+        });
+
+        // Close menu when clicking a link (for single-page nav)
+        const navLinks = nav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                menuToggle.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
         });
     }
 
