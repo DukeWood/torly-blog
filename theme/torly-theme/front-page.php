@@ -19,7 +19,7 @@ get_header(); ?>
                 From initial assessment to final submission, our AI agents work around the clock to ensure your application meets all requirements.
             </p>
             <div class="hero-buttons">
-                <a href="#visa-assessment" class="btn-primary">Start Free Assessment</a>
+                <button onclick="openWaitlistModal()" class="btn-primary">Join Waitlist</button>
                 <a href="#features" class="btn-secondary">Explore Our Services</a>
             </div>
         </div>
@@ -425,11 +425,407 @@ get_header(); ?>
             <h2>Ready to Start Your UK Innovation Journey?</h2>
             <p>Join thousands of entrepreneurs who've successfully navigated the visa process with TorlyAI</p>
             <div class="cta-buttons">
-                <a href="<?php echo home_url('/visa-assessment'); ?>" class="btn-primary">Start Free Assessment</a>
+                <button onclick="openWaitlistModal()" class="btn-primary">Join Waitlist</button>
                 <a href="<?php echo home_url('/contact'); ?>" class="btn-secondary">Schedule a Consultation</a>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Waitlist Modal -->
+<div id="waitlistModal" class="waitlist-modal">
+    <div class="waitlist-modal-content">
+        <button class="waitlist-modal-close" onclick="closeWaitlistModal()">&times;</button>
+
+        <div class="waitlist-modal-header">
+            <h2>Join the Waitlist</h2>
+            <p>Be the first to know when TorlyAI launches. Get exclusive early access and special launch pricing!</p>
+        </div>
+
+        <form id="waitlistForm" class="waitlist-form">
+            <div class="form-group">
+                <label for="waitlistEmail">Email Address</label>
+                <input
+                    type="email"
+                    id="waitlistEmail"
+                    name="email"
+                    placeholder="your.email@example.com"
+                    required
+                    autocomplete="email"
+                />
+            </div>
+
+            <button type="submit" class="btn-primary-full" id="waitlistSubmitBtn">
+                <span class="btn-text">Join Waitlist</span>
+                <span class="btn-loading" style="display: none;">
+                    <svg class="spinner" viewBox="0 0 24 24">
+                        <circle class="spinner-circle" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/>
+                    </svg>
+                    Joining...
+                </span>
+            </button>
+
+            <p class="form-disclaimer">
+                We respect your privacy. Unsubscribe at any time.
+                See our <a href="<?php echo home_url('/privacy'); ?>">Privacy Policy</a>.
+            </p>
+        </form>
+
+        <div id="waitlistSuccess" class="waitlist-success" style="display: none;">
+            <div class="success-icon">✓</div>
+            <h3>You're on the list!</h3>
+            <p>Check your email for confirmation and next steps.</p>
+            <button onclick="closeWaitlistModal()" class="btn-secondary">Close</button>
+        </div>
+
+        <div id="waitlistError" class="waitlist-error" style="display: none;">
+            <p class="error-message"></p>
+            <button onclick="resetWaitlistForm()" class="btn-secondary">Try Again</button>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Waitlist Modal Styles - Following TorlyAI Design System */
+.waitlist-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.2s ease;
+}
+
+.waitlist-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.waitlist-modal-content {
+    background: white;
+    border-radius: 1rem;
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+    padding: 2.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+}
+
+.waitlist-modal-close {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--text-tertiary);
+    transition: color 0.15s;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.waitlist-modal-close:hover {
+    color: var(--text-primary);
+}
+
+.waitlist-modal-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.waitlist-modal-header h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--black);
+}
+
+.waitlist-modal-header p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.waitlist-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.waitlist-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.waitlist-form input[type="email"] {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.15s;
+    background: white;
+}
+
+.waitlist-form input[type="email"]:focus {
+    outline: none;
+    border-color: var(--color-chat-green);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.btn-primary-full {
+    width: 100%;
+    padding: 1rem;
+    background: var(--color-chat-green);
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-primary-full:hover:not(:disabled) {
+    background: #0ea472;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn-primary-full:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+
+.spinner-circle {
+    stroke-dasharray: 63;
+    stroke-dashoffset: 32;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.form-disclaimer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+    margin-top: 1rem;
+    line-height: 1.5;
+}
+
+.form-disclaimer a {
+    color: var(--color-chat-green);
+    text-decoration: none;
+}
+
+.form-disclaimer a:hover {
+    text-decoration: underline;
+}
+
+.waitlist-success, .waitlist-error {
+    text-align: center;
+}
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--color-green), var(--color-chat-green));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: white;
+    margin: 0 auto 1.5rem;
+    animation: successPop 0.5s ease;
+}
+
+@keyframes successPop {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.waitlist-success h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--black);
+}
+
+.waitlist-success p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.waitlist-error {
+    padding: 1.5rem;
+    background: #fef2f2;
+    border-radius: 0.5rem;
+    border: 2px solid #fecaca;
+}
+
+.error-message {
+    color: #dc2626;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 640px) {
+    .waitlist-modal-content {
+        padding: 2rem 1.5rem;
+    }
+
+    .waitlist-modal-header h2 {
+        font-size: 1.5rem;
+    }
+}
+</style>
+
+<script>
+// Waitlist Modal Functions
+function openWaitlistModal() {
+    const modal = document.getElementById('waitlistModal');
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    // Focus on email input
+    setTimeout(() => {
+        document.getElementById('waitlistEmail').focus();
+    }, 100);
+}
+
+function closeWaitlistModal() {
+    const modal = document.getElementById('waitlistModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+
+    // Reset form after a delay
+    setTimeout(() => {
+        resetWaitlistForm();
+    }, 300);
+}
+
+function resetWaitlistForm() {
+    document.getElementById('waitlistForm').style.display = 'block';
+    document.getElementById('waitlistSuccess').style.display = 'none';
+    document.getElementById('waitlistError').style.display = 'none';
+    document.getElementById('waitlistForm').reset();
+}
+
+// Close modal when clicking outside
+document.addEventListener('click', function(event) {
+    const modal = document.getElementById('waitlistModal');
+    if (event.target === modal) {
+        closeWaitlistModal();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeWaitlistModal();
+    }
+});
+
+// Handle form submission
+document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const form = this;
+    const submitBtn = document.getElementById('waitlistSubmitBtn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const btnLoading = submitBtn.querySelector('.btn-loading');
+    const email = document.getElementById('waitlistEmail').value;
+
+    // Show loading state
+    submitBtn.disabled = true;
+    btnText.style.display = 'none';
+    btnLoading.style.display = 'flex';
+
+    try {
+        const response = await fetch('<?php echo rest_url('torlyai/v1/waitlist'); ?>', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: email })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.status === 'success') {
+            // Show success message
+            form.style.display = 'none';
+            document.getElementById('waitlistSuccess').style.display = 'block';
+
+            // Track conversion (if Google Analytics is loaded)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'join_waitlist', {
+                    'event_category': 'engagement',
+                    'event_label': 'waitlist_signup',
+                    'value': 1
+                });
+            }
+        } else {
+            throw new Error(data.message || 'Failed to join waitlist');
+        }
+    } catch (error) {
+        // Show error message
+        form.style.display = 'none';
+        document.getElementById('waitlistError').style.display = 'block';
+        document.querySelector('.error-message').textContent = error.message;
+    } finally {
+        // Reset button state
+        submitBtn.disabled = false;
+        btnText.style.display = 'inline';
+        btnLoading.style.display = 'none';
+    }
+});
+</script>
 
 <?php get_footer(); ?>

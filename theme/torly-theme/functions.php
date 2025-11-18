@@ -331,6 +331,21 @@ function torlyai_register_api_routes() {
         'callback' => 'torlyai_endorsing_bodies_callback',
         'permission_callback' => 'torlyai_public_permission',
     ));
+
+    // Waitlist API (public with rate limiting)
+    register_rest_route('torlyai/v1', '/waitlist', array(
+        'methods' => 'POST',
+        'callback' => 'torlyai_waitlist_callback',
+        'permission_callback' => 'torlyai_public_permission',
+        'args' => array(
+            'email' => array(
+                'required' => true,
+                'validate_callback' => function($param) {
+                    return is_email($param);
+                }
+            ),
+        ),
+    ));
 }
 add_action('rest_api_init', 'torlyai_register_api_routes');
 
@@ -454,6 +469,152 @@ function torlyai_visa_requirements_callback() {
     );
 
     return new WP_REST_Response($requirements, 200);
+}
+
+// Waitlist API Callback
+function torlyai_waitlist_callback($request) {
+    global $wpdb;
+    $params = $request->get_json_params();
+
+    if (empty($params['email'])) {
+        $params = $request->get_body_params();
+    }
+
+    $email = sanitize_email($params['email']);
+
+    if (!is_email($email)) {
+        return new WP_REST_Response(array(
+            'status' => 'error',
+            'message' => 'Invalid email address'
+        ), 400);
+    }
+
+    $table_name = $wpdb->prefix . 'waitlist';
+
+    // Check if email already exists
+    $existing = $wpdb->get_var($wpdb->prepare(
+        "SELECT id FROM $table_name WHERE email = %s",
+        $email
+    ));
+
+    if ($existing) {
+        return new WP_REST_Response(array(
+            'status' => 'success',
+            'message' => 'You are already on the waitlist!',
+            'already_exists' => true
+        ), 200);
+    }
+
+    // Insert into database
+    $inserted = $wpdb->insert(
+        $table_name,
+        array(
+            'email' => $email,
+            'status' => 'active',
+            'created_at' => current_time('mysql')
+        ),
+        array('%s', '%s', '%s')
+    );
+
+    if ($inserted === false) {
+        return new WP_REST_Response(array(
+            'status' => 'error',
+            'message' => 'Failed to add you to the waitlist. Please try again.'
+        ), 500);
+    }
+
+    // Send confirmation email
+    $email_sent = torlyai_send_waitlist_confirmation_email($email);
+
+    return new WP_REST_Response(array(
+        'status' => 'success',
+        'message' => 'Successfully joined the waitlist!',
+        'email_sent' => $email_sent
+    ), 200);
+}
+
+// Send waitlist confirmation email
+function torlyai_send_waitlist_confirmation_email($email) {
+    $to = $email;
+    $subject = 'Welcome to TorlyAI Waitlist - Your UK Innovator Visa Journey Starts Here!';
+
+    $message = '
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, hsl(60, 100%, 50%) 0%, hsl(108, 100%, 50%) 50%, hsl(30, 100%, 50%) 100%); padding: 40px 20px; text-align: center; border-radius: 8px 8px 0 0; }
+        .header h1 { color: #000; margin: 0; font-size: 28px; font-weight: 800; }
+        .content { background: #ffffff; padding: 40px 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 8px 8px; }
+        .button { display: inline-block; background: #10b981; color: #ffffff !important; padding: 12px 32px; text-decoration: none; border-radius: 50px; font-weight: 600; margin: 20px 0; }
+        .footer { text-align: center; padding: 20px; color: #6b7280; font-size: 14px; }
+        .stats { background: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .stat-item { margin: 10px 0; }
+        .stat-label { font-weight: 600; color: #000; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎉 Welcome to TorlyAI!</h1>
+        </div>
+        <div class="content">
+            <p><strong>Hi there,</strong></p>
+
+            <p>Thank you for joining the TorlyAI waitlist! You\'re now one step closer to achieving your UK Innovator Founder Visa dream.</p>
+
+            <p><strong>What happens next?</strong></p>
+            <ul>
+                <li>✅ You\'re on our exclusive waitlist</li>
+                <li>📧 We\'ll notify you when our platform launches</li>
+                <li>🎁 Early access to our AI-powered visa assessment tool</li>
+                <li>💰 Special launch pricing for waitlist members</li>
+            </ul>
+
+            <div class="stats">
+                <p style="font-size: 18px; font-weight: 700; margin-bottom: 15px;">UK Innovator Founder Visa Quick Facts (2026)</p>
+                <div class="stat-item">
+                    <span class="stat-label">Success Rate:</span> 85% approval for well-prepared applications
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Timeline:</span> 18-24 weeks from preparation to approval
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Investment:</span> £50,000 minimum
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Settlement:</span> Eligible for permanent residence after 3 years
+                </div>
+            </div>
+
+            <p><strong>In the meantime, check out our resources:</strong></p>
+            <p style="text-align: center;">
+                <a href="https://torly.ai/blog/" class="button">Read Our Blog</a>
+            </p>
+
+            <p>Have questions? Simply reply to this email - we\'re here to help!</p>
+
+            <p style="margin-top: 30px;">Best regards,<br><strong>The TorlyAI Team</strong></p>
+        </div>
+        <div class="footer">
+            <p>© 2025 Torly AI. All rights reserved.</p>
+            <p>TorlyAI is operated by Innovatorly Ltd (Company no: 16674855)<br>
+            167-169 Great Portland Street, London, W1W 5PF, UK</p>
+        </div>
+    </div>
+</body>
+</html>
+    ';
+
+    $headers = array(
+        'Content-Type: text/html; charset=UTF-8',
+        'From: TorlyAI <noreply@innovatorly.ai>'
+    );
+
+    return wp_mail($to, $subject, $message, $headers);
 }
 
 // GEO Optimization: Endorsing Bodies API Callback
@@ -772,10 +933,10 @@ add_action('after_switch_theme', 'torlyai_create_default_taxonomy');
 // Create database tables on theme activation
 function torlyai_create_tables() {
     global $wpdb;
-
-    $table_name = $wpdb->prefix . 'visa_assessments';
     $charset_collate = $wpdb->get_charset_collate();
 
+    // Visa assessments table
+    $table_name = $wpdb->prefix . 'visa_assessments';
     $sql = "CREATE TABLE IF NOT EXISTS $table_name (
         id mediumint(9) NOT NULL AUTO_INCREMENT,
         email varchar(100) NOT NULL,
@@ -786,6 +947,19 @@ function torlyai_create_tables() {
 
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     dbDelta($sql);
+
+    // Waitlist table
+    $waitlist_table = $wpdb->prefix . 'waitlist';
+    $waitlist_sql = "CREATE TABLE IF NOT EXISTS $waitlist_table (
+        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        email varchar(100) NOT NULL UNIQUE,
+        status varchar(20) DEFAULT 'active',
+        created_at datetime DEFAULT CURRENT_TIMESTAMP,
+        notified_at datetime DEFAULT NULL,
+        PRIMARY KEY (id)
+    ) $charset_collate;";
+
+    dbDelta($waitlist_sql);
 }
 add_action('after_switch_theme', 'torlyai_create_tables');
 
