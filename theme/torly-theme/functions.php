@@ -505,15 +505,31 @@ function torlyai_waitlist_callback($request) {
         ), 200);
     }
 
+    // Get optional profile data
+    $country = isset($params['country']) ? sanitize_text_field($params['country']) : null;
+    $business_stage = isset($params['business_stage']) ? sanitize_text_field($params['business_stage']) : null;
+    $timeline = isset($params['timeline']) ? sanitize_text_field($params['timeline']) : null;
+
+    // Get device/referrer data
+    $device_type = isset($params['device_type']) ? sanitize_text_field($params['device_type']) : null;
+    $referrer = isset($params['referrer']) ? esc_url_raw($params['referrer']) : null;
+    $ip_country = isset($params['ip_country']) ? sanitize_text_field($params['ip_country']) : null;
+
     // Insert into database
     $inserted = $wpdb->insert(
         $table_name,
         array(
             'email' => $email,
             'status' => 'active',
+            'country' => $country,
+            'business_stage' => $business_stage,
+            'application_timeline' => $timeline,
+            'ip_country' => $ip_country,
+            'device_type' => $device_type,
+            'referrer' => $referrer,
             'created_at' => current_time('mysql')
         ),
-        array('%s', '%s', '%s')
+        array('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')
     );
 
     if ($inserted === false) {
@@ -954,6 +970,12 @@ function torlyai_create_tables() {
         id mediumint(9) NOT NULL AUTO_INCREMENT,
         email varchar(100) NOT NULL UNIQUE,
         status varchar(20) DEFAULT 'active',
+        country varchar(2) DEFAULT NULL,
+        business_stage varchar(50) DEFAULT NULL,
+        application_timeline varchar(20) DEFAULT NULL,
+        ip_country varchar(2) DEFAULT NULL,
+        device_type varchar(20) DEFAULT NULL,
+        referrer varchar(500) DEFAULT NULL,
         created_at datetime DEFAULT CURRENT_TIMESTAMP,
         notified_at datetime DEFAULT NULL,
         PRIMARY KEY (id)

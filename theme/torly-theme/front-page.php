@@ -471,11 +471,158 @@ get_header(); ?>
             </p>
         </form>
 
+        <!-- Step 1: Success + Questions -->
         <div id="waitlistSuccess" class="waitlist-success" style="display: none;">
             <div class="success-icon">✓</div>
             <h3>You're on the list!</h3>
             <p>Check your email for confirmation and next steps.</p>
-            <button onclick="closeWaitlistModal()" class="btn-secondary">Close</button>
+
+            <div class="profile-questions">
+                <h4>Help us personalize your experience (optional)</h4>
+
+                <div class="form-group">
+                    <label for="profileCountry">Where are you currently based?</label>
+                    <select id="profileCountry" name="country" class="form-select">
+                        <option value="">Select country...</option>
+                        <option value="GB">🇬🇧 United Kingdom</option>
+                        <option value="US">🇺🇸 United States</option>
+                        <option value="IN">🇮🇳 India</option>
+                        <option value="CN">🇨🇳 China</option>
+                        <option value="NG">🇳🇬 Nigeria</option>
+                        <option disabled>──────────</option>
+                        <option value="AF">Afghanistan</option>
+                        <option value="AL">Albania</option>
+                        <option value="DZ">Algeria</option>
+                        <option value="AR">Argentina</option>
+                        <option value="AU">Australia</option>
+                        <option value="AT">Austria</option>
+                        <option value="BD">Bangladesh</option>
+                        <option value="BE">Belgium</option>
+                        <option value="BR">Brazil</option>
+                        <option value="CA">Canada</option>
+                        <option value="CL">Chile</option>
+                        <option value="CO">Colombia</option>
+                        <option value="EG">Egypt</option>
+                        <option value="FR">France</option>
+                        <option value="DE">Germany</option>
+                        <option value="GH">Ghana</option>
+                        <option value="HK">Hong Kong</option>
+                        <option value="ID">Indonesia</option>
+                        <option value="IE">Ireland</option>
+                        <option value="IL">Israel</option>
+                        <option value="IT">Italy</option>
+                        <option value="JP">Japan</option>
+                        <option value="KE">Kenya</option>
+                        <option value="MY">Malaysia</option>
+                        <option value="MX">Mexico</option>
+                        <option value="NL">Netherlands</option>
+                        <option value="NZ">New Zealand</option>
+                        <option value="PK">Pakistan</option>
+                        <option value="PH">Philippines</option>
+                        <option value="PL">Poland</option>
+                        <option value="RU">Russia</option>
+                        <option value="SA">Saudi Arabia</option>
+                        <option value="SG">Singapore</option>
+                        <option value="ZA">South Africa</option>
+                        <option value="KR">South Korea</option>
+                        <option value="ES">Spain</option>
+                        <option value="SE">Sweden</option>
+                        <option value="CH">Switzerland</option>
+                        <option value="TH">Thailand</option>
+                        <option value="TR">Turkey</option>
+                        <option value="AE">United Arab Emirates</option>
+                        <option value="VN">Vietnam</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>What stage is your business?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="business_stage" value="idea">
+                            <span>Just an idea</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="business_stage" value="mvp">
+                            <span>Building MVP</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="business_stage" value="revenue">
+                            <span>Have customers/revenue</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="business_stage" value="scale">
+                            <span>Ready to scale</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>When are you planning to apply?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="timeline" value="0-3months">
+                            <span>Next 3 months</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="timeline" value="3-6months">
+                            <span>3-6 months</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="timeline" value="6-12months">
+                            <span>6-12 months</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="timeline" value="researching">
+                            <span>Just researching</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-buttons">
+                    <button onclick="submitProfile()" class="btn-primary-full">Submit Answers</button>
+                    <button onclick="skipProfile()" class="btn-secondary-full">Skip</button>
+                </div>
+
+                <p class="form-disclaimer">Your answers help us provide better guidance. All optional.</p>
+            </div>
+        </div>
+
+        <!-- Step 2: Patreon Invitation -->
+        <div id="waitlistPatreon" class="waitlist-patreon" style="display: none;">
+            <div class="community-icon">👥</div>
+            <h3>Join Innovatorly Tribe</h3>
+            <p class="community-tagline">Connect with 100+ founders navigating the UK visa journey</p>
+
+            <ul class="community-benefits">
+                <li>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.667 9.167v.833a6.667 6.667 0 11-3.95-6.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.667 3.333L10 10.008l-2-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Weekly live Q&A with visa experts
+                </li>
+                <li>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.667 9.167v.833a6.667 6.667 0 11-3.95-6.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.667 3.333L10 10.008l-2-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Exclusive resources & templates
+                </li>
+                <li>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.667 9.167v.833a6.667 6.667 0 11-3.95-6.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.667 3.333L10 10.008l-2-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Private community forum
+                </li>
+                <li>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.667 9.167v.833a6.667 6.667 0 11-3.95-6.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.667 3.333L10 10.008l-2-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Founder success stories
+                </li>
+            </ul>
+
+            <div class="patreon-buttons">
+                <a href="https://patreon.com/innovatorly?utm_medium=waitlist&utm_source=torlyai&utm_campaign=waitlist_success&utm_content=modal_cta"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   onclick="trackPatreonClick()"
+                   class="btn-patreon">
+                    Join the Community
+                </a>
+                <button onclick="closeWaitlistModal()" class="btn-secondary-full">Close</button>
+            </div>
         </div>
 
         <div id="waitlistError" class="waitlist-error" style="display: none;">
@@ -715,6 +862,185 @@ get_header(); ?>
     }
 }
 
+/* Profile Questions Styling */
+.profile-questions {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.profile-questions h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.form-select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-family: inherit;
+    background: white;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: var(--color-chat-green);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    padding: 0.875rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 0.95rem;
+}
+
+.radio-option:hover {
+    border-color: var(--color-chat-green);
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.radio-option input[type="radio"] {
+    margin-right: 0.75rem;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--color-chat-green);
+}
+
+.radio-option input[type="radio"]:checked + span {
+    font-weight: 600;
+    color: var(--color-chat-green);
+}
+
+.question-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.btn-secondary-full {
+    flex: 1;
+    padding: 0.875rem 1rem;
+    background: white;
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 9999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+}
+
+.btn-secondary-full:hover {
+    border-color: var(--text-primary);
+    background: var(--bg-secondary);
+}
+
+/* Patreon Invitation Styling */
+.waitlist-patreon {
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.community-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--color-yellow), var(--color-green));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    margin: 0 auto 1.5rem;
+    animation: successPop 0.5s ease;
+}
+
+.waitlist-patreon h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--black);
+}
+
+.community-tagline {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.community-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+    text-align: left;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.community-benefits li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.community-benefits li svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--color-chat-green);
+}
+
+.patreon-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 2rem;
+}
+
+.btn-patreon {
+    width: 100%;
+    padding: 1rem;
+    background: var(--color-chat-green);
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-patreon:hover {
+    background: #0ea472;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
 @media (max-width: 640px) {
     .waitlist-modal-content {
         padding: 2rem 1.5rem;
@@ -722,6 +1048,15 @@ get_header(); ?>
 
     .waitlist-modal-header h2 {
         font-size: 1.5rem;
+    }
+
+    .question-buttons {
+        flex-direction: column;
+    }
+
+    .radio-option {
+        padding: 0.75rem;
+        font-size: 0.875rem;
     }
 }
 </style>
@@ -753,8 +1088,101 @@ function closeWaitlistModal() {
 function resetWaitlistForm() {
     document.getElementById('waitlistForm').style.display = 'block';
     document.getElementById('waitlistSuccess').style.display = 'none';
+    document.getElementById('waitlistPatreon').style.display = 'none';
     document.getElementById('waitlistError').style.display = 'none';
     document.getElementById('waitlistForm').reset();
+
+    // Reset profile questions
+    document.getElementById('profileCountry').value = '';
+    document.querySelectorAll('input[name="business_stage"]').forEach(r => r.checked = false);
+    document.querySelectorAll('input[name="timeline"]').forEach(r => r.checked = false);
+}
+
+// Store user email for profile submission
+let userWaitlistEmail = '';
+
+// Get device type
+function getDeviceType() {
+    const ua = navigator.userAgent;
+    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+        return 'tablet';
+    }
+    if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
+        return 'mobile';
+    }
+    return 'desktop';
+}
+
+// Submit profile answers
+async function submitProfile() {
+    const country = document.getElementById('profileCountry').value;
+    const businessStage = document.querySelector('input[name="business_stage"]:checked')?.value;
+    const timeline = document.querySelector('input[name="timeline"]:checked')?.value;
+
+    // Send update to API
+    try {
+        await fetch('<?php echo rest_url('torlyai/v1/waitlist'); ?>', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: userWaitlistEmail,
+                country: country,
+                business_stage: businessStage,
+                timeline: timeline
+            })
+        });
+
+        // Track analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'waitlist_questions_submitted', {
+                'event_category': 'engagement',
+                'country': country,
+                'business_stage': businessStage,
+                'timeline': timeline
+            });
+        }
+    } catch (error) {
+        console.error('Failed to update profile:', error);
+    }
+
+    // Show Patreon invitation (Step 2)
+    showPatreonInvitation();
+}
+
+// Skip profile questions
+function skipProfile() {
+    // Track analytics
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'waitlist_questions_skipped', {
+            'event_category': 'engagement'
+        });
+    }
+
+    // Show Patreon invitation (Step 2)
+    showPatreonInvitation();
+}
+
+// Show Patreon invitation screen
+function showPatreonInvitation() {
+    document.getElementById('waitlistSuccess').style.display = 'none';
+    document.getElementById('waitlistPatreon').style.display = 'block';
+
+    // Track analytics
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'patreon_invitation_shown', {
+            'event_category': 'engagement'
+        });
+    }
+}
+
+// Track Patreon link click
+function trackPatreonClick() {
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'patreon_link_clicked', {
+            'event_category': 'engagement',
+            'event_label': 'waitlist_success_modal'
+        });
+    }
 }
 
 // Close modal when clicking outside
@@ -782,24 +1210,34 @@ document.getElementById('waitlistForm').addEventListener('submit', async functio
     const btnLoading = submitBtn.querySelector('.btn-loading');
     const email = document.getElementById('waitlistEmail').value;
 
+    // Store email for later use
+    userWaitlistEmail = email;
+
     // Show loading state
     submitBtn.disabled = true;
     btnText.style.display = 'none';
     btnLoading.style.display = 'flex';
 
     try {
+        // Collect additional data
+        const payload = {
+            email: email,
+            device_type: getDeviceType(),
+            referrer: document.referrer || window.location.href
+        };
+
         const response = await fetch('<?php echo rest_url('torlyai/v1/waitlist'); ?>', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email: email })
+            body: JSON.stringify(payload)
         });
 
         const data = await response.json();
 
         if (response.ok && data.status === 'success') {
-            // Show success message
+            // Hide form and show Step 1 (success + questions)
             form.style.display = 'none';
             document.getElementById('waitlistSuccess').style.display = 'block';
 
@@ -808,6 +1246,7 @@ document.getElementById('waitlistForm').addEventListener('submit', async functio
                 gtag('event', 'join_waitlist', {
                     'event_category': 'engagement',
                     'event_label': 'waitlist_signup',
+                    'device_type': payload.device_type,
                     'value': 1
                 });
             }
