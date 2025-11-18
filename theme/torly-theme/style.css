@@ -1537,17 +1537,24 @@ button.btn-primary:hover {
 
     .hero-buttons {
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
     }
 
     .btn-primary,
     .btn-secondary {
-        width: 100%;
+        min-width: 200px;
+        max-width: max-content;
     }
 
     .cta-buttons {
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
+    }
+
+    .cta-buttons .btn-primary,
+    .cta-buttons .btn-secondary {
+        min-width: 200px;
+        max-width: max-content;
     }
 }
 
