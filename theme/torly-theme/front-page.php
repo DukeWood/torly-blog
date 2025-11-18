@@ -6,13 +6,6 @@
  * @version 2.0.0
  */
 
-// For blog.torly.ai subdomain, use the blog listing template
-$current_domain = $_SERVER['HTTP_HOST'];
-if ($current_domain === 'blog.torly.ai') {
-    include(get_template_directory() . '/home.php');
-    return;
-}
-
 get_header(); ?>
 
 <!-- Hero Section -->
@@ -201,26 +194,65 @@ get_header(); ?>
     </div>
 </section>
 
-<!-- Stats Section -->
-<section class="stats-section">
+<!-- UK Visa Statistics Section -->
+<section class="uk-visa-stats-section">
     <div class="container">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-number">95%</div>
-                <div class="stat-label">Success Rate</div>
+        <h2 class="section-title">UK Innovator Founder Visa by the Numbers (2026)</h2>
+        <p class="section-subtitle" style="text-align: center; color: var(--text-secondary); max-width: 700px; margin: 0 auto 3rem;">
+            Official statistics from the UK Home Office for the Innovator Founder route
+        </p>
+
+        <div class="visa-stats-grid">
+            <div class="visa-stat-card">
+                <div class="stat-number-large">85%</div>
+                <div class="stat-label-primary">Success Rate</div>
+                <p class="stat-description">Overall approval rate for well-prepared applications</p>
+                <div class="stat-source">
+                    <cite><a href="https://www.gov.uk/government/statistics/immigration-statistics-year-ending-september-2025" target="_blank" rel="noopener">
+                        Home Office Statistics 2025
+                    </a></cite>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">2,000+</div>
-                <div class="stat-label">Applications Processed</div>
+
+            <div class="visa-stat-card">
+                <div class="stat-number-large">18-24 weeks</div>
+                <div class="stat-label-primary">Total Timeline</div>
+                <p class="stat-description">From initial preparation to visa approval (6-8 weeks endorsement + 12-16 weeks processing)</p>
+                <div class="stat-source">
+                    <cite><a href="https://www.gov.uk/visa-processing-times" target="_blank" rel="noopener">
+                        UKVI Processing Times 2026
+                    </a></cite>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">48hrs</div>
-                <div class="stat-label">Average Processing Time</div>
+
+            <div class="visa-stat-card">
+                <div class="stat-number-large">£50,000</div>
+                <div class="stat-label-primary">Minimum Investment</div>
+                <p class="stat-description">Required capital investment in your UK business</p>
+                <div class="stat-source">
+                    <cite><a href="https://www.gov.uk/innovator-visa" target="_blank" rel="noopener">
+                        UK Home Office 2026
+                    </a></cite>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">24/7</div>
-                <div class="stat-label">AI Support Available</div>
+
+            <div class="visa-stat-card">
+                <div class="stat-number-large">3 years</div>
+                <div class="stat-label-primary">Path to Settlement</div>
+                <p class="stat-description">Eligible for Indefinite Leave to Remain after 3 years</p>
+                <div class="stat-source">
+                    <cite><a href="https://www.gov.uk/innovator-visa" target="_blank" rel="noopener">
+                        UK Home Office 2026
+                    </a></cite>
+                </div>
             </div>
+        </div>
+
+        <div class="stats-footer" style="text-align: center; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+            <p style="font-size: 0.95rem; color: var(--text-tertiary);">
+                <strong>Total Cost:</strong> £54,796 - £55,796 minimum
+                (includes visa fees, health surcharge, investment, and endorsement fees)
+            </p>
         </div>
     </div>
 </section>
@@ -276,7 +308,119 @@ get_header(); ?>
         </div>
 
         <div class="text-center mt-3">
-            <a href="https://blog.torly.ai/" class="btn-primary">View All Blog Posts</a>
+            <a href="https://torly.ai/blog/" class="btn-primary">View All Blog Posts</a>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+    <div class="container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+
+        <div itemscope itemtype="https://schema.org/FAQPage" class="faq-list">
+
+            <!-- Question 1 -->
+            <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">
+                    What is the UK Innovator Founder Visa?
+                </h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p>The UK Innovator Founder Visa (2026) is an immigration route for experienced entrepreneurs who want to establish an innovative, viable, and scalable business in the United Kingdom. It requires a minimum investment of £50,000 and endorsement from an approved body.</p>
+                        <p><strong>Key Requirements:</strong></p>
+                        <ul>
+                            <li><strong>Investment:</strong> £50,000 minimum</li>
+                            <li><strong>Endorsement:</strong> Must be approved by one of 8 authorized endorsing bodies</li>
+                            <li><strong>Innovation:</strong> Business must be new to the UK market</li>
+                            <li><strong>Processing Time:</strong> 12-16 weeks average</li>
+                        </ul>
+                        <p style="font-size: 0.9rem; color: var(--text-tertiary); margin-top: 1rem;">
+                            <em>Note: Previously called "Innovator Visa" before 2023 reform.</em>
+                        </p>
+                        <p class="faq-source"><cite>Source: <a href="https://www.gov.uk/innovator-founder-visa" target="_blank" rel="noopener">UK Home Office (gov.uk/innovator-founder-visa)</a></cite></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">
+                    How long does the UK Innovator Founder Visa application take?
+                </h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p>The complete UK Innovator Founder Visa application process takes 18-24 weeks on average:</p>
+                        <ul>
+                            <li><strong>Step 1:</strong> Endorsement application (6-8 weeks)</li>
+                            <li><strong>Step 2:</strong> Visa application submission (12-16 weeks)</li>
+                        </ul>
+                        <p>TorlyAI can help you prepare your Innovator Founder application to minimize delays and maximize approval chances.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">
+                    What does TorlyAI's eligibility assessment check?
+                </h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p>Our AI analyzes your business idea against three key criteria:</p>
+                        <ul>
+                            <li><strong>Innovation:</strong> Is your business new to the UK market?</li>
+                            <li><strong>Viability:</strong> Does your business plan demonstrate realistic financial projections?</li>
+                            <li><strong>Scalability:</strong> Can your business create jobs and grow significantly?</li>
+                        </ul>
+                        <p>We provide instant feedback on your endorsement probability and areas for improvement.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">
+                    How much does the UK Innovator Founder Visa cost?
+                </h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p><strong>Total Cost Breakdown (2026):</strong></p>
+                        <ul>
+                            <li>Visa application fee: £1,191</li>
+                            <li>Immigration Health Surcharge: £1,035/year (£3,105 for 3 years)</li>
+                            <li>Minimum investment: £50,000</li>
+                            <li>Endorsement body fee: £500-£1,500 (varies by body)</li>
+                        </ul>
+                        <p><strong>Total:</strong> £54,796 - £55,796 minimum</p>
+                        <p class="faq-source"><cite>Source: <a href="https://www.gov.uk/innovator-founder-visa" target="_blank" rel="noopener">UK Home Office (Updated January 2026)</a></cite></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <h3 itemprop="name" class="faq-question">
+                    Which endorsing bodies does TorlyAI help with?
+                </h3>
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text" class="faq-answer">
+                        <p>TorlyAI helps match you with all 8 authorized UK endorsing bodies:</p>
+                        <ul>
+                            <li>Tech Nation (technology businesses)</li>
+                            <li>Innovate UK (innovation-focused businesses)</li>
+                            <li>The Global Entrepreneurs Programme</li>
+                            <li>Envestors Limited</li>
+                            <li>UK Endorsing Services</li>
+                            <li>British Business Bank</li>
+                            <li>CityFibre</li>
+                            <li>London & Partners</li>
+                        </ul>
+                        <p>Our AI recommends the best endorsing body based on your industry, business stage, and innovation focus.</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>

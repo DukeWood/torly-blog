@@ -10,7 +10,7 @@
                 <h3>Quick Links</h3>
                 <ul>
                     <li><a href="https://torly.ai/">Home</a></li>
-                    <li><a href="https://blog.torly.ai/">Blog</a></li>
+                    <li><a href="https://torly.ai/blog/">Blog</a></li>
                     <li><a href="https://torly.ai/about">About Us</a></li>
                     <li><a href="https://torly.ai/contact">Contact</a></li>
                 </ul>

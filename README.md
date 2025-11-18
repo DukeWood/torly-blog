@@ -113,10 +113,10 @@ node automation/deploy-all.js
 The script will guide you through:
 1. Oracle Cloud VM setup (or skip if using existing server)
 2. GoDaddy DNS configuration
-3. WordPress installation
+3. WordPress installation (single-site)
 4. SSL certificate setup
-5. WordPress Multisite configuration
-6. Content publication
+5. ~~WordPress Multisite configuration~~ **DEPRECATED** - Single-site only
+6. Content publication at `/blog/` path
 
 ### Method 2: Manual Deployment
 
@@ -204,7 +204,7 @@ Features:
 - `wp_cli_command` - Execute any WP-CLI command
 - `wp_create_menu` - Create navigation menus
 - `wp_install_plugin` - Install plugins
-- `wp_configure_multisite` - Setup multisite
+- `wp_configure_multisite` - ~~Setup multisite~~ **DEPRECATED** - Single-site only
 - `wp_create_blog_structure` - Create blog categories/tags
 
 **DNS Management:**
@@ -245,10 +245,10 @@ node automation/deploy-all.js --skip-content
 **Workflow:**
 1. Oracle Cloud VM setup
 2. DNS configuration (GoDaddy API)
-3. WordPress installation (LAMP stack)
+3. WordPress installation (LAMP stack, single-site)
 4. SSL certificates (Let's Encrypt)
-5. WordPress Multisite setup
-6. Blog content publication
+5. ~~WordPress Multisite setup~~ **DEPRECATED** - Single-site configuration
+6. Blog content publication at `/blog/` path
 7. Final verification
 
 #### content-publisher.js - Bulk Content Publishing
@@ -522,7 +522,7 @@ For issues, questions, or contributions:
 - **Issues:** [GitHub Issues](https://github.com/yourusername/torly-wordpress-setup/issues)
 - **Documentation:** [CLAUDE.md](./CLAUDE.md)
 - **Website:** [torly.ai](https://torly.ai)
-- **Blog:** [blog.torly.ai](https://blog.torly.ai)
+- **Blog:** [torly.ai/blog](https://torly.ai/blog/)
 
 ## Acknowledgments
 
@@ -542,9 +542,17 @@ For issues, questions, or contributions:
 
 ---
 
-## Recent Updates (November 17, 2025)
+## Recent Updates
 
-### Blog Site Merge & Architecture Change
+### November 18, 2025 - Blog Navigation Fix
+
+Fixed blog navigation issues after multisite removal:
+- **Fixed**: All navigation links updated from `blog.torly.ai` to `/blog/` path
+- **Updated**: 3 theme files (front-page.php, footer.php, home.php)
+- **Cleaned**: Removed all database references to old subdomain
+- **Verified**: Blog button works correctly across all pages
+
+### November 17, 2025 - Blog Site Merge & Architecture Change
 
 The WordPress installation has been updated from Multisite to single-site configuration:
 

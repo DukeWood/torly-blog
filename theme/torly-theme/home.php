@@ -1,7 +1,7 @@
 <?php
 /**
  * Blog Posts Index Template
- * Used for displaying blog posts on blog.torly.ai
+ * Used for displaying blog posts at /blog/
  *
  * @package TorlyAI
  */
@@ -107,52 +107,81 @@ get_header(); ?>
 
 <style>
 .blog-index {
-    padding: 3rem 0;
-    background: var(--bg-secondary);
+    padding: 0;
+    background: var(--white);
+    background-image:
+        radial-gradient(at 53% 20%, hsla(60,100%,50%,0.25) 0px, transparent 50%),
+        radial-gradient(at 80% 60%, hsla(108,100%,50%,0.2) 0px, transparent 50%),
+        radial-gradient(at 20% 80%, hsla(30,100%,50%,0.15) 0px, transparent 50%);
 }
 
 .blog-header {
     text-align: center;
-    margin-bottom: 3rem;
-    padding: 2rem 0;
+    margin-bottom: 4rem;
+    padding: clamp(4rem, 8vw, 6rem) 0 clamp(3rem, 6vw, 4rem);
 }
 
 .blog-header .page-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
     color: var(--text-primary);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
 }
 
 .blog-header .page-description {
-    font-size: 1.125rem;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
     color: var(--text-secondary);
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
+    line-height: 1.6;
 }
 
 .blog-posts-container {
     margin-top: 2rem;
+    padding-bottom: clamp(3rem, 6vw, 5rem);
 }
 
 .blog-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: 1fr;
     gap: 2rem;
     margin-bottom: 3rem;
 }
 
+@media (min-width: 768px) {
+    .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .blog-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 .blog-card {
-    background: var(--bg-primary);
+    background: var(--white);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 1rem;
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.blog-card.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .blog-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.1);
 }
 
 .blog-thumbnail-link {
@@ -195,20 +224,21 @@ get_header(); ?>
 }
 
 .blog-title {
-    font-size: 1.25rem;
-    font-weight: 600;
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    font-weight: 700;
     margin-bottom: 0.75rem;
-    line-height: 1.4;
+    line-height: 1.3;
+    color: var(--text-primary);
 }
 
 .blog-title a {
     color: var(--text-primary);
     text-decoration: none;
-    transition: color 0.3s;
+    transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .blog-title a:hover {
-    color: var(--primary-color);
+    color: var(--color-chat-green);
 }
 
 .blog-excerpt {
@@ -218,17 +248,19 @@ get_header(); ?>
 }
 
 .read-more {
-    color: var(--primary-color);
+    color: var(--text-primary);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 0.9375rem;
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
-    transition: gap 0.3s;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .read-more:hover {
     gap: 0.5rem;
+    color: var(--color-chat-green);
 }
 
 .read-more svg {
@@ -284,14 +316,33 @@ get_header(); ?>
 }
 
 @media (max-width: 768px) {
-    .blog-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .blog-header .page-title {
-        font-size: 2rem;
+    .blog-index {
+        background-image:
+            radial-gradient(at 53% 30%, hsla(60,100%,50%,0.2) 0px, transparent 50%),
+            radial-gradient(at 80% 70%, hsla(108,100%,50%,0.15) 0px, transparent 50%);
     }
 }
 </style>
+
+<script>
+// Scroll animations for blog cards
+document.addEventListener('DOMContentLoaded', function() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    document.querySelectorAll('.blog-card').forEach(card => {
+        observer.observe(card);
+    });
+});
+</script>
 
 <?php get_footer(); ?>

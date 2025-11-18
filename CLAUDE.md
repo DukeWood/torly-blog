@@ -11,6 +11,8 @@ TorlyAI WordPress Setup is a custom WordPress configuration for a UK Innovator V
 - Automated deployment scripts for full server setup
 - Custom REST API endpoints for visa assessments and contact forms
 
+**⚠️ IMPORTANT:** This is a **single-site WordPress installation**. The site was converted from multisite to single-site on November 17, 2025. All blog content resides at `/blog/` path (not a subdomain). Any references to `blog.torly.ai` or multisite configuration are deprecated.
+
 ---
 
 ## 🎨 DESIGN SYSTEM - MANDATORY
@@ -162,7 +164,7 @@ The MCP server provides 13 custom tools for WordPress and GoDaddy automation:
 - `wp_cli_command`: Execute any WP-CLI command
 - `wp_create_menu`: Create navigation menus programmatically
 - `wp_install_plugin`: Install and activate plugins from WordPress.org
-- `wp_configure_multisite`: Configure WordPress Multisite for blog.torly.ai subdomain
+- `wp_configure_multisite`: ~~Configure WordPress Multisite for blog.torly.ai subdomain~~ **DEPRECATED** - Site is now single-site only
 
 **GoDaddy DNS Tools:**
 - `godaddy_update_dns`: Update DNS records for torly.ai domain
@@ -212,18 +214,20 @@ The deployment script (deployment/deploy-script.sh) implements a complete LAMP s
 1. **System Setup**: Apache2, MySQL, PHP 7.4+ with required extensions
 2. **WordPress Core**: Downloaded via WP-CLI, configured with security headers
 3. **Database**: Auto-generated secure passwords, proper privilege management
-4. **Multisite Configuration**: Prepares for blog.torly.ai subdomain
+4. ~~**Multisite Configuration**: Prepares for blog.torly.ai subdomain~~ **DEPRECATED** - Single-site only
 5. **Security**: SSL via Certbot, secure .htaccess, protected wp-config.php
 6. **Automation**: Cron jobs for wp-cron.php and daily backups
-7. **Apache Virtual Hosts**: Separate configs for torly.ai and blog.torly.ai
+7. **Apache Virtual Host**: Single config for torly.ai (~~blog.torly.ai removed~~)
 8. **Backup System**: Daily automated backups to /var/backups/wordpress (30-day retention)
 
 ### Domain Configuration
 
 The project is designed for:
 - **Primary domain**: torly.ai (main site)
-- **Subdomain**: blog.torly.ai (WordPress Multisite blog)
+- **Blog**: torly.ai/blog/ (single-site WordPress, blog posts at `/blog/` path)
 - **DNS Management**: Automated via GoDaddy API through MCP server
+
+**Note:** ~~blog.torly.ai subdomain~~ is deprecated. Site was converted from multisite to single-site on November 17, 2025. All blog content now resides at `/blog/` path.
 
 ## Development Workflow
 
@@ -284,8 +288,8 @@ This single command orchestrates:
 2. GoDaddy DNS configuration (automated via API)
 3. WordPress installation (fully automated)
 4. Free SSL certificate setup via Let's Encrypt (automated)
-5. WordPress Multisite for blog.torly.ai (automated)
-6. Blog structure creation (automated)
+5. ~~WordPress Multisite for blog.torly.ai~~ **DEPRECATED** - Single-site configuration
+6. Blog structure creation (automated - blog at `/blog/` path)
 7. Sample content publication (automated)
 
 **Total time:** ~30-40 minutes (mostly automated, ~15 min manual for Oracle account setup)
@@ -599,16 +603,16 @@ The WordPress installation is configured to send emails using Lark Suite (Feishu
 
 **Key Features:**
 - Cross-domain email: WordPress runs on torly.ai, emails sent from innovatorly.ai
-- Separate configuration for both torly.ai and blog.torly.ai
+- ~~Separate configuration for both torly.ai and blog.torly.ai~~ Single-site configuration only
 - Secure SSL encryption (port 465)
 - Automated test email functionality
 
 **Manual Configuration:**
 
-To update SMTP settings for both sites:
+To update SMTP settings:
 
 ```bash
-# For torly.ai main site
+# For torly.ai (single-site)
 sudo -u www-data wp option update wp_mail_smtp '{
   "mail":{
     "from_email":"noreply@innovatorly.ai",
@@ -626,25 +630,6 @@ sudo -u www-data wp option update wp_mail_smtp '{
     "pass":"YOUR_SMTP_PASSWORD"
   }
 }' --format=json --url=https://torly.ai --path=/var/www/html
-
-# For blog.torly.ai site
-sudo -u www-data wp option update wp_mail_smtp '{
-  "mail":{
-    "from_email":"noreply@innovatorly.ai",
-    "from_name":"Torly AI Blog",
-    "mailer":"smtp",
-    "return_path":true
-  },
-  "smtp":{
-    "host":"smtp.larksuite.com",
-    "port":"465",
-    "encryption":"ssl",
-    "autotls":true,
-    "auth":true,
-    "user":"noreply@innovatorly.ai",
-    "pass":"YOUR_SMTP_PASSWORD"
-  }
-}' --format=json --url=https://blog.torly.ai --path=/var/www/html
 ```
 
 **Send Test Email:**
@@ -750,3 +735,43 @@ sudo -u www-data wp eval 'wp_mail("recipient@example.com", "Test Subject", "Test
 - ✅ Custom SVG covers displaying correctly
 - ✅ WordPress in single-site mode
 - ✅ Logo displaying exact PNG design
+
+### Blog Navigation Fix (November 18, 2025)
+
+**Issue:** Blog navigation button was non-functional due to lingering multisite references pointing to old `blog.torly.ai` subdomain.
+
+**Root Cause:** When the site was converted from multisite to single-site, some hardcoded URLs and conditional logic still referenced the old subdomain structure.
+
+**Files Fixed:**
+
+1. **theme/torly-theme/front-page.php**
+   - **Removed (lines 9-14):** Multisite domain check that redirected `blog.torly.ai` requests
+   - **Changed (line 318):** Blog button URL from `https://blog.torly.ai/` to `https://torly.ai/blog/`
+
+2. **theme/torly-theme/footer.php**
+   - **Changed (line 13):** Footer blog link from `https://blog.torly.ai/` to `https://torly.ai/blog/`
+
+3. **theme/torly-theme/home.php**
+   - **Updated (line 4):** Comment to reflect `/blog/` path instead of `blog.torly.ai` subdomain
+
+4. **WordPress Database**
+   - **Fixed:** Updated GUID for Sample Page (ID: 10) from `http://blog.torly.ai/?page_id=2` to `https://torly.ai/?page_id=10`
+   - **Result:** Zero database references to old subdomain
+
+**Deployment Steps:**
+1. Updated 3 theme files with corrected URLs
+2. Deployed files to `/var/www/html/wp-content/themes/torly-theme/`
+3. Flushed WordPress rewrite rules
+4. Updated database GUID entries
+5. Verified all navigation elements
+
+**Verification (All Passed):**
+- ✅ Blog page accessible: HTTP 200 at https://torly.ai/blog/
+- ✅ Header "Blog" button works correctly
+- ✅ Footer "Blog" link works correctly
+- ✅ Homepage "View All Blog Posts" button works
+- ✅ Blog posts displaying with correct URLs (`/blog/post-name/`)
+- ✅ Zero old subdomain references in database (wp_posts, wp_postmeta, wp_options)
+- ✅ Rewrite rules flushed and updated
+
+**Key Takeaway:** Site is now fully single-site with all blog content at `/blog/` path. No multisite configuration remains.
