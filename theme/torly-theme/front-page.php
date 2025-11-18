@@ -33,20 +33,16 @@ get_header(); ?>
     </div>
 
     <div class="logo-carousel">
-        <!-- Endorsing Bodies -->
-        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">UKES</div>
+        <!-- Endorsing Bodies (4 currently authorized) -->
+        <div class="logo-item" style="min-width: 200px; text-align: center; font-weight: 600; font-size: 14px;">UK Endorsing Services</div>
         <div class="logo-item" style="min-width: 200px; text-align: center; font-weight: 600; font-size: 14px;">Innovator International</div>
-        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">Envestors</div>
-        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">TechNation</div>
-        <div class="logo-item" style="min-width: 180px; text-align: center; font-weight: 600; font-size: 14px;">Global Entrepreneurs</div>
-        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">The Entrepreneurs Network</div>
+        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">Envestors Limited</div>
+        <div class="logo-item" style="min-width: 250px; text-align: center; font-weight: 600; font-size: 14px;">Global Entrepreneurs Programme</div>
         <!-- Duplicate for seamless loop -->
-        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">UKES</div>
+        <div class="logo-item" style="min-width: 200px; text-align: center; font-weight: 600; font-size: 14px;">UK Endorsing Services</div>
         <div class="logo-item" style="min-width: 200px; text-align: center; font-weight: 600; font-size: 14px;">Innovator International</div>
-        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">Envestors</div>
-        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">TechNation</div>
-        <div class="logo-item" style="min-width: 180px; text-align: center; font-weight: 600; font-size: 14px;">Global Entrepreneurs</div>
-        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">The Entrepreneurs Network</div>
+        <div class="logo-item" style="min-width: 150px; text-align: center; font-weight: 600; font-size: 14px;">Envestors Limited</div>
+        <div class="logo-item" style="min-width: 250px; text-align: center; font-weight: 600; font-size: 14px;">Global Entrepreneurs Programme</div>
     </div>
 </section>
 
@@ -331,7 +327,7 @@ get_header(); ?>
                         <p><strong>Key Requirements:</strong></p>
                         <ul>
                             <li><strong>Investment:</strong> £50,000 minimum</li>
-                            <li><strong>Endorsement:</strong> Must be approved by one of 8 authorized endorsing bodies</li>
+                            <li><strong>Endorsement:</strong> Must be approved by one of 4 authorized endorsing bodies</li>
                             <li><strong>Innovation:</strong> Business must be new to the UK market</li>
                             <li><strong>Processing Time:</strong> 12-16 weeks average</li>
                         </ul>
@@ -405,18 +401,15 @@ get_header(); ?>
                 </h3>
                 <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                     <div itemprop="text" class="faq-answer">
-                        <p>TorlyAI helps match you with all 8 authorized UK endorsing bodies:</p>
+                        <p>TorlyAI helps match you with all 4 authorized UK endorsing bodies currently accepting applications:</p>
                         <ul>
-                            <li>Tech Nation (technology businesses)</li>
-                            <li>Innovate UK (innovation-focused businesses)</li>
-                            <li>The Global Entrepreneurs Programme</li>
-                            <li>Envestors Limited</li>
-                            <li>UK Endorsing Services</li>
-                            <li>British Business Bank</li>
-                            <li>CityFibre</li>
-                            <li>London & Partners</li>
+                            <li><strong>UK Endorsing Services (UKES)</strong> - General innovative businesses</li>
+                            <li><strong>Innovator International</strong> - Scalable, globally-focused businesses</li>
+                            <li><strong>Envestors Limited</strong> - Investment-ready businesses</li>
+                            <li><strong>The Global Entrepreneurs Programme (GEP)</strong> - Tech-based, internationally mobile entrepreneurs (invitation-only)</li>
                         </ul>
                         <p>Our AI recommends the best endorsing body based on your industry, business stage, and innovation focus.</p>
+                        <p class="faq-source"><cite>Source: <a href="https://www.gov.uk/government/publications/endorsing-bodies-innovator-founder-and-scale-up-visas/innovator-founder-and-scale-up-visas-endorsing-bodies" target="_blank" rel="noopener">UK Home Office - Authorized Endorsing Bodies (2026)</a></cite></p>
                     </div>
                 </div>
             </div>

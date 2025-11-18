@@ -1,0 +1,533 @@
+<style>
+    /* TorlyAI Design System Variables */
+    :root {
+        --white: #ffffff;
+        --black: #000000;
+        --color-yellow: hsl(60, 100%, 50%);
+        --color-green: hsl(108, 100%, 50%);
+        --color-orange: hsl(30, 100%, 50%);
+        --color-chat-green: #10b981;
+        --border-color: #e5e7eb;
+        --text-primary: #000000;
+        --text-secondary: rgba(0, 0, 0, 0.7);
+        --text-tertiary: rgba(0, 0, 0, 0.5);
+        --bg-secondary: #f9fafb;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                     "Helvetica Neue", Arial, sans-serif;
+        font-size: clamp(1rem, 1.5vw, 1.125rem);
+        font-weight: 400;
+        line-height: 1.6;
+        color: var(--text-primary);
+        background: var(--white);
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        padding: 7rem 0 4rem;
+        background: var(--white);
+        background-image:
+            radial-gradient(at 53% 78%, hsla(60,100%,50%,0.3) 0px, transparent 50%),
+            radial-gradient(at 71% 91%, hsla(108,100%,50%,0.3) 0px, transparent 50%),
+            radial-gradient(at 31% 91%, hsla(30,100%,50%,0.17) 0px, transparent 50%);
+        text-align: center;
+    }
+
+    .hero-title {
+        font-size: clamp(2.25rem, 5vw, 4.5rem);
+        font-weight: 800;
+        line-height: 0.9;
+        letter-spacing: -0.020em;
+        color: var(--black);
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: clamp(1.125rem, 2vw, 1.5rem);
+        color: var(--text-secondary);
+        margin-bottom: 1rem;
+        font-weight: 500;
+    }
+
+    .last-updated {
+        font-size: 0.875rem;
+        color: var(--text-tertiary);
+        margin-top: 1rem;
+    }
+
+    /* Content Section */
+    .content-section {
+        padding: 4rem 0;
+        background: var(--white);
+    }
+
+    .content-wrapper {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .section-title {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--black);
+        margin-bottom: 1.5rem;
+        margin-top: 3rem;
+    }
+
+    .section-title:first-child {
+        margin-top: 0;
+    }
+
+    .content-section p {
+        margin-bottom: 1.5rem;
+        color: var(--text-primary);
+    }
+
+    .content-section ul,
+    .content-section ol {
+        margin-bottom: 1.5rem;
+        margin-left: 2rem;
+    }
+
+    .content-section li {
+        margin-bottom: 0.75rem;
+        color: var(--text-primary);
+    }
+
+    .content-section strong {
+        color: var(--black);
+        font-weight: 600;
+    }
+
+    .content-section a {
+        color: var(--color-chat-green);
+        text-decoration: none;
+        transition: color 0.15s;
+    }
+
+    .content-section a:hover {
+        color: #059669;
+    }
+
+    .highlight-box {
+        background: var(--bg-secondary);
+        border-left: 4px solid var(--color-chat-green);
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        margin: 2rem 0;
+    }
+
+    .highlight-box p:last-child {
+        margin-bottom: 0;
+    }
+
+    .warning-box {
+        background: #fef3c7;
+        border-left: 4px solid #f59e0b;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        margin: 2rem 0;
+    }
+
+    .warning-box p:last-child {
+        margin-bottom: 0;
+    }
+
+    .critical-box {
+        background: #fee2e2;
+        border-left: 4px solid #ef4444;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        margin: 2rem 0;
+    }
+
+    .critical-box p:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Footer */
+    .legal-footer {
+        background: var(--black);
+        color: var(--white);
+        padding: 3rem 0 2rem;
+        margin-top: 4rem;
+    }
+
+    .footer-content {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .footer-content p {
+        margin-bottom: 0.75rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.875rem;
+        line-height: 1.6;
+    }
+
+    .footer-content p:first-child {
+        font-size: 1rem;
+        color: var(--white);
+        margin-bottom: 1.5rem;
+    }
+
+    .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .footer-links a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: color 0.15s;
+    }
+
+    .footer-links a:hover {
+        color: var(--white);
+    }
+
+    @media (max-width: 768px) {
+        .hero-section {
+            padding: 5rem 0 3rem;
+        }
+
+        .content-section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            margin-top: 2rem;
+        }
+
+        .footer-links {
+            flex-direction: column;
+            gap: 1rem;
+        }
+    }
+</style>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <h1 class="hero-title">Disclaimer</h1>
+        <p class="hero-subtitle">Important information about our services and limitations</p>
+        <p class="last-updated">Last updated: November 18, 2025</p>
+    </div>
+</section>
+
+<!-- Content Section -->
+<section class="content-section">
+    <div class="container">
+        <div class="content-wrapper">
+
+            <div class="critical-box">
+                <p><strong>CRITICAL NOTICE:</strong> TorlyAI is operated by Innovatorly Ltd, a business consultancy registered in England and Wales (Company number: 16674855). We are <strong>NOT</strong> a law firm, immigration advisor, or regulated immigration service provider. Our services do NOT constitute legal advice or immigration advice.</p>
+            </div>
+
+            <h2 class="section-title">1. Nature of Services</h2>
+
+            <h3 class="section-title" style="font-size: clamp(1.25rem, 2.5vw, 1.5rem); margin-top: 2rem;">1.1 What We Are</h3>
+            <p>Innovatorly Ltd (trading as TorlyAI) is a <strong>business consultancy</strong> that provides:</p>
+            <ul>
+                <li>AI-powered information tools about UK Innovator Visa requirements</li>
+                <li>Educational content about visa application processes</li>
+                <li>Business guidance related to preparing visa applications</li>
+                <li>General information based on publicly available UK Home Office criteria</li>
+            </ul>
+
+            <h3 class="section-title" style="font-size: clamp(1.25rem, 2.5vw, 1.5rem); margin-top: 2rem;">1.2 What We Are NOT</h3>
+            <p>We are <strong>NOT</strong>:</p>
+            <ul>
+                <li>A law firm or legal practice</li>
+                <li>An immigration advisor regulated by the OISC (Office of the Immigration Services Commissioner)</li>
+                <li>An endorsing body for UK Innovator Visas</li>
+                <li>A UK Home Office representative or affiliate</li>
+                <li>A visa application service provider</li>
+                <li>Authorized to submit visa applications on your behalf</li>
+            </ul>
+
+            <h2 class="section-title">2. No Legal or Immigration Advice</h2>
+
+            <div class="warning-box">
+                <p><strong>Important:</strong> Nothing on this website or in our services constitutes legal advice, immigration advice, or professional advice of any kind. Our AI assessments, scores, and recommendations are for <strong>informational purposes only</strong>.</p>
+            </div>
+
+            <p>You should <strong>NOT</strong> rely solely on TorlyAI for:</p>
+            <ul>
+                <li>Making visa application decisions</li>
+                <li>Understanding your specific legal rights or obligations</li>
+                <li>Interpreting UK immigration law</li>
+                <li>Determining your eligibility for any visa category</li>
+                <li>Assessing the likelihood of visa approval</li>
+            </ul>
+
+            <p><strong>You SHOULD:</strong></p>
+            <ul>
+                <li>Consult a qualified immigration lawyer or OISC-regulated advisor</li>
+                <li>Verify all information with official UK government sources</li>
+                <li>Seek professional advice tailored to your specific circumstances</li>
+                <li>Review the most current UK immigration rules and guidance</li>
+            </ul>
+
+            <h2 class="section-title">3. No Guarantees or Warranties</h2>
+
+            <h3 class="section-title" style="font-size: clamp(1.25rem, 2.5vw, 1.5rem); margin-top: 2rem;">3.1 Accuracy of Information</h3>
+            <p>While we strive for accuracy, we make <strong>NO WARRANTIES</strong> regarding:</p>
+            <ul>
+                <li>The completeness or accuracy of information provided</li>
+                <li>The timeliness or currentness of immigration rules and criteria</li>
+                <li>The suitability of our assessments for your specific situation</li>
+                <li>The reliability of AI-generated recommendations</li>
+            </ul>
+
+            <p>UK immigration rules change frequently. Information on our platform may become outdated without notice.</p>
+
+            <h3 class="section-title" style="font-size: clamp(1.25rem, 2.5vw, 1.5rem); margin-top: 2rem;">3.2 No Guarantee of Results</h3>
+            <p>We make <strong>NO GUARANTEES</strong> that:</p>
+            <ul>
+                <li>Your visa application will be approved</li>
+                <li>You will receive endorsement from any endorsing body</li>
+                <li>Our assessment scores reflect actual Home Office decisions</li>
+                <li>Following our recommendations will lead to visa success</li>
+                <li>Our service will meet your specific requirements or expectations</li>
+            </ul>
+
+            <h2 class="section-title">4. AI Technology Limitations</h2>
+
+            <p>Our visa assessment tool uses artificial intelligence and machine learning. You acknowledge that:</p>
+            <ul>
+                <li><strong>AI is not perfect:</strong> Algorithms may produce errors or unexpected results</li>
+                <li><strong>Limited scope:</strong> AI cannot assess all factors that affect visa decisions</li>
+                <li><strong>No human judgment:</strong> AI lacks the nuanced understanding of a qualified advisor</li>
+                <li><strong>Training data limitations:</strong> AI is trained on historical data that may not reflect current policies</li>
+                <li><strong>No liability for AI errors:</strong> We are not responsible for incorrect AI assessments</li>
+            </ul>
+
+            <div class="warning-box">
+                <p><strong>Critical:</strong> Never make important immigration decisions based solely on AI-generated assessments. Always seek professional human advice.</p>
+            </div>
+
+            <h2 class="section-title">5. Third-Party Links and Resources</h2>
+
+            <p>Our website may contain links to third-party websites, including:</p>
+            <ul>
+                <li>UK Government official websites (gov.uk)</li>
+                <li>Immigration advisory services</li>
+                <li>Legal service providers</li>
+                <li>Educational resources</li>
+            </ul>
+
+            <p>We are <strong>NOT RESPONSIBLE</strong> for:</p>
+            <ul>
+                <li>The content or accuracy of third-party websites</li>
+                <li>Services provided by third parties</li>
+                <li>Privacy practices of external sites</li>
+                <li>Any transactions you enter into with third parties</li>
+            </ul>
+
+            <h2 class="section-title">6. User Responsibility</h2>
+
+            <p>By using TorlyAI, you acknowledge and agree that:</p>
+            <ul>
+                <li>You are solely responsible for your visa application decisions</li>
+                <li>You will verify all information with official sources</li>
+                <li>You will seek professional advice before making important decisions</li>
+                <li>You understand the limitations of AI-powered tools</li>
+                <li>You will not rely solely on our assessments for legal or immigration matters</li>
+                <li>You accept all risks associated with using our informational services</li>
+            </ul>
+
+            <h2 class="section-title">7. No Attorney-Client or Advisory Relationship</h2>
+
+            <p>Use of TorlyAI does <strong>NOT</strong> create:</p>
+            <ul>
+                <li>An attorney-client relationship</li>
+                <li>An advisor-client relationship</li>
+                <li>A fiduciary duty to you</li>
+                <li>Any professional relationship requiring confidentiality beyond our Privacy Policy</li>
+            </ul>
+
+            <p>Communications via our website or services are <strong>NOT CONFIDENTIAL</strong> in the legal sense and are not protected by legal professional privilege.</p>
+
+            <h2 class="section-title">8. Limitation of Liability</h2>
+
+            <div class="critical-box">
+                <p><strong>TO THE MAXIMUM EXTENT PERMITTED BY UK LAW:</strong></p>
+                <ul style="margin-top: 1rem;">
+                    <li>Innovatorly Ltd is NOT LIABLE for any visa application rejections, delays, or denials</li>
+                    <li>We are NOT RESPONSIBLE for any financial losses resulting from visa decisions</li>
+                    <li>We are NOT LIABLE for any indirect, consequential, or punitive damages</li>
+                    <li>Our total liability is limited to the amount you paid us (if any) in the 12 months prior to the claim</li>
+                </ul>
+            </div>
+
+            <p>You use our services <strong>AT YOUR OWN RISK</strong>.</p>
+
+            <h2 class="section-title">9. Regulatory Information</h2>
+
+            <h3 class="section-title" style="font-size: clamp(1.25rem, 2.5vw, 1.5rem); margin-top: 2rem;">9.1 OISC Regulation</h3>
+            <p>In the UK, immigration advice is regulated by the <strong>Office of the Immigration Services Commissioner (OISC)</strong>. Only OISC-registered advisors, solicitors, or barristers may provide immigration advice.</p>
+
+            <p>Innovatorly Ltd is <strong>NOT OISC-regulated</strong> because we do not provide immigration advice. We provide business consultancy and informational tools only.</p>
+
+            <h3 class="section-title" style="font-size: clamp(1.25rem, 2.5vw, 1.5rem); margin-top: 2rem;">9.2 Authorized Professionals</h3>
+            <p>For immigration advice, you should consult:</p>
+            <ul>
+                <li><strong>OISC-regulated immigration advisors</strong> - Find advisors at: <a href="https://www.gov.uk/find-an-immigration-adviser" target="_blank" rel="noopener">gov.uk/find-an-immigration-adviser</a></li>
+                <li><strong>Solicitors</strong> - Members of the Law Society with immigration law expertise</li>
+                <li><strong>Barristers</strong> - Members of the Bar Council specializing in immigration</li>
+            </ul>
+
+            <h2 class="section-title">10. Changes to UK Immigration Rules</h2>
+
+            <p>UK immigration rules and policies change regularly. We are <strong>NOT RESPONSIBLE</strong> for:</p>
+            <ul>
+                <li>Updating our content immediately when rules change</li>
+                <li>Notifying you of changes to immigration policies</li>
+                <li>Ensuring our AI algorithms reflect the latest criteria</li>
+                <li>Maintaining historical accuracy of past assessments</li>
+            </ul>
+
+            <p><strong>Your responsibility:</strong> Always check the latest UK government guidance at <a href="https://www.gov.uk/browse/visas-immigration" target="_blank" rel="noopener">gov.uk/browse/visas-immigration</a></p>
+
+            <h2 class="section-title">11. No Endorsement Relationship</h2>
+
+            <p>TorlyAI has <strong>NO AFFILIATION</strong> with:</p>
+            <ul>
+                <li>UK Home Office</li>
+                <li>UK Endorsing Bodies (Tech Nation, Innovator International, etc.)</li>
+                <li>UK Government departments or agencies</li>
+                <li>Immigration tribunals or courts</li>
+            </ul>
+
+            <p>We cannot:</p>
+            <ul>
+                <li>Provide or facilitate endorsements</li>
+                <li>Influence endorsing body decisions</li>
+                <li>Guarantee endorsement approval</li>
+                <li>Act as an intermediary with endorsing bodies</li>
+            </ul>
+
+            <h2 class="section-title">12. Financial Disclaimers</h2>
+
+            <h3 class="section-title" style="font-size: clamp(1.25rem, 2.5vw, 1.5rem); margin-top: 2rem;">12.1 No Financial Advice</h3>
+            <p>Information about business plans, investments, or financial projections is <strong>NOT</strong> financial advice. Consult a qualified financial advisor for investment decisions.</p>
+
+            <h3 class="section-title" style="font-size: clamp(1.25rem, 2.5vw, 1.5rem); margin-top: 2rem;">12.2 Cost Estimates</h3>
+            <p>Any cost estimates provided (visa fees, application costs) are approximate and may be outdated. Verify current fees with official UK government sources.</p>
+
+            <h2 class="section-title">13. Testimonials and Success Stories</h2>
+
+            <p>Any testimonials, case studies, or success stories on our website:</p>
+            <ul>
+                <li>Reflect individual experiences, not guaranteed results</li>
+                <li>May not be representative of typical outcomes</li>
+                <li>Do not constitute evidence of our service effectiveness</li>
+                <li>Should not be relied upon as endorsement of our services</li>
+            </ul>
+
+            <p><strong>Past performance does not guarantee future results.</strong></p>
+
+            <h2 class="section-title">14. International Users</h2>
+
+            <p>Our service is designed for UK immigration matters. If you are located outside the UK:</p>
+            <ul>
+                <li>Consult local immigration laws and regulations</li>
+                <li>Verify that our information applies to your jurisdiction</li>
+                <li>Understand that UK immigration rules apply to UK visa applications</li>
+                <li>Seek advice from professionals licensed in your jurisdiction</li>
+            </ul>
+
+            <h2 class="section-title">15. Data Accuracy</h2>
+
+            <p>Information you provide to our AI assessment tool should be:</p>
+            <ul>
+                <li>Accurate and truthful</li>
+                <li>Current and up-to-date</li>
+                <li>Complete to the best of your knowledge</li>
+            </ul>
+
+            <p><strong>Garbage in, garbage out:</strong> Inaccurate input data will produce unreliable assessments. We are not responsible for errors resulting from incorrect information you provide.</p>
+
+            <h2 class="section-title">16. Language and Translation</h2>
+
+            <p>Our primary language is English. Any translations provided:</p>
+            <ul>
+                <li>May not be perfectly accurate</li>
+                <li>Should not be relied upon for legal purposes</li>
+                <li>May contain errors or omissions</li>
+            </ul>
+
+            <p>In case of discrepancies, the English version prevails.</p>
+
+            <h2 class="section-title">17. Contact Information</h2>
+
+            <p>If you have questions about this Disclaimer or our services:</p>
+
+            <div class="highlight-box">
+                <p><strong>Innovatorly Ltd (trading as TorlyAI)</strong><br>
+                Email: contact@torly.ai<br>
+                Legal: legal@torly.ai<br>
+                Address: 167-169 Great Portland Street, London, W1W 5PF, United Kingdom<br>
+                Company Number: 16674855<br>
+                Registered in England and Wales</p>
+            </div>
+
+            <h2 class="section-title">18. Acceptance of Terms</h2>
+
+            <p>By using TorlyAI, you acknowledge that you have read, understood, and agree to this Disclaimer. You accept that:</p>
+            <ul>
+                <li>We are a business consultancy, not a law firm or immigration advisor</li>
+                <li>Our services provide information only, not legal or immigration advice</li>
+                <li>You will seek professional advice for immigration matters</li>
+                <li>You use our services at your own risk</li>
+                <li>We are not liable for visa application outcomes</li>
+            </ul>
+
+            <div class="critical-box">
+                <p><strong>FINAL WARNING:</strong> Do not make important immigration decisions based solely on information from TorlyAI. Always consult qualified professionals before submitting visa applications or making significant life changes based on immigration matters.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="legal-footer">
+    <div class="container">
+        <div class="footer-content">
+            <p>&copy; 2025 Innovatorly Ltd. All rights reserved.</p>
+            <p>Registered in England and Wales. Company number: 16674855</p>
+            <p>Registered office: 167-169 Great Portland Street, London, W1W 5PF</p>
+            <p>Innovatorly Ltd is a business consultancy. We are not a law firm or immigration advisor.</p>
+
+            <div class="footer-links">
+                <a href="/privacy-policy/">Privacy Policy</a>
+                <a href="/terms-of-service/">Terms of Service</a>
+                <a href="/disclaimer/">Disclaimer</a>
+                <a href="/cookie-policy/">Cookie Policy</a>
+                <a href="/contact/">Contact Us</a>
+            </div>
+        </div>
+    </div>
+</footer>

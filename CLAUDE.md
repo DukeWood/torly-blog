@@ -350,9 +350,9 @@ WP_SITE_URL=https://torly.ai WP_USERNAME=admin WP_APP_PASSWORD=xxx node automati
 - Skips posts that already exist
 
 **Blog posts included:**
-1. UK Innovator Visa 2025: Complete Guide for Entrepreneurs
+1. UK Innovator Visa 2026: Complete Guide for Entrepreneurs
 2. How to Prepare a Winning Business Plan for UK Innovator Visa
-3. Top 5 UK Endorsing Bodies for Innovator Visa in 2025
+3. Complete Guide to the 4 UK Endorsing Bodies for Innovator Visa in 2026
 4. UK Innovator Visa vs Scale-up Visa: Which is Right for You?
 5. Success Story: From Startup Idea to UK Permanent Residence
 
@@ -704,7 +704,7 @@ sudo -u www-data wp eval 'wp_mail("recipient@example.com", "Test Subject", "Test
    - 5 posts successfully imported:
      - UK Innovator Visa 2026: Complete Guide for Entrepreneurs
      - How to Prepare a Winning Business Plan for UK Innovator Visa
-     - Top 5 UK Endorsing Bodies for Innovator Visa in 2026
+     - Complete Guide to the 4 UK Endorsing Bodies for Innovator Visa in 2026
      - UK Innovator Visa vs Scale-up Visa: Which is Right for You?
      - Success Story: From Startup Idea to UK Permanent Residence
    - Each post has custom SVG cover image in `theme/torly-theme/assets/blog-covers/`
@@ -775,3 +775,52 @@ sudo -u www-data wp eval 'wp_mail("recipient@example.com", "Test Subject", "Test
 - ✅ Rewrite rules flushed and updated
 
 **Key Takeaway:** Site is now fully single-site with all blog content at `/blog/` path. No multisite configuration remains.
+
+### WordPress URL Corruption Fix (November 18, 2025)
+
+**Issue:** Blog navigation redirected to homepage. Clicking "Blog" link resulted in landing on `torly.ai` instead of `torly.ai/blog/`.
+
+**Root Cause:** WordPress `siteurl` and `home` options were corrupted in the database, containing only `https:` instead of the full domain `https://torly.ai`. This caused all WordPress-generated URLs to be malformed.
+
+**Symptoms:**
+- Blog link appeared correct in HTML (`href="https://torly.ai/blog/"`)
+- Clicking blog link redirected to homepage
+- `curl` tests showed HTTP 200 but browser behavior differed
+- `wp option get siteurl` returned `https:` (corrupted)
+- `wp option get home` returned `https:` (corrupted)
+
+**Diagnosis Process:**
+1. Checked DNS configuration (no redirects found)
+2. Tested HTTP headers with curl (no server-level redirect)
+3. Verified WordPress Reading Settings (correctly configured)
+4. Discovered corrupted URLs via WP-CLI
+
+**Fix Applied:**
+```bash
+# Direct database update (wp-cli update_option failed)
+sudo mysql -e "UPDATE torly_wordpress.wp_options
+               SET option_value = 'https://torly.ai'
+               WHERE option_name IN ('siteurl', 'home');"
+
+# Flush rewrite rules and cache
+wp rewrite flush --path=/var/www/html
+wp cache flush --path=/var/www/html
+```
+
+**Verification (Playwright Browser Test):**
+- ✅ Homepage loads: https://torly.ai/
+- ✅ Blog link href: `https://torly.ai/blog/`
+- ✅ After click URL: `https://torly.ai/blog/` (no redirect)
+- ✅ Page title: "Blog - Torly AI"
+- ✅ Blog posts displayed: 6 posts visible
+- ✅ All tests passed
+
+**Prevention Mechanism:**
+Added automatic URL validation and correction to `theme/torly-theme/functions.php` (see line ~80). This hook runs on WordPress initialization and ensures URLs are always correct, preventing this issue from recurring.
+
+**Scripts Created:**
+- `deployment/fix-blog-redirect.php` - WordPress Reading Settings check/fix
+- `deployment/fix-wordpress-urls.php` - URL corruption fix script
+- `deployment/check-godaddy-dns.js` - GoDaddy DNS verification
+
+**Key Takeaway:** WordPress core options (`siteurl` and `home`) are critical and must always contain the full site URL. Database corruption of these values causes site-wide navigation failures.

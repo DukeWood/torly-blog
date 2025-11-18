@@ -75,12 +75,72 @@ function torlyai_force_https() {
 }
 add_action('template_redirect', 'torlyai_force_https');
 
-// Update home and site URLs to HTTPS
-function torlyai_set_https_urls() {
-    update_option('siteurl', str_replace('http://', 'https://', get_option('siteurl')));
-    update_option('home', str_replace('http://', 'https://', get_option('home')));
+// Validate and fix WordPress site URLs (Prevention for URL corruption issue - Nov 2025)
+function torlyai_validate_and_fix_urls() {
+    $correct_url = 'https://torly.ai';
+    $siteurl = get_option('siteurl');
+    $home = get_option('home');
+
+    $siteurl_needs_fix = false;
+    $home_needs_fix = false;
+
+    // Check if URLs are corrupted or incorrect
+    if ($siteurl !== $correct_url) {
+        // Check for common corruption patterns
+        if (empty($siteurl) || $siteurl === 'https:' || $siteurl === 'http:' ||
+            strpos($siteurl, 'torly.ai') === false) {
+            $siteurl_needs_fix = true;
+        }
+        // Also fix http:// to https://
+        elseif (strpos($siteurl, 'http://') === 0) {
+            $siteurl_needs_fix = true;
+        }
+    }
+
+    if ($home !== $correct_url) {
+        if (empty($home) || $home === 'https:' || $home === 'http:' ||
+            strpos($home, 'torly.ai') === false) {
+            $home_needs_fix = true;
+        }
+        elseif (strpos($home, 'http://') === 0) {
+            $home_needs_fix = true;
+        }
+    }
+
+    // Apply fixes if needed
+    if ($siteurl_needs_fix || $home_needs_fix) {
+        // Use direct database update for reliability
+        global $wpdb;
+
+        if ($siteurl_needs_fix) {
+            $wpdb->update(
+                $wpdb->options,
+                array('option_value' => $correct_url),
+                array('option_name' => 'siteurl'),
+                array('%s'),
+                array('%s')
+            );
+            error_log('TorlyAI: Auto-fixed corrupted siteurl from "' . $siteurl . '" to "' . $correct_url . '"');
+        }
+
+        if ($home_needs_fix) {
+            $wpdb->update(
+                $wpdb->options,
+                array('option_value' => $correct_url),
+                array('option_name' => 'home'),
+                array('%s'),
+                array('%s')
+            );
+            error_log('TorlyAI: Auto-fixed corrupted home URL from "' . $home . '" to "' . $correct_url . '"');
+        }
+
+        // Flush rewrite rules after fixing
+        flush_rewrite_rules(true);
+    }
 }
-add_action('admin_init', 'torlyai_set_https_urls');
+// Run on admin_init and init to catch corruption early
+add_action('admin_init', 'torlyai_validate_and_fix_urls');
+add_action('init', 'torlyai_validate_and_fix_urls');
 
 // Enqueue Scripts and Styles
 function torlyai_enqueue_scripts() {
