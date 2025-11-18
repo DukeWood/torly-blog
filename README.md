@@ -544,6 +544,36 @@ For issues, questions, or contributions:
 
 ## Recent Updates
 
+### November 18, 2025 - Design System Compliance Audit
+
+Comprehensive audit and fixes to achieve 100% compliance with TorlyAI Design System:
+
+**Issues Fixed:**
+- ✅ **Social Media Icons**: Changed hover color from yellow to chat-green (#10b981)
+- ✅ **Secondary Buttons**: Complete rewrite - transparent bg, 2px border, correct hover states
+- ✅ **Step Numbers**: Fixed gradient opacity from 100% to 25% for subtle appearance
+- ✅ **Button Width**: Made buttons compact (fit-content) instead of stretched full-width
+
+**Testing Framework:**
+- Created `tests/design-system-compliance.spec.js` (6 automated Playwright tests)
+- Created `DESIGN_SYSTEM_AUDIT.md` (comprehensive compliance documentation)
+- All tests passing - 100% design system compliant
+
+**Design System Rules Enforced:**
+1. Yellow = gradients/accents only (NOT interactive elements)
+2. Chat-green = links and CTAs
+3. Gradient backgrounds = low opacity (0.2-0.3)
+4. Secondary buttons = transparent, 2px solid border
+5. Primary buttons = glass-morphism with backdrop-filter
+6. Button sizing = compact and content-sized
+
+**Run Tests:**
+```bash
+npx playwright test tests/design-system-compliance.spec.js
+```
+
+See [CLAUDE.md - Design System Compliance](./CLAUDE.md#design-system-compliance-audit--fixes-november-18-2025) for detailed documentation.
+
 ### November 18, 2025 - Blog Navigation Fix
 
 Fixed blog navigation issues after multisite removal:

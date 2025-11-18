@@ -824,3 +824,114 @@ Added automatic URL validation and correction to `theme/torly-theme/functions.ph
 - `deployment/check-godaddy-dns.js` - GoDaddy DNS verification
 
 **Key Takeaway:** WordPress core options (`siteurl` and `home`) are critical and must always contain the full site URL. Database corruption of these values causes site-wide navigation failures.
+
+### Design System Compliance Audit & Fixes (November 18, 2025)
+
+**Context:** Comprehensive audit of all buttons and links on homepage to ensure 100% compliance with TORLYAI_DESIGN_SYSTEM.md.
+
+#### Issues Found and Fixed:
+
+**1. Social Media Icons Hover Color**
+- **Issue:** Footer social media icons used yellow hover color
+- **Violation:** Yellow should only be for gradients/accents, NOT interactive elements
+- **Fix:** Changed hover color from `var(--color-yellow)` to `var(--color-chat-green)`
+- **Design Rule:** Chat-green (#10b981) is the correct color for links and interactive elements
+- **File:** theme/torly-theme/style.css (footer-social section)
+
+**2. Secondary Button Styling (Major Non-Compliance)**
+- **Issues Found:**
+  - Background was `rgba(0,0,0,0.05)` instead of `transparent`
+  - Border was `1px solid rgba(0,0,0,0.1)` instead of `2px solid var(--black)`
+  - Had `backdrop-filter: blur(16px)` (only for primary buttons)
+  - Hover background was semi-transparent instead of solid black
+  - Hover scale was `1.01` instead of `1.02`
+  - Missing hover text color change to white
+- **Fix:** Complete rewrite of `.btn-secondary` and `.btn-secondary:hover`
+- **Design Rule:** Secondary buttons = transparent bg, 2px solid border, no backdrop-filter
+- **Impact:** High - Visual appearance differed significantly from design system
+- **File:** theme/torly-theme/style.css
+
+**3. Step Number Gradient Opacity**
+- **Issue:** Step numbers (.step-number) used full-opacity gradient background
+- **Violation:** Design system shows all gradient backgrounds should use low opacity (0.2-0.3)
+- **Fix:** Changed from full-opacity to 25% opacity gradient:
+  ```css
+  background: linear-gradient(135deg,
+      hsla(60,100%,50%,0.25) 0%,
+      hsla(30,100%,50%,0.25) 100%);
+  ```
+- **Design Rule:** Gradient backgrounds = subtle with low opacity. Full-opacity only for text effects.
+- **Added:** 2px border for definition
+- **File:** theme/torly-theme/style.css (lines 737-740)
+
+**4. Button Width (Mobile Responsiveness)**
+- **Issue:** Buttons were stretched to full width on mobile, not compact
+- **Root Cause:** Mobile CSS used `align-items: stretch` and `width: 100%`
+- **User Feedback:** "why use such a long button" - buttons should be compact like reference image
+- **Fix Applied (Multiple Iterations):**
+  - Changed `align-items: stretch` to `align-items: center`
+  - Removed `width: 100%`
+  - Added `width: fit-content !important`
+  - Removed `min-width: 200px` (user wanted very short width)
+  - Reduced padding from `2rem` to `1.5rem` for more compact appearance
+- **Final Result:** Buttons are now compact, only as wide as text content
+- **Files:** theme/torly-theme/style.css (lines 1538-1558)
+
+#### Automated Testing Framework
+
+**Created:** `tests/design-system-compliance.spec.js` (Playwright tests)
+
+**Tests Include:**
+1. Primary buttons have correct glass-morphism styling
+2. Secondary buttons have transparent background and 2px border
+3. Secondary buttons have correct hover effect (black bg, white text)
+4. Social media icons use chat-green on hover
+5. Step numbers use subtle gradient with low opacity
+6. Design system compliance summary report
+
+**Test Results:** 6/6 tests passing - 100% compliant
+
+**Command to Run:**
+```bash
+npx playwright test tests/design-system-compliance.spec.js
+```
+
+#### Documentation Created
+
+**1. DESIGN_SYSTEM_AUDIT.md**
+- Complete inventory of all buttons and links on homepage
+- Before/after comparisons for each violation
+- Detailed compliance analysis
+- Required fixes with exact CSS code
+- Overall compliance score: 75% → 100%
+
+**2. tests/footer-social-links.spec.js**
+- Automated verification of social media links
+- Checks for correct URLs, attributes, and styling
+
+#### Design System Principles Applied
+
+**Key Rules Enforced:**
+1. **Yellow:** Use for gradients, accents, highlights - NOT for text or solid backgrounds
+2. **Chat Green (#10b981):** Use for primary CTAs and links - NOT yellow
+3. **Gradient Backgrounds:** Always use low opacity (0.2-0.3) for subtlety
+4. **Secondary Buttons:** Transparent background, 2px solid border, no backdrop-filter
+5. **Primary Buttons:** Glass-morphism with backdrop-filter, 1px white border
+6. **Button Sizing:** Compact and content-sized, not stretched to full width
+
+#### Files Modified:
+- theme/torly-theme/style.css (multiple sections)
+- theme/torly-theme/footer.php (social media icons)
+- tests/design-system-compliance.spec.js (new)
+- tests/footer-social-links.spec.js (new)
+- DESIGN_SYSTEM_AUDIT.md (new)
+
+#### Verification:
+- ✅ All 6 Playwright tests passing
+- ✅ Visual inspection confirms compliance
+- ✅ Buttons are compact and properly styled
+- ✅ Social icons use correct hover color
+- ✅ Step numbers have subtle gradients
+- ✅ Secondary buttons match design system exactly
+
+**Overall Result:** Site achieved 100% design system compliance with automated testing to prevent future regressions.
