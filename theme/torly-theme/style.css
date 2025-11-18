@@ -1543,7 +1543,7 @@ button.btn-primary:hover {
     .btn-primary,
     .btn-secondary {
         width: fit-content !important;
-        min-width: 200px;
+        padding: 0 1.5rem;
     }
 
     .cta-buttons {
@@ -1554,7 +1554,7 @@ button.btn-primary:hover {
     .cta-buttons .btn-primary,
     .cta-buttons .btn-secondary {
         width: fit-content !important;
-        min-width: 200px;
+        padding: 0 1.5rem;
     }
 }
 
