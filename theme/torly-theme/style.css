@@ -344,6 +344,32 @@ html {
     overflow: hidden;
 }
 
+/* Add floating gradient orb for extra visual interest */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle,
+        hsla(108,100%,50%,0.15) 0%,
+        hsla(60,100%,50%,0.08) 40%,
+        transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
+    animation: floatOrb 20s ease-in-out infinite;
+}
+
+@keyframes floatOrb {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    50% {
+        transform: translate(-50px, -30px) scale(1.1);
+    }
+}
+
 @media (min-width: 768px) {
     .hero-section {
         padding: 10rem 0 4rem;
@@ -414,10 +440,23 @@ html {
 
 .hero-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     justify-content: center;
     flex-wrap: wrap;
     animation: fadeInUp 0.6s ease-out 0.3s both;
+}
+
+.hero-buttons .btn-primary,
+.hero-buttons .btn-secondary {
+    width: auto;
+    min-width: fit-content;
+}
+
+@media (min-width: 768px) {
+    .hero-buttons {
+        flex-wrap: nowrap;
+        gap: 2rem;
+    }
 }
 
 /* ============================================
@@ -426,7 +465,7 @@ html {
 
 .btn-primary,
 button.btn-primary {
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     color: var(--text-primary);
@@ -440,18 +479,19 @@ button.btn-primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    box-shadow: var(--shadow-sm);
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
     transform: translateZ(0);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.95);
     cursor: pointer;
     white-space: nowrap;
 }
 
 .btn-primary:hover,
 button.btn-primary:hover {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.95);
     transform: scale(1.02) translateZ(0);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18), 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 @media (min-width: 1024px) {
@@ -477,13 +517,24 @@ button.btn-primary:hover {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    gap: 0.5rem;
     transform: translateZ(0);
+}
+
+.btn-secondary::after {
+    content: '→';
+    transition: transform 0.2s ease;
 }
 
 .btn-secondary:hover {
     background: var(--black);
     color: var(--white);
     transform: scale(1.02) translateZ(0);
+}
+
+.btn-secondary:hover::after {
+    transform: translateX(4px);
 }
 
 @media (min-width: 1024px) {
@@ -550,10 +601,13 @@ button.btn-primary:hover {
 
 .logo-item {
     opacity: 0.6;
-    grayscale: 1;
     transition: var(--transition-base);
-    height: 40px;
-    object-fit: contain;
+    min-width: clamp(150px, 20vw, 250px);
+    text-align: center;
+    font-weight: 600;
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+    white-space: nowrap;
+    color: var(--text-secondary);
 }
 
 .logo-item:hover {
@@ -632,8 +686,10 @@ button.btn-primary:hover {
 }
 
 .feature-card:hover {
-    transform: translateY(-5px) scale(1.01);
-    box-shadow: var(--shadow-glass);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.12),
+                0 10px 10px -5px rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.08);
 }
 
 .feature-icon {
@@ -645,6 +701,11 @@ button.btn-primary:hover {
     align-items: center;
     justify-content: center;
     margin-bottom: 1.5rem;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.08);
 }
 
 .feature-icon svg {
@@ -822,6 +883,28 @@ button.btn-primary:hover {
     background: var(--neutral-100);
     margin-bottom: 1rem;
     object-fit: cover;
+}
+
+/* Testimonial photo gradients - Torly brand colors */
+.testimonial-photo-1 {
+    background: radial-gradient(circle at 30% 30%,
+        hsla(60,100%,50%,0.4) 0%,
+        hsla(108,100%,50%,0.25) 50%,
+        hsla(30,100%,50%,0.15) 100%);
+}
+
+.testimonial-photo-2 {
+    background: radial-gradient(circle at 30% 30%,
+        hsla(108,100%,50%,0.4) 0%,
+        hsla(30,100%,50%,0.25) 50%,
+        hsla(60,100%,50%,0.15) 100%);
+}
+
+.testimonial-photo-3 {
+    background: radial-gradient(circle at 30% 30%,
+        hsla(30,100%,50%,0.4) 0%,
+        hsla(60,100%,50%,0.25) 50%,
+        hsla(108,100%,50%,0.15) 100%);
 }
 
 .testimonial-quote {
@@ -1094,13 +1177,28 @@ button.btn-primary:hover {
 
 .cta-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+    .cta-buttons {
+        flex-wrap: nowrap;
+        gap: 2rem;
+    }
+}
+
+.cta-buttons .btn-primary,
+.cta-buttons .btn-secondary {
+    width: fit-content;
 }
 
 .cta-section .btn-primary {
     background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     color: var(--text-primary);
 }
 
@@ -1109,13 +1207,25 @@ button.btn-primary:hover {
 }
 
 .cta-section .btn-secondary {
-    background: rgba(255, 255, 255, 0.1);
+    background: transparent;
     color: white;
-    border-color: rgba(255, 255, 255, 0.3);
+    border-color: white;
+    border-width: 2px;
 }
 
 .cta-section .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: white;
+    color: var(--text-primary);
+}
+
+.cta-section .btn-secondary::after {
+    content: '→';
+    transition: transform 0.2s ease;
+    margin-left: 0.5rem;
+}
+
+.cta-section .btn-secondary:hover::after {
+    transform: translateX(4px);
 }
 
 /* ============================================
@@ -1245,6 +1355,12 @@ button.btn-primary:hover {
 
 .text-center {
     text-align: center;
+}
+
+.text-center .btn-primary,
+.text-center .btn-secondary {
+    width: auto;
+    display: inline-flex;
 }
 
 .mt-3 {
@@ -1476,6 +1592,20 @@ button.btn-primary:hover {
     color: var(--text-primary);
     margin-bottom: 1rem;
     line-height: 1.4;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.faq-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    filter: grayscale(0.2);
+    transition: transform 0.2s ease;
+}
+
+.faq-item:hover .faq-icon {
+    transform: scale(1.1);
 }
 
 .faq-answer {

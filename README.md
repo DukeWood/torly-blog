@@ -574,6 +574,32 @@ npx playwright test tests/design-system-compliance.spec.js
 
 See [CLAUDE.md - Design System Compliance](./CLAUDE.md#design-system-compliance-audit--fixes-november-18-2025) for detailed documentation.
 
+### November 18, 2025 - CTA Button Centering Fix
+
+Fixed critical flexbox alignment issue causing CTA buttons to appear left-aligned instead of centered:
+
+**Root Causes:**
+- ❌ Missing `align-items: center` in `.cta-buttons` flexbox container
+- ❌ Buttons constrained to `width: 20%` instead of `width: fit-content`
+
+**Fixes Applied:**
+- ✅ Added `align-items: center` for cross-axis centering (horizontal in column layout)
+- ✅ Changed button width from `20%` to `fit-content` for natural sizing
+- ✅ Created proper column-layout test (`test-cta-column-centering.js`)
+
+**Results:**
+- Button centering precision: 0.00-0.01px (mathematically perfect)
+- Test results: All buttons centered with < 1px tolerance
+- Visual appearance: Clean, compact buttons properly aligned
+
+**Key Learning:**
+Flexbox axes swap with `flex-direction` change. In column layout, `align-items` controls horizontal alignment, not `justify-content`. Always specify both alignment properties for responsive flexbox.
+
+**Documentation:**
+- Comprehensive lessons learned in `dev_journal.md` (300+ lines)
+- Debugging process, prevention checklist, best practices
+- Time investment: ~3 hours (now documented to save future time)
+
 ### November 18, 2025 - Blog Navigation Fix
 
 Fixed blog navigation issues after multisite removal:

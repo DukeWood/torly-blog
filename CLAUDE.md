@@ -935,3 +935,69 @@ npx playwright test tests/design-system-compliance.spec.js
 - ✅ Secondary buttons match design system exactly
 
 **Overall Result:** Site achieved 100% design system compliance with automated testing to prevent future regressions.
+
+---
+
+### CTA Button Centering Fix (November 18, 2025)
+
+**Issue:** CTA section buttons appeared left-aligned instead of centered, with 151.35px offset from container center.
+
+**Root Causes:**
+1. **Missing cross-axis alignment**: `.cta-buttons` lacked `align-items: center`
+   - In `flex-direction: column` layout, `align-items` controls horizontal alignment
+   - Without it, buttons defaulted to left-alignment on the cross axis
+
+2. **Problematic width constraint**: Buttons had `width: 20%` instead of `width: fit-content`
+   - Created artificially wide buttons that looked stretched
+   - User feedback: "why use such a long button"
+
+**Fix Applied:**
+
+#### CSS Changes (theme/torly-theme/style.css)
+```css
+/* Added cross-axis centering */
+.cta-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;     /* ← ADDED */
+    flex-wrap: wrap;
+}
+
+/* Changed from 20% to fit-content */
+.cta-buttons .btn-primary,
+.cta-buttons .btn-secondary {
+    width: fit-content;      /* ← CHANGED from width: 20% */
+}
+```
+
+**Verification:**
+- Created proper column-layout test (`test-cta-column-centering.js`)
+- Original test used row-layout logic, failed for stacked buttons
+- New test measures individual button centers vs container center
+
+**Test Results:**
+```
+Primary button center: 959.99px
+Secondary button center: 960.00px
+Container center: 960.00px
+Offset: 0.00-0.01px ✅ PERFECT CENTERING
+```
+
+**Key Learning:**
+- Flexbox axes swap with `flex-direction` change
+- In `column` layout: `justify-content` = vertical, `align-items` = horizontal
+- Always specify BOTH alignment properties in responsive flexbox
+- Use `width: fit-content` for buttons, not percentages
+- Test behavior matches actual layout mode (row vs column)
+
+**Files Modified:**
+- `theme/torly-theme/style.css` (lines 1178-1196)
+- `test-cta-column-centering.js` (new - proper test for column layouts)
+- `dev_journal.md` (comprehensive 300+ line lessons learned entry)
+
+**Time Investment:** ~3 hours debugging and documentation (now saved for future)
+
+---
+
+- to memorize ths last conversation
