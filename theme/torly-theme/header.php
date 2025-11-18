@@ -55,6 +55,84 @@
             }
         }
     </style>
+
+    <?php
+    // Google Analytics 4 Tracking
+    $ga_measurement_id = get_option('torlyai_ga_measurement_id', '');
+    if (!empty($ga_measurement_id)) :
+    ?>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo esc_attr($ga_measurement_id); ?>"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '<?php echo esc_js($ga_measurement_id); ?>', {
+            'anonymize_ip': true,
+            'cookie_flags': 'SameSite=None;Secure'
+        });
+
+        // Custom event tracking for conversions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track CTA clicks
+            const ctaButtons = document.querySelectorAll('.cta-button, .btn-primary, a[href*="get-started"]');
+            ctaButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    gtag('event', 'cta_click', {
+                        'event_category': 'engagement',
+                        'event_label': this.textContent.trim(),
+                        'value': 1
+                    });
+                });
+            });
+
+            // Track form submissions
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    gtag('event', 'form_submit', {
+                        'event_category': 'conversion',
+                        'event_label': this.id || 'unknown_form',
+                        'value': 5
+                    });
+                });
+            });
+
+            // Track scroll depth
+            let scrollDepth = 0;
+            window.addEventListener('scroll', function() {
+                const winHeight = window.innerHeight;
+                const docHeight = document.documentElement.scrollHeight;
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const trackPercentage = Math.floor((scrollTop + winHeight) / docHeight * 100);
+
+                if (trackPercentage > scrollDepth && trackPercentage % 25 === 0) {
+                    scrollDepth = trackPercentage;
+                    gtag('event', 'scroll_depth', {
+                        'event_category': 'engagement',
+                        'event_label': scrollDepth + '%',
+                        'value': scrollDepth
+                    });
+                }
+            });
+
+            // Track outbound links
+            const outboundLinks = document.querySelectorAll('a[href^="http"]');
+            outboundLinks.forEach(link => {
+                if (!link.href.includes(window.location.hostname)) {
+                    link.addEventListener('click', function(e) {
+                        gtag('event', 'outbound_link', {
+                            'event_category': 'engagement',
+                            'event_label': this.href,
+                            'transport_type': 'beacon'
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+    <?php endif; ?>
+
     <?php wp_head(); ?>
 </head>
 

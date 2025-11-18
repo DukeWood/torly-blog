@@ -471,8 +471,15 @@ function torlyai_settings_page() {
                         <input type="checkbox" name="torlyai_mcp_enabled" value="1" <?php checked(1, get_option('torlyai_mcp_enabled'), true); ?> />
                     </td>
                 </tr>
+                <tr>
+                    <th scope="row">Google Analytics 4 Measurement ID</th>
+                    <td>
+                        <input type="text" name="torlyai_ga_measurement_id" value="<?php echo esc_attr(get_option('torlyai_ga_measurement_id')); ?>" placeholder="G-XXXXXXXXXX" class="regular-text" />
+                        <p class="description">Enter your GA4 Measurement ID (format: G-XXXXXXXXXX). Tracks CTA clicks, form submissions, scroll depth, and outbound links.</p>
+                    </td>
+                </tr>
             </table>
-            
+
             <?php submit_button(); ?>
         </form>
     </div>
@@ -484,6 +491,10 @@ function torlyai_register_settings() {
     register_setting('torlyai_settings', 'torlyai_godaddy_api_key');
     register_setting('torlyai_settings', 'torlyai_godaddy_api_secret');
     register_setting('torlyai_settings', 'torlyai_mcp_enabled');
+    register_setting('torlyai_settings', 'torlyai_ga_measurement_id', array(
+        'sanitize_callback' => 'sanitize_text_field',
+        'default' => ''
+    ));
 }
 add_action('admin_init', 'torlyai_register_settings');
 
