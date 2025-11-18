@@ -76,11 +76,11 @@ ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "$SERVER" \
   WHERE scroll_depth IS NOT NULL
   GROUP BY engagement_level
   ORDER BY
-    CASE
-      WHEN scroll_depth >= 80 THEN 1
-      WHEN scroll_depth >= 50 THEN 2
-      WHEN scroll_depth >= 20 THEN 3
-      ELSE 4
+    CASE engagement_level
+      WHEN 'High (80-100%)' THEN 1
+      WHEN 'Medium (50-79%)' THEN 2
+      WHEN 'Low (20-49%)' THEN 3
+      WHEN 'Very Low (0-19%)' THEN 4
     END;\" -t"
 echo ""
 
@@ -186,12 +186,12 @@ ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "$SERVER" \
   WHERE page_load_to_signup IS NOT NULL
   GROUP BY speed
   ORDER BY
-    CASE
-      WHEN page_load_to_signup < 30 THEN 1
-      WHEN page_load_to_signup < 60 THEN 2
-      WHEN page_load_to_signup < 120 THEN 3
-      WHEN page_load_to_signup < 300 THEN 4
-      ELSE 5
+    CASE speed
+      WHEN 'Very Fast (<30s)' THEN 1
+      WHEN 'Fast (30-60s)' THEN 2
+      WHEN 'Medium (1-2min)' THEN 3
+      WHEN 'Slow (2-5min)' THEN 4
+      WHEN 'Very Slow (>5min)' THEN 5
     END;\" -t"
 echo ""
 
