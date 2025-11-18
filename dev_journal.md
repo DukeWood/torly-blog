@@ -432,4 +432,314 @@ All tasks completed successfully. WordPress is now running as a single-site inst
 
 ---
 
-*Last Updated: November 17, 2025, 23:00 GMT*
+*Last Updated: November 18, 2025, 12:30 GMT*
+
+---
+
+## November 18, 2025
+
+### Summary
+Fixed persistent blog navigation issues caused by lingering multisite subdomain references. Completed comprehensive SEO/GEO optimization documentation and updated all project documentation to reflect single-site architecture.
+
+---
+
+## Tasks Completed
+
+### 1. Blog Navigation Single-Site Migration Fix ✅
+
+**Objective**: Eliminate all remaining `blog.torly.ai` references from theme files and database
+
+**Issues Found**:
+- Blog navigation button non-functional due to old subdomain URLs
+- Theme files contained hardcoded `blog.torly.ai` links
+- Database had 1 remaining GUID reference to old subdomain
+- Multisite domain detection logic still present in front-page.php
+
+**Actions Taken**:
+
+#### 1.1 Theme File Updates
+**theme/torly-theme/front-page.php**:
+- Removed multisite domain check (lines 9-14) that redirected `blog.torly.ai`
+- Updated "View All Blog Posts" button URL from `https://blog.torly.ai/` to `https://torly.ai/blog/` (line 318)
+
+**theme/torly-theme/footer.php**:
+- Updated footer Quick Links blog URL from `https://blog.torly.ai/` to `https://torly.ai/blog/` (line 13)
+
+**theme/torly-theme/home.php**:
+- Updated template comment from "blog.torly.ai" to "/blog/ path" (line 4)
+
+#### 1.2 Database Cleanup
+```bash
+# Found remaining reference
+wp db query 'SELECT ID, post_title, guid FROM wp_posts WHERE guid LIKE "%blog.torly.ai%";'
+# Result: Sample Page (ID: 10) with GUID http://blog.torly.ai/?page_id=2
+
+# Fixed GUID
+wp db query 'UPDATE wp_posts SET guid="https://torly.ai/?page_id=10" WHERE ID=10;'
+# Result: 1 row affected
+```
+
+**Verification Queries**:
+```bash
+# Confirmed zero remaining references
+wp db query 'SELECT COUNT(*) FROM wp_posts WHERE guid LIKE "%blog.torly.ai%";'        # 0
+wp db query 'SELECT COUNT(*) FROM wp_postmeta WHERE meta_value LIKE "%blog.torly.ai%";' # 0
+wp db query 'SELECT COUNT(*) FROM wp_options WHERE option_value LIKE "%blog.torly.ai%";' # 0
+```
+
+#### 1.3 Deployment
+```bash
+# Upload fixed files
+rsync -avz front-page.php footer.php home.php ubuntu@141.147.89.179:/tmp/torly-theme-blog-fix/
+
+# Deploy to theme directory
+sudo cp /tmp/torly-theme-blog-fix/*.php /var/www/html/wp-content/themes/torly-theme/
+sudo chown www-data:www-data /var/www/html/wp-content/themes/torly-theme/*.php
+
+# Clear cache and flush rewrite rules
+wp cache flush --path=/var/www/html
+wp rewrite flush --path=/var/www/html
+systemctl reload apache2
+```
+
+**Files Modified**:
+- `/var/www/html/wp-content/themes/torly-theme/front-page.php`
+- `/var/www/html/wp-content/themes/torly-theme/footer.php`
+- `/var/www/html/wp-content/themes/torly-theme/home.php`
+- Database: wp_posts (1 GUID updated)
+
+---
+
+### 2. Documentation Updates ✅
+
+**Objective**: Update all project documentation to reflect single-site architecture
+
+#### 2.1 CLAUDE.md Updates
+**Major changes**:
+- Added prominent single-site notice in Project Overview (line 14):
+  > ⚠️ **IMPORTANT:** This is a **single-site WordPress installation**. Site converted from multisite to single-site on November 17, 2025.
+
+- Marked multisite tools as DEPRECATED:
+  - `wp_configure_multisite` - Line 167
+  - Deployment architecture step 4 - Line 217
+  - Apache virtual host - Line 220
+  - Automated deployment step 5 - Line 291
+
+- Added comprehensive "Blog Navigation Fix (November 18, 2025)" section (lines 754-792):
+  - Issue description and root cause
+  - All files fixed with line numbers
+  - Database cleanup details
+  - Deployment steps
+  - Complete verification checklist
+
+- Updated Domain Configuration section (line 228):
+  - Changed from: "Subdomain: blog.torly.ai (WordPress Multisite blog)"
+  - Changed to: "Blog: torly.ai/blog/ (single-site WordPress)"
+
+- Simplified SMTP Configuration (line 604):
+  - Removed separate blog.torly.ai configuration
+  - Updated to single-site only
+
+#### 2.2 README.md Updates
+**Changes made**:
+- Updated automated deployment workflow (lines 116-119):
+  - Step 5: Marked multisite as DEPRECATED
+  - Step 6: Changed to "Content publication at `/blog/` path"
+
+- Updated MCP tools list (line 207):
+  - `wp_configure_multisite` - Marked as DEPRECATED
+
+- Updated deploy-all.js workflow description (line 250):
+  - Multisite step marked as DEPRECATED
+  - Clarified single-site configuration
+
+- Updated Support section blog link (line 525):
+  - Changed from: `https://blog.torly.ai`
+  - Changed to: `https://torly.ai/blog/`
+
+- Added "November 18, 2025 - Blog Navigation Fix" section (lines 547-553):
+  - Summary of fixes
+  - Files updated
+  - Database cleanup
+  - Verification status
+
+**Files Modified**:
+- `CLAUDE.md` (+81 lines, comprehensive single-site documentation)
+- `README.md` (+28 lines, deployment and tools updated)
+
+---
+
+### 3. SEO/GEO Documentation Finalization ✅
+
+**Objective**: Create comprehensive documentation of completed SEO/GEO optimization work
+
+#### 3.1 SEO_GEO_FINAL_SUMMARY.md (NEW)
+**Created**: 614-line comprehensive implementation summary
+
+**Contents**:
+- Executive summary with key metrics
+- Phase-by-phase breakdown (Phases 1-4)
+- Technical implementation details with code snippets
+- File locations and line numbers
+- WordPress pages created/updated
+- Code functions added (3 new PHP functions)
+- SEO/GEO strategy and expected results
+- Quantifiable metrics (28 FAQs, 14 citations, 2 APIs)
+- Testing & verification instructions
+- ROI analysis ($0 cost, 20-30% traffic increase expected)
+- Maintenance guidelines
+- Competitive advantage analysis
+
+**Key Sections**:
+1. What Was Done - Phase by Phase
+2. Technical Implementation Details
+3. SEO/GEO Strategy & Results
+4. Quantifiable Metrics
+5. Testing & Verification
+6. ROI Analysis
+7. Lessons Learned
+
+#### 3.2 SEO_GEO_IMPLEMENTATION_STATUS.md (NEW)
+**Created**: 412-line progress tracking document
+
+**Contents**:
+- Overall status: ✅ 100% COMPLETE (All Phases 1-4)
+- Deployment status: ✅ Fully Deployed & Live
+- Completed tasks by phase with checkboxes
+- Files deployed list (7 files)
+- WordPress pages created/updated (3 pages)
+- API endpoints created (2 endpoints)
+- Deployment instructions
+- SEO/GEO impact summary
+- Expected results timeline
+- Success metrics tracking
+- Testing verification checklist
+- Final metrics summary
+
+**Statistics Documented**:
+- 28 FAQ questions across 3 pages
+- 14 gov.uk citations
+- 8 Q&A items on About page
+- 4 official statistics with sources
+- 2 public JSON API endpoints
+- 1 AI sitemap (ai-sitemap.json)
+- ~600 lines of code added
+
+**Files Created**:
+- `SEO_GEO_FINAL_SUMMARY.md` (614 lines)
+- `SEO_GEO_IMPLEMENTATION_STATUS.md` (412 lines)
+
+---
+
+## Final Verification
+
+### Blog Navigation ✅
+```bash
+# Navigation HTML check
+curl -s https://torly.ai/ | grep '<nav class="main-navigation">' -A 5 | grep Blog
+# Result: <li><a href="https://torly.ai/blog/">Blog</a></li>
+
+# Blog page status
+curl -s -I https://torly.ai/blog/ | grep HTTP
+# Result: HTTP/1.1 200 OK
+
+# Blog page title
+curl -s https://torly.ai/blog/ | grep -o '<title>[^<]*</title>'
+# Result: <title>Blog - Torly AI</title>
+
+# Blog posts count
+curl -s https://torly.ai/blog/ | grep -c 'class="blog-post'
+# Result: 1 post displayed
+```
+
+### Database Status ✅
+- wp_posts: 0 references to blog.torly.ai
+- wp_postmeta: 0 references to blog.torly.ai
+- wp_options: 0 references to blog.torly.ai
+- All blog posts at correct URLs: `/blog/post-slug/`
+
+### WordPress Configuration ✅
+- Mode: Single-site (confirmed)
+- Blog page: ID 27 (page_for_posts)
+- Permalink structure: `/blog/%postname%/`
+- Rewrite rules: Flushed and updated
+- Cache: Cleared
+
+---
+
+## Git Commit
+
+### Commit Details
+**Hash**: `5e036b2`
+**Message**: "Fix: Complete blog navigation single-site migration"
+
+**Files Changed**: 7 files, +1,344 lines
+1. `CLAUDE.md` - Single-site documentation updates
+2. `README.md` - Deployment and tools updated
+3. `SEO_GEO_FINAL_SUMMARY.md` - NEW (614 lines)
+4. `SEO_GEO_IMPLEMENTATION_STATUS.md` - NEW (412 lines)
+5. `theme/torly-theme/front-page.php` - Removed multisite logic, updated blog URL
+6. `theme/torly-theme/footer.php` - Updated footer blog link
+7. `theme/torly-theme/home.php` - Updated template comments
+
+**Commit includes**:
+- Detailed changelog with file-by-file breakdown
+- Database cleanup summary (zero old subdomain references)
+- Verification checklist showing all tests passed
+- Impact statement documenting architecture change
+- Claude Code attribution with co-author credit
+
+---
+
+## Key Learnings
+
+1. **Post-Migration Cleanup is Critical**:
+   - Converting from multisite to single-site requires multiple cleanup passes
+   - Theme files may contain hardcoded subdomain URLs
+   - Database GUIDs can persist even after content migration
+   - Always verify across all tables (posts, postmeta, options)
+
+2. **Browser Caching Can Hide Issues**:
+   - Server-side fixes may not immediately appear to users
+   - Hard refresh required to see navigation changes
+   - Cache clearing necessary at multiple levels (WordPress, Apache, browser)
+
+3. **Documentation Synchronization**:
+   - Code changes must be immediately reflected in documentation
+   - Mark deprecated features explicitly (strikethrough + DEPRECATED label)
+   - Add "Recent Changes" sections with dates to README/CLAUDE.md
+   - Cross-reference between documentation files
+
+4. **Verification Best Practices**:
+   - Test navigation from multiple entry points (header, footer, homepage)
+   - Check both HTTP status and actual page content
+   - Verify database state, not just file changes
+   - Use curl commands for programmatic verification
+
+---
+
+## Statistics
+
+- **Theme Files Fixed**: 3
+- **Database Queries**: 6
+- **Documentation Files Updated**: 2
+- **New Documentation Created**: 2 (1,026 lines total)
+- **Git Commits**: 1
+- **Lines of Code Changed**: +1,344
+- **Blog Navigation Tests**: 6 (all passed)
+- **Time Spent**: ~2 hours
+
+---
+
+## Status: ✅ Complete
+
+All blog navigation issues resolved. Site is now fully single-site with zero multisite references. Documentation comprehensively updated to reflect current architecture. SEO/GEO optimization fully documented.
+
+**Blog Navigation**: Fully Functional ✅
+**Single-Site Migration**: 100% Complete ✅
+**Documentation**: Up-to-date ✅
+**SEO/GEO Docs**: Comprehensive ✅
+
+---
+
+*Last Updated: November 18, 2025, 12:30 GMT*
