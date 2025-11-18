@@ -1199,7 +1199,7 @@ button.btn-primary:hover {
 }
 
 .footer-social a:hover {
-    color: var(--color-yellow);
+    color: var(--color-chat-green);
     transform: translateY(-3px);
 }
 
