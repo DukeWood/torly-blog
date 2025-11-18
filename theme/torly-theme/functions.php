@@ -515,6 +515,18 @@ function torlyai_waitlist_callback($request) {
     $referrer = isset($params['referrer']) ? esc_url_raw($params['referrer']) : null;
     $ip_country = isset($params['ip_country']) ? sanitize_text_field($params['ip_country']) : null;
 
+    // Get behavioral tracking data (Phase 2)
+    $cta_source = isset($params['cta_source']) ? sanitize_text_field($params['cta_source']) : null;
+    $time_on_page = isset($params['time_on_page']) ? intval($params['time_on_page']) : null;
+    $scroll_depth = isset($params['scroll_depth']) ? intval($params['scroll_depth']) : null;
+    $sections_viewed = isset($params['sections_viewed']) ? sanitize_text_field($params['sections_viewed']) : null;
+    $page_load_to_signup = isset($params['page_load_to_signup']) ? intval($params['page_load_to_signup']) : null;
+
+    // Get UTM parameters
+    $utm_source = isset($params['utm_source']) ? sanitize_text_field($params['utm_source']) : null;
+    $utm_medium = isset($params['utm_medium']) ? sanitize_text_field($params['utm_medium']) : null;
+    $utm_campaign = isset($params['utm_campaign']) ? sanitize_text_field($params['utm_campaign']) : null;
+
     // Insert into database
     $inserted = $wpdb->insert(
         $table_name,
@@ -527,9 +539,17 @@ function torlyai_waitlist_callback($request) {
             'ip_country' => $ip_country,
             'device_type' => $device_type,
             'referrer' => $referrer,
+            'cta_source' => $cta_source,
+            'time_on_page' => $time_on_page,
+            'scroll_depth' => $scroll_depth,
+            'sections_viewed' => $sections_viewed,
+            'page_load_to_signup' => $page_load_to_signup,
+            'utm_source' => $utm_source,
+            'utm_medium' => $utm_medium,
+            'utm_campaign' => $utm_campaign,
             'created_at' => current_time('mysql')
         ),
-        array('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')
+        array('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d', '%s', '%d', '%s', '%s', '%s', '%s')
     );
 
     if ($inserted === false) {
@@ -976,6 +996,14 @@ function torlyai_create_tables() {
         ip_country varchar(2) DEFAULT NULL,
         device_type varchar(20) DEFAULT NULL,
         referrer varchar(500) DEFAULT NULL,
+        cta_source varchar(50) DEFAULT NULL,
+        time_on_page int DEFAULT NULL,
+        scroll_depth int DEFAULT NULL,
+        sections_viewed text DEFAULT NULL,
+        page_load_to_signup int DEFAULT NULL,
+        utm_source varchar(100) DEFAULT NULL,
+        utm_medium varchar(100) DEFAULT NULL,
+        utm_campaign varchar(100) DEFAULT NULL,
         created_at datetime DEFAULT CURRENT_TIMESTAMP,
         notified_at datetime DEFAULT NULL,
         PRIMARY KEY (id)

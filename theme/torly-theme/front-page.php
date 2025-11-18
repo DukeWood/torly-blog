@@ -19,7 +19,7 @@ get_header(); ?>
                 From initial assessment to final submission, our AI agents work around the clock to ensure your application meets all requirements.
             </p>
             <div class="hero-buttons">
-                <button onclick="openWaitlistModal()" class="btn-primary">Join Waitlist</button>
+                <button onclick="openWaitlistModal('hero-primary')" class="btn-primary">Join Waitlist</button>
                 <a href="#features" class="btn-secondary">Explore Our Services</a>
             </div>
         </div>
@@ -425,7 +425,7 @@ get_header(); ?>
             <h2>Ready to Start Your UK Innovation Journey?</h2>
             <p>Join thousands of entrepreneurs who've successfully navigated the visa process with TorlyAI</p>
             <div class="cta-buttons">
-                <button onclick="openWaitlistModal()" class="btn-primary">Join Waitlist</button>
+                <button onclick="openWaitlistModal('cta-bottom')" class="btn-primary">Join Waitlist</button>
                 <a href="<?php echo home_url('/contact'); ?>" class="btn-secondary">Schedule a Consultation</a>
             </div>
         </div>
@@ -1062,8 +1062,92 @@ get_header(); ?>
 </style>
 
 <script>
+// Phase 2: Behavioral Tracking
+const behavioralTracking = {
+    pageLoadTime: Date.now(),
+    maxScrollDepth: 0,
+    sectionsViewed: new Set(),
+    ctaSource: null
+};
+
+// Track scroll depth
+function trackScrollDepth() {
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollPercent = Math.round((scrollTop / (documentHeight - windowHeight)) * 100);
+
+    if (scrollPercent > behavioralTracking.maxScrollDepth) {
+        behavioralTracking.maxScrollDepth = Math.min(scrollPercent, 100);
+    }
+}
+
+// Track sections viewed using Intersection Observer
+function setupSectionTracking() {
+    const sections = document.querySelectorAll('section[class*="section"]');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const sectionClass = entry.target.className.split(' ')[0];
+                behavioralTracking.sectionsViewed.add(sectionClass);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    sections.forEach(section => observer.observe(section));
+}
+
+// Extract UTM parameters from URL
+function getUTMParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return {
+        utm_source: urlParams.get('utm_source'),
+        utm_medium: urlParams.get('utm_medium'),
+        utm_campaign: urlParams.get('utm_campaign')
+    };
+}
+
+// Calculate time metrics
+function getTimeMetrics() {
+    const now = Date.now();
+    return {
+        time_on_page: Math.round((now - behavioralTracking.pageLoadTime) / 1000), // seconds
+        page_load_to_signup: Math.round((now - behavioralTracking.pageLoadTime) / 1000)
+    };
+}
+
+// Get behavioral data payload
+function getBehavioralData() {
+    const timeMetrics = getTimeMetrics();
+    const utmParams = getUTMParams();
+
+    return {
+        cta_source: behavioralTracking.ctaSource,
+        time_on_page: timeMetrics.time_on_page,
+        scroll_depth: behavioralTracking.maxScrollDepth,
+        sections_viewed: Array.from(behavioralTracking.sectionsViewed).join(','),
+        page_load_to_signup: timeMetrics.page_load_to_signup,
+        utm_source: utmParams.utm_source,
+        utm_medium: utmParams.utm_medium,
+        utm_campaign: utmParams.utm_campaign
+    };
+}
+
+// Initialize tracking on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Setup scroll tracking
+    window.addEventListener('scroll', trackScrollDepth);
+    trackScrollDepth(); // Initial check
+
+    // Setup section tracking
+    setupSectionTracking();
+});
+
 // Waitlist Modal Functions
-function openWaitlistModal() {
+function openWaitlistModal(source = 'unknown') {
+    // Store which CTA button was clicked
+    behavioralTracking.ctaSource = source;
     const modal = document.getElementById('waitlistModal');
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -1219,11 +1303,13 @@ document.getElementById('waitlistForm').addEventListener('submit', async functio
     btnLoading.style.display = 'flex';
 
     try {
-        // Collect additional data
+        // Collect all tracking data (Phase 1 + Phase 2)
+        const behavioralData = getBehavioralData();
         const payload = {
             email: email,
             device_type: getDeviceType(),
-            referrer: document.referrer || window.location.href
+            referrer: document.referrer || window.location.href,
+            ...behavioralData // Spread behavioral tracking data
         };
 
         const response = await fetch('<?php echo rest_url('torlyai/v1/waitlist'); ?>', {
