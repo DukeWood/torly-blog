@@ -28,7 +28,7 @@ get_header(); ?>
     "url": "https://torly.ai",
     "logo": {
       "@type": "ImageObject",
-      "url": "<?php echo get_template_directory_uri(); ?>/assets/torly-logo.svg"
+      "url": "<?php echo get_template_directory_uri(); ?>/assets/torlyai-logo.png"
     }
   },
   "mainEntityOfPage": {

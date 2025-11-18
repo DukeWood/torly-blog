@@ -8,7 +8,7 @@ This repository contains everything needed to deploy a production-ready WordPres
 
 **Live Sites:**
 - Main Site: https://torly.ai
-- Blog: https://blog.torly.ai
+- Blog: https://torly.ai/blog/
 
 **Key Features:**
 - Zero-cost deployment on Oracle Cloud Free Tier
@@ -18,7 +18,7 @@ This repository contains everything needed to deploy a production-ready WordPres
 - GoDaddy DNS integration
 - Free SSL certificates (Let's Encrypt)
 - SMTP email configuration with Lark Suite
-- WordPress Multisite for blog subdomain
+- Integrated blog at /blog/ with custom SVG covers (single-site setup)
 
 ## Quick Start
 
@@ -539,3 +539,19 @@ For issues, questions, or contributions:
 **Built with ❤️ for UK Innovator Visa applicants**
 
 *Helping entrepreneurs navigate the UK visa process with AI-powered assistance*
+
+---
+
+## Recent Updates (November 17, 2025)
+
+### Blog Site Merge & Architecture Change
+
+The WordPress installation has been updated from Multisite to single-site configuration:
+
+- **Blog Location**: Moved from `blog.torly.ai` subdomain to `torly.ai/blog/` path
+- **Posts**: All 5 blog posts successfully migrated with custom SVG covers
+- **Configuration**: Single-site WordPress (multisite disabled)
+- **Logo**: PNG format for exact design match
+- **Permalinks**: All posts at `https://torly.ai/blog/article-slug/`
+
+See [CLAUDE.md](./CLAUDE.md) and `dev_journal.md` for detailed documentation of changes.

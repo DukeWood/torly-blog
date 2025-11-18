@@ -4,8 +4,8 @@
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="profile" href="https://gmpg.org/xfn/11">
-    <link rel="icon" type="image/svg+xml" href="<?php echo get_template_directory_uri(); ?>/assets/favicon.svg">
-    <link rel="alternate icon" href="<?php echo get_template_directory_uri(); ?>/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="<?php echo get_template_directory_uri(); ?>/assets/torlyai-logo.png">
+    <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/assets/torlyai-logo.png">
 
     <?php if (is_single()) : ?>
     <!-- SEO Meta Tags -->
@@ -65,7 +65,7 @@
     <div class="container">
         <div class="header-content">
             <a href="https://torly.ai/" class="site-logo">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/torlyai-logo.svg" alt="Torly AI" class="logo-image" />
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/torlyai-logo.png" alt="Torly AI" class="logo-image" />
             </a>
 
             <nav class="main-navigation">

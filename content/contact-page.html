@@ -1,0 +1,714 @@
+<!-- Contact Page Content for torly.ai - Granola.ai-Inspired Design -->
+
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="hero-title">Let's talk about your UK visa journey</h1>
+      <p class="hero-subtitle">Have questions about the Innovator Visa? We're here to help you navigate the process with confidence.</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section">
+  <div class="container">
+    <div class="contact-layout">
+      <!-- Contact Form -->
+      <div class="form-column">
+        <div class="form-header">
+          <h2 class="section-title">Send us a message</h2>
+          <p>Fill out the form below and we'll get back to you within 24 hours.</p>
+        </div>
+
+        <form id="contact-form" class="contact-form" method="post" action="/wp-json/torlyai/v1/contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label required" for="name">Full Name</label>
+              <input type="text" id="name" name="name" class="form-input" required placeholder="John Smith">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label required" for="email">Email</label>
+              <input type="email" id="email" name="email" class="form-input" required placeholder="john@example.com">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" class="form-input" placeholder="+44 20 1234 5678">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="country">Country</label>
+              <input type="text" id="country" name="country" class="form-input" placeholder="United Kingdom">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required" for="subject">Subject</label>
+            <select id="subject" name="subject" class="form-input" required>
+              <option value="">Select a topic...</option>
+              <option value="visa-assessment">Visa Assessment</option>
+              <option value="business-plan">Business Plan Guidance</option>
+              <option value="endorsing-body">Endorsing Body Questions</option>
+              <option value="technical-support">Technical Support</option>
+              <option value="partnership">Partnership Opportunities</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required" for="message">Message</label>
+            <textarea id="message" name="message" class="form-textarea" required placeholder="Tell us how we can help you..."></textarea>
+          </div>
+
+          <div class="form-group checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" name="newsletter" value="yes">
+              <span>I'd like to receive updates and tips about the UK Innovator Visa</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-primary btn-submit">Send Message</button>
+          <div id="form-message" class="form-message"></div>
+        </form>
+      </div>
+
+      <!-- Contact Info Sidebar -->
+      <div class="info-column">
+        <div class="info-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="card-title">Email</h3>
+          <p><a href="mailto:hello@torly.ai">hello@torly.ai</a></p>
+          <p class="info-note">We respond within 24 hours</p>
+        </div>
+
+        <div class="info-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="card-title">Business Hours</h3>
+          <p>Monday - Friday</p>
+          <p>9:00 AM - 6:00 PM GMT</p>
+          <p class="info-note">24/7 AI assistance available</p>
+        </div>
+
+        <div class="info-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="card-title">Location</h3>
+          <p>London, United Kingdom</p>
+          <p class="info-note">Serving entrepreneurs worldwide</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features-section">
+  <div class="container">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="features-grid">
+      <div class="feature-card fade-in-element">
+        <h3 class="feature-title">How quickly will I receive a response?</h3>
+        <p class="feature-description">We aim to respond to all inquiries within 24 hours during business days. For urgent matters, please indicate this in your message.</p>
+      </div>
+
+      <div class="feature-card fade-in-element">
+        <h3 class="feature-title">Is there a consultation fee?</h3>
+        <p class="feature-description">Our initial visa assessment is completely free. Premium services and personalized guidance are available at competitive rates.</p>
+      </div>
+
+      <div class="feature-card fade-in-element">
+        <h3 class="feature-title">Do you provide immigration legal services?</h3>
+        <p class="feature-description">TorlyAI provides guidance and information. For legal representation, we can connect you with qualified immigration solicitors in our network.</p>
+      </div>
+
+      <div class="feature-card fade-in-element">
+        <h3 class="feature-title">Which countries do you support?</h3>
+        <p class="feature-description">We support entrepreneurs from all countries applying for UK Innovator Visas. Our platform is available globally with 24/7 access.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-content">
+      <h2>Ready to Start Your Application?</h2>
+      <p>Take our free AI-powered visa assessment and get personalized recommendations in minutes.</p>
+      <div class="hero-buttons">
+        <a href="/get-started" class="btn-primary">Get Free Assessment</a>
+        <a href="/blog" class="btn-secondary">Read Our Guides</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* CSS Variables - TorlyAI Design System */
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --neutral-50: #f9fafb;
+  --neutral-100: #f3f4f6;
+  --neutral-200: #e5e7eb;
+  --color-yellow: hsl(60, 100%, 50%);
+  --color-green: hsl(108, 100%, 50%);
+  --color-orange: hsl(30, 100%, 50%);
+  --color-chat-green: #10b981;
+  --text-primary: #000000;
+  --text-secondary: rgba(0, 0, 0, 0.7);
+  --text-tertiary: rgba(0, 0, 0, 0.5);
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --border-color: #e5e7eb;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Hero Section */
+.hero-section {
+  padding: 7rem 0 4rem;
+  background: var(--white);
+  background-image:
+    radial-gradient(at 53% 78%, hsla(60,100%,50%,0.3) 0px, transparent 50%),
+    radial-gradient(at 71% 91%, hsla(108,100%,50%,0.3) 0px, transparent 50%),
+    radial-gradient(at 31% 91%, hsla(30,100%,50%,0.17) 0px, transparent 50%);
+}
+
+.hero-content {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: clamp(2.25rem, 5vw, 4.5rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.020em;
+  color: var(--black);
+  margin-bottom: 1.5rem;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-weight: 500;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Contact Section */
+.contact-section {
+  padding: var(--space-16) 0;
+  background: var(--white);
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.form-column {
+  max-width: 600px;
+}
+
+.form-header {
+  margin-bottom: var(--space-8);
+}
+
+.form-header p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 0.75rem;
+}
+
+.section-title {
+  font-size: clamp(1.875rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--black);
+  margin-bottom: 0.5rem;
+}
+
+/* Form Styles */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--black);
+  margin-bottom: 0.5rem;
+}
+
+.form-label.required::after {
+  content: " *";
+  color: #ef4444;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 0.75rem;
+  background: var(--white);
+  color: var(--black);
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--color-chat-green);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--text-tertiary);
+}
+
+.form-textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.checkbox-group {
+  margin-top: 0.5rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-weight: 400;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  cursor: pointer;
+}
+
+.checkbox-label span {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Buttons */
+.btn-primary {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 9999px;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--black);
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: scale(1.02) translateZ(0);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary:active {
+  transform: scale(0.98) translateZ(0);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid var(--black);
+  border-radius: 9999px;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--black);
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-secondary:hover {
+  background: var(--black);
+  color: var(--white);
+  transform: scale(1.02);
+}
+
+.btn-submit {
+  margin-top: 0.5rem;
+}
+
+.form-message {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  display: none;
+  margin-top: -0.5rem;
+}
+
+.form-message.success {
+  background: #d1fae5;
+  border: 1px solid #10b981;
+  color: #065f46;
+  display: block;
+}
+
+.form-message.error {
+  background: #fee2e2;
+  border: 1px solid #ef4444;
+  color: #991b1b;
+  display: block;
+}
+
+/* Info Column */
+.info-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.info-card {
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 1rem;
+  background: linear-gradient(135deg,
+    hsla(60,100%,50%,0.2) 0%,
+    hsla(108,100%,50%,0.2) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.feature-icon svg {
+  width: 32px;
+  height: 32px;
+  color: var(--black);
+}
+
+.card-title {
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--black);
+  margin-bottom: 0.75rem;
+}
+
+.info-card p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin: 0.25rem 0;
+  line-height: 1.6;
+}
+
+.info-card a {
+  color: var(--color-chat-green);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.info-card a:hover {
+  text-decoration: underline;
+}
+
+.info-note {
+  font-size: 0.875rem !important;
+  color: var(--text-tertiary) !important;
+  font-style: italic;
+  margin-top: 0.5rem !important;
+}
+
+/* Features Section */
+.features-section {
+  padding: var(--space-16) 0;
+  background: var(--bg-secondary);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.feature-card {
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.feature-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.feature-card:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.feature-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--black);
+  margin-bottom: 0.75rem;
+}
+
+.feature-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* CTA Section */
+.cta-section {
+  padding: 5rem 0;
+  background: var(--black);
+  background-image:
+    radial-gradient(at 30% 50%, hsla(60,100%,50%,0.2) 0px, transparent 50%),
+    radial-gradient(at 70% 50%, hsla(108,100%,50%,0.2) 0px, transparent 50%);
+  color: var(--white);
+  text-align: center;
+}
+
+.cta-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-section h2 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.cta-section p {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2rem;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-section .btn-primary {
+  width: auto;
+}
+
+.cta-section .btn-secondary {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.cta-section .btn-secondary:hover {
+  border-color: var(--white);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+}
+
+/* Animations */
+.fade-in-element {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in-element.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .form-column {
+    max-width: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-section {
+    padding: 5rem 0 3rem;
+  }
+
+  .contact-section,
+  .features-section {
+    padding: 3rem 0;
+  }
+
+  .cta-section {
+    padding: 3rem 0;
+  }
+}
+</style>
+
+<script>
+// Intersection Observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in-element').forEach(el => {
+  observer.observe(el);
+});
+
+// Contact form submission
+document.getElementById('contact-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const formData = new FormData(this);
+  const data = Object.fromEntries(formData);
+  const messageDiv = document.getElementById('form-message');
+  const submitBtn = this.querySelector('button[type="submit"]');
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+
+  try {
+    const response = await fetch('/wp-json/torlyai/v1/contact-form', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      messageDiv.className = 'form-message success';
+      messageDiv.textContent = 'Thank you! Your message has been sent successfully. We\'ll get back to you within 24 hours.';
+      this.reset();
+    } else {
+      throw new Error(result.message || 'Failed to send message');
+    }
+  } catch (error) {
+    messageDiv.className = 'form-message error';
+    messageDiv.textContent = 'Sorry, there was an error sending your message. Please try again or email us directly at hello@torly.ai';
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send Message';
+  }
+});
+</script>

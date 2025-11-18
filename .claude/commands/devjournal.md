@@ -19,16 +19,80 @@ Then ask the user if they want to:
 - View project statistics
 - Create a git commit with today's changes
 
-If the user wants to add a new entry, provide a template following the existing format with sections for:
-- Date & Time
-- Summary (1-2 sentences)
-- Tasks Completed (categorized)
-- Actions Taken (detailed steps)
-- Files Modified (with file paths)
-- Git Commits (if any)
-- Verification & Testing
-- Key Learnings
-- Next Steps (optional improvements)
-- Statistics
+## IMPORTANT: When Adding New Entries
 
-Always maintain the same markdown format and structure as the existing journal entries.
+**CRITICAL RULES - MUST FOLLOW:**
+1. **ALWAYS APPEND** - Never overwrite or delete existing entries
+2. **READ FIRST** - Always use the Read tool to get the current file contents before editing
+3. **PRESERVE ALL** - Keep 100% of previous records unchanged
+4. **ADD AT BOTTOM** - Insert new date entries at the end of the file (chronological order)
+5. **USE EDIT TOOL** - Use the Edit tool to append, never Write tool (Write overwrites entire file)
+6. **MAINTAIN FORMAT** - Follow the exact markdown structure of existing entries
+
+**Append Process:**
+1. Read the entire `dev_journal.md` file
+2. Identify the last line of content (e.g., `*Last Updated: November 17, 2025, 23:00 GMT*`)
+3. Use Edit tool to add new entry AFTER the last line
+4. Keep the file header unchanged: `# Development Journal - Torly AI WordPress Setup`
+
+**New Entry Template Structure:**
+```markdown
+---
+
+## [DATE - e.g., November 18, 2025]
+
+### Summary
+[1-2 sentence overview of work completed]
+
+---
+
+## Tasks Completed
+
+### 1. [Task Category Name] ✅
+
+**Objective**: [What you were trying to achieve]
+
+**Actions Taken**:
+- [Bullet point list of actions]
+- [Include commands, file changes, etc.]
+
+**Files Modified**:
+- [List of files with paths]
+
+---
+
+### 2. [Another Task Category] ✅
+[...same structure...]
+
+---
+
+## Final Verification
+[List of verification steps and results]
+
+---
+
+## Key Learnings
+[Important insights from this work session]
+
+---
+
+## Statistics
+- **Metric 1**: Value
+- **Metric 2**: Value
+- **Time Spent**: ~X hours
+
+---
+
+## Next Steps (Optional)
+[Future improvements or follow-up tasks]
+
+---
+
+*Last Updated: [DATE], [TIME] GMT*
+```
+
+**Safety Check Before Appending:**
+- Confirm the last entry date in the file
+- Show the user the new entry date you're about to add
+- Verify no duplicate dates will be created
+- Use Edit tool with old_string = last few lines, new_string = last few lines + new entry
