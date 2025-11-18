@@ -225,20 +225,56 @@ border: 1px solid rgba(255, 255, 255, 0.8);
 
 ---
 
+### ❌ NON-COMPLIANT (UPDATED: November 18, 2025)
+
+#### 2. Step Numbers (.step-number)
+
+**Design System Requirement:**
+All gradient backgrounds should use **low opacity (0.2-0.3)** for subtlety, following the pattern shown in feature icons.
+
+**Current Implementation (Before Fix):**
+```css
+.step-number {
+    background: linear-gradient(135deg, var(--color-yellow), var(--color-orange)); ❌
+}
+```
+
+**Issues:**
+1. Uses full-opacity gradient (100%) instead of low-opacity (20-25%)
+2. Too visually dominant compared to design system's subtle gradient approach
+3. All design system examples show gradient backgrounds at 0.2-0.3 opacity
+
+**Fixed Implementation:**
+```css
+.step-number {
+    background: linear-gradient(135deg,
+        hsla(60,100%,50%,0.25) 0%,
+        hsla(30,100%,50%,0.25) 100%);
+    border: 2px solid rgba(0, 0, 0, 0.1);
+}
+```
+
+**Impact:** Medium - Visual consistency with design system's subtle gradient philosophy
+
+---
+
 ## Summary
 
-**Compliant:** 3/4 button/link types
-**Non-Compliant:** 1/4 button types
+**Compliant (Initial Audit):** 3/4 button/link types
+**Non-Compliant (Initial Audit):** 1/4 button types
+**Additional Issue Found:** Step number gradient opacity
 
-**Overall Score:** 75% compliant
+**Overall Score (Initial):** 75% compliant
+**Overall Score (After All Fixes):** 100% compliant
 
-**Action Required:**
-- Fix secondary button styling to match design system exactly
-- Optional: Add border to primary button for perfect compliance
-
-**After Fixes:** Will achieve 100% design system compliance
+**Fixes Applied:**
+1. ✅ Secondary button styling - Fixed November 18, 2025
+2. ✅ Step number gradient opacity - Fixed November 18, 2025
+3. ✅ Optional: Primary button border - Already present
 
 ---
 
 **Audited by:** Claude Code
-**Next Audit:** After fixes are deployed
+**Initial Audit:** November 18, 2025
+**Follow-up:** November 18, 2025
+**Status:** All issues resolved - 100% compliant

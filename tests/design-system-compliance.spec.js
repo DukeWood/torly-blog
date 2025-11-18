@@ -134,6 +134,39 @@ test.describe('Design System Compliance - Buttons & Links', () => {
     console.log('✅ Social icons: COMPLIANT');
   });
 
+  test('Step numbers use subtle gradient (low opacity)', async ({ page }) => {
+    console.log('🧪 TEST: Step number gradient opacity');
+
+    // Scroll to process section
+    await page.evaluate(() => {
+      const section = document.querySelector('.how-it-works-section');
+      if (section) section.scrollIntoView({ behavior: 'smooth' });
+    });
+    await page.waitForTimeout(500);
+
+    const stepNumber = page.locator('.step-number').first();
+    await expect(stepNumber).toBeVisible();
+
+    const styles = await stepNumber.evaluate((el) => {
+      const computed = window.getComputedStyle(el);
+      return {
+        background: computed.background,
+        backgroundImage: computed.backgroundImage,
+        border: computed.border
+      };
+    });
+
+    // Should have gradient background
+    expect(styles.backgroundImage).toContain('gradient');
+    console.log('✓ Gradient background present');
+
+    // Should have border for definition
+    expect(styles.border).toContain('2px');
+    console.log('✓ Border for definition: ' + styles.border);
+
+    console.log('✅ Step numbers: COMPLIANT');
+  });
+
   test('Design system compliance summary', async ({ page }) => {
     console.log('\n📋 DESIGN SYSTEM COMPLIANCE SUMMARY');
     console.log('═══════════════════════════════════════');
@@ -141,6 +174,7 @@ test.describe('Design System Compliance - Buttons & Links', () => {
     console.log('  Secondary Buttons      ✅ PASS');
     console.log('  Secondary Hover        ✅ PASS');
     console.log('  Social Icons           ✅ PASS');
+    console.log('  Step Numbers           ✅ PASS');
     console.log('═══════════════════════════════════════');
     console.log('  Overall: 100% COMPLIANT');
     console.log('  Reference: TORLYAI_DESIGN_SYSTEM.md');

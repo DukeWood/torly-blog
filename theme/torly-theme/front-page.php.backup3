@@ -517,6 +517,46 @@ document.addEventListener('DOMContentLoaded', function() {
     setupSectionTracking();
 });
 
+// Waitlist Modal Functions
+function openWaitlistModal(source = 'unknown') {
+    // Store which CTA button was clicked
+    behavioralTracking.ctaSource = source;
+    const modal = document.getElementById('waitlistModal');
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    // Focus on email input
+    setTimeout(() => {
+        document.getElementById('waitlistEmail').focus();
+    }, 100);
+}
+
+function closeWaitlistModal() {
+    const modal = document.getElementById('waitlistModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+
+    // Reset form after a delay
+    setTimeout(() => {
+        resetWaitlistForm();
+    }, 300);
+}
+
+function resetWaitlistForm() {
+    document.getElementById('waitlistForm').style.display = 'block';
+    document.getElementById('waitlistSuccess').style.display = 'none';
+    document.getElementById('waitlistPatreon').style.display = 'none';
+    document.getElementById('waitlistError').style.display = 'none';
+    document.getElementById('waitlistForm').reset();
+
+    // Reset profile questions
+    document.getElementById('profileCountry').value = '';
+    document.querySelectorAll('input[name="business_stage"]').forEach(r => r.checked = false);
+    document.querySelectorAll('input[name="timeline"]').forEach(r => r.checked = false);
+}
+
+// Store user email for profile submission
+let userWaitlistEmail = '';
 
 // Get device type
 function getDeviceType() {

@@ -734,7 +734,10 @@ button.btn-primary:hover {
 .step-number {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, var(--color-yellow), var(--color-orange));
+    background: linear-gradient(135deg,
+        hsla(60,100%,50%,0.25) 0%,
+        hsla(30,100%,50%,0.25) 100%);
+    border: 2px solid rgba(0, 0, 0, 0.1);
     color: var(--text-primary);
     border-radius: 50%;
     display: flex;
