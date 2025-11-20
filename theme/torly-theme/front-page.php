@@ -12,6 +12,9 @@ get_header(); ?>
 <section class="hero-section">
     <div class="container">
         <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-icon">🏅</span>#1 Visa Assessment Tool
+            </div>
             <h1 class="hero-title">Your AI-Powered Partner for UK Innovator Visa Success</h1>
             <p class="hero-subtitle">Navigate the complex visa process with AI that works 24/7</p>
             <p class="hero-description">
@@ -21,6 +24,344 @@ get_header(); ?>
             <div class="hero-buttons">
                 <button type="button" class="btn-primary" onclick="openWaitlistModal('hero-primary')">Join Waitlist</button>
                 <a href="#features" class="btn-secondary">Explore Our Services</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Product Showcase Section -->
+<section class="product-showcase-section">
+    <div class="container">
+        <div class="showcase-header">
+            <h2 class="section-title">Experience TorlyAI in Action</h2>
+            <p class="section-subtitle">Explore our AI-powered platform designed to streamline your UK Innovator Visa journey</p>
+        </div>
+
+        <!-- Feature Category Tabs -->
+        <div class="showcase-tabs">
+            <button class="tab-btn active" data-category="all">
+                <span class="tab-icon">✨</span>
+                All Features
+            </button>
+            <button class="tab-btn" data-category="skills">
+                <span class="tab-icon">🎯</span>
+                AI Skills Library
+            </button>
+            <button class="tab-btn" data-category="learning">
+                <span class="tab-icon">📚</span>
+                Learning Hub
+            </button>
+            <button class="tab-btn" data-category="chat">
+                <span class="tab-icon">💬</span>
+                AI Assistant
+            </button>
+        </div>
+
+        <!-- Main Display Viewport -->
+        <div class="showcase-viewport">
+            <div class="viewport-frame">
+                <div class="frame-chrome">
+                    <div class="chrome-dots">
+                        <span class="dot dot-red"></span>
+                        <span class="dot dot-yellow"></span>
+                        <span class="dot dot-green"></span>
+                    </div>
+                    <span class="chrome-title">torly.ai</span>
+                </div>
+                <div class="viewport-display">
+                    <img
+                        id="featuredImage"
+                        src="<?php echo get_template_directory_uri(); ?>/assets/torlyai_product_demo_optimized/screenshot-1.webp"
+                        alt="TorlyAI Product Screenshot"
+                        class="showcase-image"
+                        loading="lazy"
+                    />
+                    <div class="viewport-gradient-overlay"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thumbnail Navigation Strip -->
+        <div class="showcase-thumbnails">
+            <button class="thumbnail-nav nav-prev" aria-label="Previous screenshot">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+
+            <div class="thumbnails-container">
+                <div class="thumbnails-track">
+                    <div class="thumbnail-item active" data-category="skills" data-image="screenshot-1.webp">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/torlyai_product_demo_optimized/screenshot-1.webp" alt="Skills Library - SWOT & Market Analysis" loading="lazy">
+                        <div class="thumbnail-label">Skills Library</div>
+                    </div>
+                    <div class="thumbnail-item" data-category="skills" data-image="screenshot-2.webp">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/torlyai_product_demo_optimized/screenshot-2.webp" alt="Skills Library - Compliance Tools" loading="lazy">
+                        <div class="thumbnail-label">Compliance Tools</div>
+                    </div>
+                    <div class="thumbnail-item" data-category="skills" data-image="screenshot-3.webp">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/torlyai_product_demo_optimized/screenshot-3.webp" alt="Skills Library - Financial Modeling" loading="lazy">
+                        <div class="thumbnail-label">Financial Models</div>
+                    </div>
+                    <div class="thumbnail-item" data-category="skills" data-image="screenshot-4.webp">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/torlyai_product_demo_optimized/screenshot-4.webp" alt="Skills Library - Business Tools" loading="lazy">
+                        <div class="thumbnail-label">Business Tools</div>
+                    </div>
+                    <div class="thumbnail-item" data-category="skills" data-image="screenshot-5.webp">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/torlyai_product_demo_optimized/screenshot-5.webp" alt="Skills Library - Market Analysis" loading="lazy">
+                        <div class="thumbnail-label">Market Analysis</div>
+                    </div>
+                    <div class="thumbnail-item" data-category="learning" data-image="screenshot-6.webp">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/torlyai_product_demo_optimized/screenshot-6.webp" alt="Learning Hub - Training Modules" loading="lazy">
+                        <div class="thumbnail-label">Learning Hub</div>
+                    </div>
+                    <div class="thumbnail-item" data-category="learning" data-image="screenshot-7.webp">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/torlyai_product_demo_optimized/screenshot-7.webp" alt="Learning Hub - Articles & Resources" loading="lazy">
+                        <div class="thumbnail-label">Articles & Guides</div>
+                    </div>
+                    <div class="thumbnail-item" data-category="chat" data-image="screenshot-8.webp">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/torlyai_product_demo_optimized/screenshot-8.webp" alt="AI Chat Assistant - Visa Guidance" loading="lazy">
+                        <div class="thumbnail-label">AI Assistant</div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="thumbnail-nav nav-next" aria-label="Next screenshot">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Feature Indicators -->
+        <div class="showcase-indicators">
+            <span class="indicator active" data-index="0"></span>
+            <span class="indicator" data-index="1"></span>
+            <span class="indicator" data-index="2"></span>
+            <span class="indicator" data-index="3"></span>
+            <span class="indicator" data-index="4"></span>
+            <span class="indicator" data-index="5"></span>
+            <span class="indicator" data-index="6"></span>
+            <span class="indicator" data-index="7"></span>
+        </div>
+    </div>
+</section>
+
+<!-- Assessment Results Section -->
+<section class="assessment-results-section">
+    <div class="container">
+        <div class="results-header">
+            <h2 class="section-title">See What You'll Get from Your Assessment</h2>
+            <p class="section-subtitle">Comprehensive AI analysis with actionable insights to strengthen your application</p>
+        </div>
+
+        <div class="results-grid">
+            <!-- Card 1: Executive Summary -->
+            <div class="result-card" data-modal="executive-summary">
+                <div class="card-image-wrapper">
+                    <img
+                        src="<?php echo get_template_directory_uri(); ?>/assets/torlyai_product_demo_optimized/screenshot-9.webp"
+                        alt="Executive Summary - Critical Issues and Strengths Analysis"
+                        class="result-screenshot"
+                        loading="lazy"
+                    />
+                    <div class="zoom-overlay">
+                        <span class="zoom-icon">🔍</span>
+                        <span class="zoom-text">Click to Zoom</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">📊 Executive Summary</h3>
+                    <p class="card-description">Identifies critical issues, improvement areas, and strengths across all 29 assessment questions</p>
+                    <ul class="card-features">
+                        <li>Critical issues flagged</li>
+                        <li>Areas needing improvement</li>
+                        <li>Strengths to emphasize</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 2: TRL Readiness Score -->
+            <div class="result-card" data-modal="trl-score">
+                <div class="card-image-wrapper">
+                    <img
+                        src="<?php echo get_template_directory_uri(); ?>/assets/torlyai_product_demo_optimized/screenshot-10.webp"
+                        alt="TRL Readiness Score with Optimization Plan"
+                        class="result-screenshot"
+                        loading="lazy"
+                    />
+                    <div class="zoom-overlay">
+                        <span class="zoom-icon">🔍</span>
+                        <span class="zoom-text">Click to Zoom</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">🎯 TRL Readiness Score</h3>
+                    <p class="card-description">Technology Readiness Level assessment with specific optimization roadmap for your business</p>
+                    <ul class="card-features">
+                        <li>Current TRL level (1-9)</li>
+                        <li>Gap analysis</li>
+                        <li>Actionable optimization plan</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 3: Business Plan Validation -->
+            <div class="result-card" data-modal="structure-validation">
+                <div class="card-image-wrapper">
+                    <img
+                        src="<?php echo get_template_directory_uri(); ?>/assets/torlyai_product_demo_optimized/screenshot-11.webp"
+                        alt="Business Plan Structure Validation - 7 Elements Check"
+                        class="result-screenshot"
+                        loading="lazy"
+                    />
+                    <div class="zoom-overlay">
+                        <span class="zoom-icon">🔍</span>
+                        <span class="zoom-text">Click to Zoom</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">✅ Structure Validation</h3>
+                    <p class="card-description">7-element business plan completeness check ensuring you meet all Home Office requirements</p>
+                    <ul class="card-features">
+                        <li>Element-by-element status</li>
+                        <li>Completion percentage</li>
+                        <li>Missing components flagged</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox Modal for Screenshots -->
+<div id="screenshotModal" class="screenshot-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+        <button class="modal-close" aria-label="Close">&times;</button>
+        <div class="modal-image-container">
+            <img id="modalImage" src="" alt="Screenshot Preview" />
+        </div>
+    </div>
+</div>
+
+<!-- Application Journey Section -->
+<section class="application-journey-section">
+    <div class="container">
+        <div class="journey-header">
+            <h2 class="section-title">Your Complete Application Journey</h2>
+            <p class="section-subtitle">AI-powered tools guide you through every step—from assessment to approval in 25-40 hours</p>
+        </div>
+
+        <!-- Journey Stages Grid -->
+        <div class="journey-stages-grid">
+            <!-- Stage 1: Assessment -->
+            <div class="journey-stage-card active" data-stage="assessment" data-image="screenshot-12.webp">
+                <div class="stage-number">01</div>
+                <div class="stage-icon">📊</div>
+                <div class="stage-content">
+                    <h3 class="stage-title">Assessment</h3>
+                    <p class="stage-description">Evaluate eligibility against UK visa criteria</p>
+                </div>
+                <div class="stage-arrow">→</div>
+            </div>
+
+            <!-- Stage 2: Business Plan -->
+            <div class="journey-stage-card" data-stage="business-plan" data-image="screenshot-13.webp">
+                <div class="stage-number">02</div>
+                <div class="stage-icon">📝</div>
+                <div class="stage-content">
+                    <h3 class="stage-title">Business Plan</h3>
+                    <p class="stage-description">Generate comprehensive 20-30 page plan</p>
+                </div>
+                <div class="stage-arrow">→</div>
+            </div>
+
+            <!-- Stage 3: Financial Model -->
+            <div class="journey-stage-card" data-stage="financial" data-image="screenshot-14.webp">
+                <div class="stage-number">03</div>
+                <div class="stage-icon">💰</div>
+                <div class="stage-content">
+                    <h3 class="stage-title">Financial Model</h3>
+                    <p class="stage-description">Build Excel model with 5 sheets and scenarios</p>
+                </div>
+                <div class="stage-arrow">→</div>
+            </div>
+
+            <!-- Stage 4: Compliance -->
+            <div class="journey-stage-card" data-stage="compliance" data-image="screenshot-15.webp">
+                <div class="stage-number">04</div>
+                <div class="stage-icon">✅</div>
+                <div class="stage-content">
+                    <h3 class="stage-title">Compliance</h3>
+                    <p class="stage-description">Validate against Home Office requirements</p>
+                </div>
+                <div class="stage-arrow">→</div>
+            </div>
+
+            <!-- Stage 5: Document Checklist -->
+            <div class="journey-stage-card" data-stage="submit" data-image="screenshot-17.webp">
+                <div class="stage-number">05</div>
+                <div class="stage-icon">📦</div>
+                <div class="stage-content">
+                    <h3 class="stage-title">Document Checklist</h3>
+                    <p class="stage-description">Organize all materials for submission</p>
+                </div>
+                <div class="stage-arrow">→</div>
+            </div>
+
+            <!-- Stage 6: Pitch Deck -->
+            <div class="journey-stage-card" data-stage="pitch-deck" data-image="screenshot-16.webp">
+                <div class="stage-number">06</div>
+                <div class="stage-icon">🎯</div>
+                <div class="stage-content">
+                    <h3 class="stage-title">Pitch Deck</h3>
+                    <p class="stage-description">Create professional PowerPoint presentation</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Display Viewport -->
+        <div class="journey-viewport">
+            <div class="viewport-header">
+                <h3 id="journeyViewportTitle">Assessment Stage</h3>
+                <span id="journeyViewportDuration">30-60 minutes</span>
+            </div>
+            <div class="journey-display-frame">
+                <img
+                    id="journeyFeaturedImage"
+                    src="<?php echo get_template_directory_uri(); ?>/assets/torlyai_product_demo_optimized/screenshot-12.webp"
+                    alt="Assessment Stage - UK Innovator Visa"
+                    class="journey-screenshot"
+                    loading="lazy"
+                />
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div class="journey-dashboard">
+            <h3 class="dashboard-title">Track Your Progress</h3>
+            <p class="dashboard-subtitle">Interactive dashboard with endorsing body selection and real-time progress tracking</p>
+            <div class="dashboard-frame">
+                <img
+                    src="<?php echo get_template_directory_uri(); ?>/assets/torlyai_product_demo_optimized/screenshot-19.webp"
+                    alt="Application Dashboard - Progress Tracking"
+                    class="dashboard-screenshot"
+                    loading="lazy"
+                />
+            </div>
+        </div>
+
+        <!-- Timeline Overview -->
+        <div class="timeline-overview">
+            <h3 class="overview-title">Recommended 4-Week Timeline</h3>
+            <div class="timeline-frame">
+                <img
+                    src="<?php echo get_template_directory_uri(); ?>/assets/torlyai_product_demo_optimized/screenshot-18.webp"
+                    alt="4-Week Timeline - Week by Week Breakdown"
+                    class="timeline-screenshot"
+                    loading="lazy"
+                />
             </div>
         </div>
     </div>
@@ -121,35 +462,6 @@ get_header(); ?>
                 <p class="feature-description">
                     Validate against Home Office criteria AND endorsing body-specific requirements to maximize your approval chances.
                 </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- How It Works Section -->
-<section class="how-it-works-section">
-    <div class="container">
-        <h2 class="section-title">Simple 4-Step Process</h2>
-        <div class="process-timeline">
-            <div class="process-step">
-                <div class="step-number">1</div>
-                <h3>Take Assessment</h3>
-                <p>Complete our AI-powered assessment to evaluate your eligibility</p>
-            </div>
-            <div class="process-step">
-                <div class="step-number">2</div>
-                <h3>Choose Endorser</h3>
-                <p>Get matched with the best endorsing body for your business</p>
-            </div>
-            <div class="process-step">
-                <div class="step-number">3</div>
-                <h3>Generate Documents</h3>
-                <p>AI creates all required documents tailored to your endorser</p>
-            </div>
-            <div class="process-step">
-                <div class="step-number">4</div>
-                <h3>Submit & Succeed</h3>
-                <p>Submit your complete package with confidence</p>
             </div>
         </div>
     </div>
@@ -441,6 +753,9 @@ get_header(); ?>
 
 
 <script>
+// Global variable for waitlist email
+let userWaitlistEmail = '';
+
 // Phase 2: Behavioral Tracking
 const behavioralTracking = {
     pageLoadTime: Date.now(),
@@ -611,7 +926,7 @@ function trackPatreonClick() {
 // Close modal when clicking outside
 document.addEventListener('click', function(event) {
     const modal = document.getElementById('waitlistModal');
-    if (event.target === modal) {
+    if (modal && event.target === modal) {
         closeWaitlistModal();
     }
 });
@@ -619,12 +934,16 @@ document.addEventListener('click', function(event) {
 // Close modal with Escape key
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
-        closeWaitlistModal();
+        if (typeof closeWaitlistModal === 'function') {
+            closeWaitlistModal();
+        }
     }
 });
 
 // Handle form submission
-document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
+const waitlistForm = document.getElementById('waitlistForm');
+if (waitlistForm) {
+    waitlistForm.addEventListener('submit', async function(e) {
     e.preventDefault();
 
     const form = this;
@@ -689,7 +1008,485 @@ document.getElementById('waitlistForm').addEventListener('submit', async functio
         btnText.style.display = 'inline';
         btnLoading.style.display = 'none';
     }
-});
+    });
+}
+
+// ============================================
+// PRODUCT SHOWCASE INTERACTIONS
+// ============================================
+
+(function() {
+    // State management
+    let currentIndex = 0;
+    let filteredThumbnails = [];
+    let activeCategory = 'all';
+    const templateDir = '<?php echo get_template_directory_uri(); ?>';
+
+    // Get all elements
+    const featuredImage = document.getElementById('featuredImage');
+    const thumbnailItems = Array.from(document.querySelectorAll('.thumbnail-item'));
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const indicators = document.querySelectorAll('.indicator');
+    const prevBtn = document.querySelector('.nav-prev');
+    const nextBtn = document.querySelector('.nav-next');
+
+    // Initialize filteredThumbnails with all thumbnails
+    filteredThumbnails = thumbnailItems;
+
+    // Update featured image with fade effect
+    function updateFeaturedImage(imageName, index) {
+        const imageUrl = `${templateDir}/assets/torlyai_product_demo_optimized/${imageName}`;
+
+        // Fade out
+        featuredImage.classList.add('fade-out');
+
+        // Change image after fade out
+        setTimeout(() => {
+            featuredImage.src = imageUrl;
+            currentIndex = index;
+
+            // Update active states
+            updateActiveStates();
+
+            // Fade in
+            featuredImage.classList.remove('fade-out');
+
+            // Track analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'product_showcase_view', {
+                    'event_category': 'engagement',
+                    'image_index': index,
+                    'category': activeCategory
+                });
+            }
+        }, 250);
+    }
+
+    // Update all active states
+    function updateActiveStates() {
+        // Update thumbnails
+        thumbnailItems.forEach((item, i) => {
+            item.classList.toggle('active', i === currentIndex);
+        });
+
+        // Update indicators
+        indicators.forEach((indicator, i) => {
+            indicator.classList.toggle('active', i === currentIndex);
+        });
+    }
+
+    // Filter thumbnails by category
+    function filterByCategory(category) {
+        activeCategory = category;
+
+        // Update tab buttons
+        tabButtons.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.category === category);
+        });
+
+        // Filter thumbnails
+        if (category === 'all') {
+            filteredThumbnails = thumbnailItems;
+            thumbnailItems.forEach(item => item.style.display = 'block');
+        } else {
+            filteredThumbnails = thumbnailItems.filter(item => item.dataset.category === category);
+            thumbnailItems.forEach(item => {
+                item.style.display = item.dataset.category === category ? 'block' : 'none';
+            });
+        }
+
+        // Show first item in filtered results
+        if (filteredThumbnails.length > 0) {
+            const firstVisibleIndex = thumbnailItems.indexOf(filteredThumbnails[0]);
+            const imageName = filteredThumbnails[0].dataset.image;
+            updateFeaturedImage(imageName, firstVisibleIndex);
+        }
+    }
+
+    // Navigate to next image
+    function navigateNext() {
+        const visibleIndices = filteredThumbnails.map(item => thumbnailItems.indexOf(item));
+        const currentVisibleIndex = visibleIndices.indexOf(currentIndex);
+
+        if (currentVisibleIndex < visibleIndices.length - 1) {
+            const nextIndex = visibleIndices[currentVisibleIndex + 1];
+            const imageName = thumbnailItems[nextIndex].dataset.image;
+            updateFeaturedImage(imageName, nextIndex);
+        } else {
+            // Loop back to first
+            const firstIndex = visibleIndices[0];
+            const imageName = thumbnailItems[firstIndex].dataset.image;
+            updateFeaturedImage(imageName, firstIndex);
+        }
+    }
+
+    // Navigate to previous image
+    function navigatePrev() {
+        const visibleIndices = filteredThumbnails.map(item => thumbnailItems.indexOf(item));
+        const currentVisibleIndex = visibleIndices.indexOf(currentIndex);
+
+        if (currentVisibleIndex > 0) {
+            const prevIndex = visibleIndices[currentVisibleIndex - 1];
+            const imageName = thumbnailItems[prevIndex].dataset.image;
+            updateFeaturedImage(imageName, prevIndex);
+        } else {
+            // Loop back to last
+            const lastIndex = visibleIndices[visibleIndices.length - 1];
+            const imageName = thumbnailItems[lastIndex].dataset.image;
+            updateFeaturedImage(imageName, lastIndex);
+        }
+    }
+
+    // Event Listeners
+
+    // Tab button clicks
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterByCategory(btn.dataset.category);
+        });
+    });
+
+    // Thumbnail clicks
+    thumbnailItems.forEach((item, index) => {
+        item.addEventListener('click', () => {
+            const imageName = item.dataset.image;
+            updateFeaturedImage(imageName, index);
+        });
+    });
+
+    // Indicator clicks
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            const imageName = thumbnailItems[index].dataset.image;
+            updateFeaturedImage(imageName, index);
+        });
+    });
+
+    // Navigation button clicks
+    if (prevBtn) {
+        prevBtn.addEventListener('click', navigatePrev);
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', navigateNext);
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        // Only activate if showcase is in viewport
+        const showcase = document.querySelector('.product-showcase-section');
+        if (!showcase) return;
+
+        const rect = showcase.getBoundingClientRect();
+        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+
+        if (!isInViewport) return;
+
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            navigatePrev();
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            navigateNext();
+        }
+    });
+
+    // Optional: Auto-play carousel (uncomment to enable)
+    /*
+    let autoplayInterval = setInterval(() => {
+        navigateNext();
+    }, 5000); // Change every 5 seconds
+
+    // Pause autoplay on hover
+    const showcase = document.querySelector('.product-showcase-section');
+    if (showcase) {
+        showcase.addEventListener('mouseenter', () => {
+            clearInterval(autoplayInterval);
+        });
+
+        showcase.addEventListener('mouseleave', () => {
+            autoplayInterval = setInterval(() => {
+                navigateNext();
+            }, 5000);
+        });
+    }
+    */
+
+    // Smooth scroll indicators into view
+    function scrollToThumbnail(index) {
+        const thumbnail = thumbnailItems[index];
+        if (!thumbnail) return;
+
+        const container = document.querySelector('.thumbnails-container');
+        const track = document.querySelector('.thumbnails-track');
+
+        if (!container || !track) return;
+
+        const containerWidth = container.offsetWidth;
+        const thumbnailLeft = thumbnail.offsetLeft;
+        const thumbnailWidth = thumbnail.offsetWidth;
+        const scrollLeft = thumbnailLeft - (containerWidth / 2) + (thumbnailWidth / 2);
+
+        track.style.transform = `translateX(-${Math.max(0, scrollLeft)}px)`;
+    }
+
+    // Initialize
+    updateActiveStates();
+
+})();
+
+// ============================================
+// ASSESSMENT RESULTS LIGHTBOX MODAL
+// ============================================
+
+(function() {
+    const modal = document.getElementById('screenshotModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalClose = document.querySelector('.modal-close');
+    const modalBackdrop = document.querySelector('.modal-backdrop');
+    const resultCards = document.querySelectorAll('.result-card');
+
+    // Open modal with screenshot
+    resultCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const img = card.querySelector('.result-screenshot');
+            if (img && modal && modalImage) {
+                modalImage.src = img.src;
+                modalImage.alt = img.alt;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+
+                // Track analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'screenshot_zoom', {
+                        'event_category': 'engagement',
+                        'screenshot': img.alt
+                    });
+                }
+            }
+        });
+    });
+
+    // Close modal
+    function closeModal() {
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Re-enable scrolling
+        }
+    }
+
+    if (modalClose) {
+        modalClose.addEventListener('click', closeModal);
+    }
+
+    if (modalBackdrop) {
+        modalBackdrop.addEventListener('click', closeModal);
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+})();
+
+// ============================================
+// APPLICATION JOURNEY INTERACTIONS
+// ============================================
+
+(function() {
+    const journeyFeaturedImage = document.getElementById('journeyFeaturedImage');
+    const journeyTitle = document.getElementById('journeyViewportTitle');
+    const journeyDuration = document.getElementById('journeyViewportDuration');
+    const stageCards = document.querySelectorAll('.journey-stage-card');
+    const timelineButtons = document.querySelectorAll('.timeline-btn');
+    const templateDir = '<?php echo get_template_directory_uri(); ?>';
+
+    // Stage data with titles and durations
+    const stageData = {
+        'assessment': { title: 'Assessment Stage', duration: '30-60 minutes' },
+        'business-plan': { title: 'Business Plan Writer', duration: '4-8 hours' },
+        'financial': { title: 'Financial Model Builder', duration: '2-4 hours' },
+        'compliance': { title: 'Compliance Checker', duration: '15-30 minutes' },
+        'pitch-deck': { title: 'Pitch Deck Creator', duration: '1-2 hours' },
+        'submit': { title: 'Document Checklist', duration: '2-4 hours' }
+    };
+
+    // Update journey viewport with fade effect
+    function updateJourneyDisplay(stageName, imageName) {
+        if (!journeyFeaturedImage) return;
+
+        const imageUrl = `${templateDir}/assets/torlyai_product_demo_optimized/${imageName}`;
+        const data = stageData[stageName];
+
+        // Fade out
+        journeyFeaturedImage.classList.add('fade-out');
+
+        setTimeout(() => {
+            journeyFeaturedImage.src = imageUrl;
+            if (journeyTitle && data) journeyTitle.textContent = data.title;
+            if (journeyDuration && data) journeyDuration.textContent = data.duration;
+
+            // Fade in
+            journeyFeaturedImage.classList.remove('fade-out');
+
+            // Track analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'journey_stage_view', {
+                    'event_category': 'engagement',
+                    'stage': stageName
+                });
+            }
+        }, 250);
+    }
+
+    // Update active stage card
+    function updateActiveStage(clickedCard) {
+        stageCards.forEach(card => card.classList.remove('active'));
+        clickedCard.classList.add('active');
+    }
+
+    // Stage card click handlers
+    stageCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const stageName = card.dataset.stage;
+            const imageName = card.dataset.image;
+
+            updateActiveStage(card);
+            updateJourneyDisplay(stageName, imageName);
+        });
+    });
+
+    // Timeline button click handlers (optional functionality)
+    timelineButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Update active timeline button
+            timelineButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const week = btn.dataset.week;
+
+            // Track analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'timeline_week_view', {
+                    'event_category': 'engagement',
+                    'week': week
+                });
+            }
+
+            // You can add week-specific filtering logic here if needed
+            // For now, it just provides visual feedback
+        });
+    });
+
+    // Keyboard navigation for journey stages
+    document.addEventListener('keydown', (e) => {
+        const journeySection = document.querySelector('.application-journey-section');
+        if (!journeySection) return;
+
+        const rect = journeySection.getBoundingClientRect();
+        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+
+        if (!isInViewport) return;
+
+        const stageArray = Array.from(stageCards);
+        const activeIndex = stageArray.findIndex(card => card.classList.contains('active'));
+
+        if (e.key === 'ArrowRight' && activeIndex < stageArray.length - 1) {
+            e.preventDefault();
+            const nextCard = stageArray[activeIndex + 1];
+            const stageName = nextCard.dataset.stage;
+            const imageName = nextCard.dataset.image;
+            updateActiveStage(nextCard);
+            updateJourneyDisplay(stageName, imageName);
+        } else if (e.key === 'ArrowLeft' && activeIndex > 0) {
+            e.preventDefault();
+            const prevCard = stageArray[activeIndex - 1];
+            const stageName = prevCard.dataset.stage;
+            const imageName = prevCard.dataset.image;
+            updateActiveStage(prevCard);
+            updateJourneyDisplay(stageName, imageName);
+        }
+    });
+})();
+
+// ============================================
+// PREMIUM CUSTOM CURSOR
+// ============================================
+
+(function() {
+    // Only run on desktop devices
+    if (window.matchMedia("(hover: none) and (pointer: coarse)").matches) {
+        return;
+    }
+
+    // Create cursor elements
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    document.body.appendChild(cursor);
+
+    const cursorRing = document.createElement('div');
+    cursorRing.className = 'custom-cursor-ring';
+    document.body.appendChild(cursorRing);
+
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+    let ringX = 0, ringY = 0;
+
+    // Track mouse movement
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    // Smooth cursor follow with spring animation
+    function animateCursor() {
+        // Cursor dot follows immediately
+        cursorX += (mouseX - cursorX) * 0.25;
+        cursorY += (mouseY - cursorY) * 0.25;
+
+        // Ring follows with delay (spring effect)
+        ringX += (mouseX - ringX) * 0.15;
+        ringY += (mouseY - ringY) * 0.15;
+
+        cursor.style.transform = `translate(${cursorX - 6}px, ${cursorY - 6}px)`;
+        cursorRing.style.transform = `translate(${ringX - 20}px, ${ringY - 20}px)`;
+
+        requestAnimationFrame(animateCursor);
+    }
+
+    animateCursor();
+
+    // Add hover class when over interactive elements
+    const interactiveElements = document.querySelectorAll('a, button, .btn-primary, .btn-secondary, .thumbnail-item, .result-card, .tab-btn, .timeline-btn, .journey-stage-card');
+
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursorRing.classList.add('hover');
+            cursor.style.transform += ' scale(0.5)';
+        });
+
+        el.addEventListener('mouseleave', () => {
+            cursorRing.classList.remove('hover');
+            cursor.style.transform = cursor.style.transform.replace(' scale(0.5)', '');
+        });
+    });
+
+    // Hide cursor when leaving window
+    document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+        cursorRing.style.opacity = '0';
+    });
+
+    document.addEventListener('mouseenter', () => {
+        cursor.style.opacity = '1';
+        cursorRing.style.opacity = '0.6';
+    });
+
+    console.log('✨ Premium custom cursor initialized');
+})();
+
 </script>
 
 <?php get_footer(); ?>

@@ -133,6 +133,10 @@
     </script>
     <?php endif; ?>
 
+    <!-- Preload Premium Fonts for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <?php wp_head(); ?>
 </head>
 

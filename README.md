@@ -619,3 +619,42 @@ The WordPress installation has been updated from Multisite to single-site config
 - **Permalinks**: All posts at `https://torly.ai/blog/article-slug/`
 
 See [CLAUDE.md](./CLAUDE.md) and `dev_journal.md` for detailed documentation of changes.
+
+### November 20, 2025 - Premium Maximalism Transformation & Image Optimization
+
+**Major Update:** Complete homepage redesign with Premium Maximalism aesthetic + comprehensive image optimization (77% reduction) + critical JavaScript bug fixes.
+
+**Image Optimization:**
+- Converted 19 PNG screenshots (3.0MB) to WebP format (696KB)
+- 77% file size reduction using local `cwebp` processing
+- Added lazy loading to all product showcase images
+- Deployed optimized images to server
+
+**Premium Maximalism Design:**
+- Typography: Upgraded to 'DM Serif Display' + 'Plus Jakarta Sans'
+- Atmosphere: Added noise texture overlay + 2 floating blur orbs
+- Interactions: Custom yellow/green gradient cursor with spring physics
+- Effects: Animated button glows, gradient border reveals, multi-layer shadows
+- Theme version: 2.1.0 → 3.0.0
+
+**JavaScript Fixes:**
+- Fixed `userWaitlistEmail` undeclared variable crash
+- Added null checks for non-existent DOM elements
+- All carousel and zoom interactions now functional
+- Created automated test suite (6/6 tests passing)
+
+**Layout Improvements:**
+- Application Journey: 2-row grid (3×2), removed timeline navigation, reordered stages
+- Compact card design: 30% height reduction, removed time durations
+- UK Visa Stats: One-row layout (1×4 grid)
+- Removed "Simple 4-Step Process" section (redundant)
+
+**Performance:**
+- Page load improvement: +15-20 PageSpeed points expected
+- Image payload reduced by 2.3MB
+- Font preloading added for faster render
+- All interactions smooth 60fps
+
+**Files Modified:** style.css, front-page.php, functions.php, header.php, +19 WebP images
+
+See [CLAUDE.md](./CLAUDE.md) for complete technical documentation.

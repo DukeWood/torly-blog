@@ -144,11 +144,11 @@ add_action('init', 'torlyai_validate_and_fix_urls');
 
 // Enqueue Scripts and Styles
 function torlyai_enqueue_scripts() {
-    // Theme stylesheet (v2.1.0 - Added mobile hamburger menu)
-    wp_enqueue_style('torlyai-style', get_stylesheet_uri(), array(), '2.1.0');
+    // Theme stylesheet (v3.0.0 - Premium Maximalism transformation)
+    wp_enqueue_style('torlyai-style', get_stylesheet_uri(), array(), '3.0.0');
 
-    // Custom JavaScript (v2.1.0 - Enhanced mobile menu with accessibility)
-    wp_enqueue_script('torlyai-script', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), '2.1.0', true);
+    // Custom JavaScript (v3.0.0 - Premium interactions and custom cursor)
+    wp_enqueue_script('torlyai-script', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), '3.0.0', true);
 
     // Localize script for AJAX
     wp_localize_script('torlyai-script', 'torlyai_ajax', array(
@@ -467,7 +467,7 @@ function torlyai_visa_requirements_callback() {
             'age' => array('minimum' => 18, 'description' => 'At least 18 years old'),
             'innovation' => 'Business must be innovative, new to UK market',
             'investment' => '£50,000 minimum',
-            'endorsement' => 'Required from one of 8 authorized endorsing bodies',
+            'endorsement' => 'Required from one of 4 authorized endorsing bodies',
             'english' => 'B2 level English language requirement',
             'maintenance' => array('amount' => 1270, 'currency' => 'GBP', 'description' => 'Minimum personal savings'),
             'experience' => 'Business experience or relevant skills'
@@ -1093,7 +1093,7 @@ function torlyai_add_faq_schema_to_posts($content) {
         ),
         array(
             'question' => 'Which endorsing bodies are authorized for UK Innovator Founder Visa?',
-            'answer' => '<strong>8 authorized endorsing bodies (2026):</strong><ol><li>Tech Nation - Technology and digital businesses</li><li>Innovate UK - Innovation across all sectors</li><li>The Global Entrepreneurs Programme - High-growth businesses</li><li>Envestors Limited - Investment-ready businesses</li><li>UK Endorsing Services (UKES) - General businesses</li><li>British Business Bank - Scalable businesses</li><li>CityFibre - Infrastructure and connectivity</li><li>London & Partners - London-based businesses</li></ol>TorlyAI recommends the best fit based on your industry and business stage.'
+            'answer' => '<strong>4 authorized endorsing bodies (2026):</strong><ol><li><strong>UK Endorsing Services (UKES)</strong> - General innovative businesses across all sectors</li><li><strong>Innovator International</strong> - Scalable, globally-focused businesses with international expansion plans</li><li><strong>Envestors Limited</strong> - Investment-ready businesses seeking equity funding</li><li><strong>The Global Entrepreneurs Programme (GEP)</strong> - Government-backed programme for tech entrepreneurs (invitation-only)</li></ol><p style="margin-top: 1rem;"><em>Note: Many previously authorized endorsing bodies (including Tech Nation, Innovate UK, universities, and accelerators) are now legacy organizations that only maintain existing endorsees and do not accept new applications.</em></p>TorlyAI recommends the best fit based on your industry and business stage.'
         )
     );
 
