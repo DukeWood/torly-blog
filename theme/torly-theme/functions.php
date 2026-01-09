@@ -144,11 +144,14 @@ add_action('init', 'torlyai_validate_and_fix_urls');
 
 // Enqueue Scripts and Styles
 function torlyai_enqueue_scripts() {
-    // Theme stylesheet (v3.0.0 - Premium Maximalism transformation)
-    wp_enqueue_style('torlyai-style', get_stylesheet_uri(), array(), '3.0.0');
+    // Get theme version dynamically from style.css header
+    $theme_version = wp_get_theme()->get('Version');
 
-    // Custom JavaScript (v3.0.0 - Premium interactions and custom cursor)
-    wp_enqueue_script('torlyai-script', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), '3.0.0', true);
+    // Theme stylesheet
+    wp_enqueue_style('torlyai-style', get_stylesheet_uri(), array(), $theme_version);
+
+    // Custom JavaScript
+    wp_enqueue_script('torlyai-script', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), $theme_version, true);
 
     // Localize script for AJAX
     wp_localize_script('torlyai-script', 'torlyai_ajax', array(

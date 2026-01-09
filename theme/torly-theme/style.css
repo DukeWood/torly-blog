@@ -4,7 +4,7 @@ Theme URI: https://torly.ai
 Author: TorlyAI Development Team
 Author URI: https://torly.ai
 Description: Premium Maximalist theme for TorlyAI - UK Innovator Visa AI Assistant Platform
-Version: 3.0.2
+Version: 3.0.3
 License: GPL v2 or later
 Text Domain: torlyai
 */
@@ -121,26 +121,24 @@ a, button, .btn-primary, .btn-secondary,
     position: fixed;
     width: 12px;
     height: 12px;
-    background: var(--black);
+    background: #000000; /* Hardcoded for cross-page compatibility */
     border-radius: 50%;
     pointer-events: none;
     z-index: 10000;
     transition: transform 0.15s ease, opacity 0.15s ease;
     opacity: 0;
-    /* Removed mix-blend-mode: difference - caused invisibility on gradient backgrounds */
 }
 
 .custom-cursor-ring {
     position: fixed;
     width: 40px;
     height: 40px;
-    border: 2px solid var(--black);
+    border: 2px solid #000000; /* Hardcoded for cross-page compatibility */
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
     transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
     opacity: 0;
-    /* Changed from border-image (doesn't work with border-radius) to solid border */
 }
 
 .custom-cursor-ring.hover {
