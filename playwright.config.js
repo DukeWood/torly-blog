@@ -63,15 +63,15 @@ module.exports = defineConfig({
       },
     },
 
-    // Uncomment to test on Firefox and Safari
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
-    // },
+    // Firefox and Safari for cross-browser testing
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
 
     // Test on mobile viewports
     // {

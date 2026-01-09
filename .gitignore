@@ -79,3 +79,8 @@ build/
 # .claude/settings.json
 # .claude/statusline-*.sh
 google-analytics-stream.json
+
+# Temp files and previews
+temp-blog-images/
+*-preview.html
+curated-unsplash-images.json
