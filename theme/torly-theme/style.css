@@ -4,7 +4,7 @@ Theme URI: https://torly.ai
 Author: TorlyAI Development Team
 Author URI: https://torly.ai
 Description: Premium Maximalist theme for TorlyAI - UK Innovator Visa AI Assistant Platform
-Version: 3.0.0
+Version: 3.0.2
 License: GPL v2 or later
 Text Domain: torlyai
 */
@@ -121,26 +121,26 @@ a, button, .btn-primary, .btn-secondary,
     position: fixed;
     width: 12px;
     height: 12px;
-    background: linear-gradient(135deg, var(--color-yellow), var(--color-green));
+    background: var(--black);
     border-radius: 50%;
     pointer-events: none;
     z-index: 10000;
     transition: transform 0.15s ease, opacity 0.15s ease;
-    opacity: 1;
-    mix-blend-mode: difference;
+    opacity: 0;
+    /* Removed mix-blend-mode: difference - caused invisibility on gradient backgrounds */
 }
 
 .custom-cursor-ring {
     position: fixed;
     width: 40px;
     height: 40px;
-    border: 2px solid;
-    border-image: linear-gradient(135deg, var(--color-yellow), var(--color-green)) 1;
+    border: 2px solid var(--black);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
     transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
-    opacity: 0.6;
+    opacity: 0;
+    /* Changed from border-image (doesn't work with border-radius) to solid border */
 }
 
 .custom-cursor-ring.hover {
@@ -243,7 +243,8 @@ html {
     color: var(--text-secondary);
 }
 
-.cta-button {
+.cta-button,
+.main-navigation a.cta-button {
     background: var(--text-primary);
     color: white;
     padding: 0.625rem 1.25rem;
@@ -255,8 +256,10 @@ html {
     transform: translateZ(0);
 }
 
-.cta-button:hover {
+.cta-button:hover,
+.main-navigation a.cta-button:hover {
     background: var(--text-secondary);
+    color: white;
     transform: scale(1.01);
 }
 
