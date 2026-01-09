@@ -84,3 +84,4 @@ google-analytics-stream.json
 temp-blog-images/
 *-preview.html
 curated-unsplash-images.json
+playwright-report/
