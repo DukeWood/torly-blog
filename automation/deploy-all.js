@@ -207,7 +207,7 @@ class MasterDeployment {
       // Copy repository to VM
       console.log('1️⃣  Copying deployment files to VM...');
       execSync(
-        `scp -i ${this.credentials.sshPrivateKeyPath} -r -o StrictHostKeyChecking=no ${path.join(__dirname, '..')} ${this.credentials.sshUsername}@${this.credentials.vmIP}:/tmp/torly-wordpress-setup`,
+        `scp -i ${this.credentials.sshPrivateKeyPath} -r -o StrictHostKeyChecking=no ${path.join(__dirname, '..')} ${this.credentials.sshUsername}@${this.credentials.vmIP}:/tmp/torly-blog`,
         { stdio: 'inherit' }
       );
 
@@ -216,7 +216,7 @@ class MasterDeployment {
       console.log('   (This may take 15-30 minutes)\n');
 
       execSync(
-        `ssh -i ${this.credentials.sshPrivateKeyPath} -o StrictHostKeyChecking=no ${this.credentials.sshUsername}@${this.credentials.vmIP} "sudo bash /tmp/torly-wordpress-setup/deployment/deploy-script.sh"`,
+        `ssh -i ${this.credentials.sshPrivateKeyPath} -o StrictHostKeyChecking=no ${this.credentials.sshUsername}@${this.credentials.vmIP} "sudo bash /tmp/torly-blog/deployment/deploy-script.sh"`,
         { stdio: 'inherit' }
       );
 

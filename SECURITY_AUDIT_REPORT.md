@@ -91,7 +91,7 @@ const installCmd = `${WP_CLI_PATH} plugin install ${args.slug}`;
 
 #### 2d. `deployToOracleCloud()` - Line 676-704
 ```javascript
-const scriptPath = deployment_script_path || '/opt/torly-wordpress-setup/deployment/deploy-script.sh';
+const scriptPath = deployment_script_path || '/opt/torly-blog/deployment/deploy-script.sh';
 `scp -i ${ssh_key_path} ... ${scriptPath} ...`
 ```
 **Attack Vector:** User-supplied paths can be exploited

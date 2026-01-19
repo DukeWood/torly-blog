@@ -39,7 +39,7 @@ See [Automated Deployment](#automated-deployment) section for details.
 ## Project Structure
 
 ```
-torly-wordpress-setup/
+torly-blog/
 ├── README.md                   # This file
 ├── CLAUDE.md                   # Detailed technical documentation for AI assistants
 ├── .claude/                    # Claude Code configuration
@@ -96,8 +96,8 @@ torly-wordpress-setup/
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/torly-wordpress-setup.git
-cd torly-wordpress-setup
+git clone https://github.com/yourusername/torly-blog.git
+cd torly-blog
 
 # Install dependencies
 cd mcp-integration && npm install && cd ..
@@ -459,16 +459,16 @@ ssh ubuntu@YOUR_VM_IP "sudo systemctl restart apache2 mysql"
 # Install XAMPP/WAMP/MAMP for local WordPress
 
 # Clone repository
-git clone https://github.com/yourusername/torly-wordpress-setup.git
+git clone https://github.com/yourusername/torly-blog.git
 
 # Copy theme to WordPress
-cp -r torly-wordpress-setup/theme/torly-theme /path/to/wordpress/wp-content/themes/
+cp -r torly-blog/theme/torly-theme /path/to/wordpress/wp-content/themes/
 
 # Activate theme
 wp theme activate torly-theme --path=/path/to/wordpress
 
 # Start MCP server
-cd torly-wordpress-setup/mcp-integration
+cd torly-blog/mcp-integration
 npm install
 npm run dev
 ```
@@ -519,7 +519,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For issues, questions, or contributions:
 
-- **Issues:** [GitHub Issues](https://github.com/yourusername/torly-wordpress-setup/issues)
+- **Issues:** [GitHub Issues](https://github.com/yourusername/torly-blog/issues)
 - **Documentation:** [CLAUDE.md](./CLAUDE.md)
 - **Website:** [torly.ai](https://torly.ai)
 - **Blog:** [torly.ai/blog](https://torly.ai/blog/)

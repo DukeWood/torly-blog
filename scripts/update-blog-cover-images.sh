@@ -13,7 +13,7 @@ echo ""
 # Configuration
 WP_PATH="/var/www/html"
 WP_USER="www-data"
-IMAGES_DIR="/Users/Jason-uk/AI/AI_Coding/Repositories/torly-wordpress-setup/temp-blog-images"
+IMAGES_DIR="/Users/Jason-uk/AI/AI_Coding/Repositories/torly-blog/temp-blog-images"
 VM_IP="132.226.239.78"
 VM_USER="ubuntu"
 

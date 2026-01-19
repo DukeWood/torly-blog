@@ -330,7 +330,7 @@ wp db query "SELECT * FROM wp_options WHERE option_name = 'admin_email';"
 ## Files & Directories Modified
 
 ```
-torly-wordpress-setup/
+torly-blog/
 ├── deployment/
 │   ├── fix-multisite-removal.sh (CREATED)
 │   └── update-featured-images-svg.php (USED)

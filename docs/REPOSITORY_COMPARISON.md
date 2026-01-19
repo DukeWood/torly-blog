@@ -13,7 +13,7 @@ The Torly ecosystem consists of two separate repositories that work together:
 | Repository | Purpose | Deployment Status | Tech Stack |
 |------------|---------|-------------------|------------|
 | **torlyAI** | SaaS Application | ❌ **NOT DEPLOYED** (local dev only) | Next.js 14, Supabase, Stripe |
-| **torly-wordpress-setup** | WordPress Backend + Deployment | ✅ **LIVE** at torly.ai (Oracle VM) | WordPress, PHP, MySQL |
+| **torly-blog** | WordPress Backend + Deployment | ✅ **LIVE** at torly.ai (Oracle VM) | WordPress, PHP, MySQL |
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -21,7 +21,7 @@ The Torly ecosystem consists of two separate repositories that work together:
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                  │
 │  ┌──────────────────────┐      ┌──────────────────────────────┐ │
-│  │     torlyAI          │      │  torly-wordpress-setup       │ │
+│  │     torlyAI          │      │  torly-blog       │ │
 │  │  (Next.js SaaS App)  │      │  (WordPress + Deployment)    │ │
 │  │                      │      │                              │ │
 │  │  - 31 AI Skills      │      │  - WordPress Theme           │ │
@@ -63,7 +63,7 @@ AI-powered UK Innovator Visa application platform. A 3-tier freemium SaaS that f
 - **Backend API**: Supabase project (configured in `.env`)
 - **Payments**: Stripe (configured in `.env`)
 
-> **Note**: The domain `torly.ai` currently points to the WordPress site (torly-wordpress-setup), NOT this Next.js app.
+> **Note**: The domain `torly.ai` currently points to the WordPress site (torly-blog), NOT this Next.js app.
 
 ### Business Tiers
 | Tier | Price | Features |
@@ -239,18 +239,18 @@ torlyAI/
 |------|----------|---------|
 | Environment | `.env` | Supabase, Stripe keys |
 
-> **Note**: All Oracle Cloud / SSH credentials are stored in `torly-wordpress-setup/.credentials/` only.
+> **Note**: All Oracle Cloud / SSH credentials are stored in `torly-blog/.credentials/` only.
 
 ---
 
-## Repository 2: torly-wordpress-setup
+## Repository 2: torly-blog
 
 ### Purpose
 WordPress theme, blog content, waitlist feature, and deployment automation for the Oracle Cloud VM. This repo contains all server-side infrastructure and deployment scripts.
 
 ### Location
 ```
-/Users/Jason-uk/AI/AI_Coding/Repositories/torly-wordpress-setup/
+/Users/Jason-uk/AI/AI_Coding/Repositories/torly-blog/
 ```
 
 ### Technology Stack
@@ -269,7 +269,7 @@ WordPress theme, blog content, waitlist feature, and deployment automation for t
 ### File Structure
 
 ```
-torly-wordpress-setup/
+torly-blog/
 ├── .claude/                    # Claude Code configuration
 │   ├── settings.local.json
 │   ├── commands/
@@ -454,7 +454,7 @@ OS:            Ubuntu 22.04 LTS
 
 **Working SSH Command:**
 ```bash
-ssh -i /Users/Jason-uk/AI/AI_Coding/Repositories/torly-wordpress-setup/.credentials/ssh-key-2025-11-17.key ubuntu@141.147.89.179
+ssh -i /Users/Jason-uk/AI/AI_Coding/Repositories/torly-blog/.credentials/ssh-key-2025-11-17.key ubuntu@141.147.89.179
 ```
 
 Or from torlyAI (keys replicated):
@@ -481,7 +481,7 @@ key_file=/Users/Jason-uk/AI/AI_Coding/Repositories/torlyAI/.oci/oci_api_key.pem
 │                     DEPLOYMENT WORKFLOW                         │
 ├────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│  LOCAL (torly-wordpress-setup)                                  │
+│  LOCAL (torly-blog)                                  │
 │  ┌─────────────────────────────┐                               │
 │  │ 1. Edit theme files         │                               │
 │  │    theme/torly-theme/       │                               │
@@ -516,7 +516,7 @@ key_file=/Users/Jason-uk/AI/AI_Coding/Repositories/torlyAI/.oci/oci_api_key.pem
 
 ## Key Differences Summary
 
-| Aspect | torlyAI | torly-wordpress-setup |
+| Aspect | torlyAI | torly-blog |
 |--------|---------|----------------------|
 | **Purpose** | SaaS Application | Backend + Deployment |
 | **Tech Stack** | Next.js, TypeScript | WordPress, PHP |
@@ -547,9 +547,9 @@ npm run test:e2e         # Run Playwright tests
 npx tsx scripts/test-supabase-connection.ts
 ```
 
-### torly-wordpress-setup Deployment
+### torly-blog Deployment
 ```bash
-cd /Users/Jason-uk/AI/AI_Coding/Repositories/torly-wordpress-setup
+cd /Users/Jason-uk/AI/AI_Coding/Repositories/torly-blog
 
 # SSH to server
 ssh -i .credentials/ssh-key-2025-11-17.key ubuntu@141.147.89.179
@@ -570,7 +570,7 @@ npm test                 # Playwright tests
 
 ### Making Changes to WordPress
 
-1. **Edit theme files** in `torly-wordpress-setup/theme/torly-theme/`
+1. **Edit theme files** in `torly-blog/theme/torly-theme/`
 2. **Test locally** with Playwright
 3. **Deploy to Oracle VM** via SSH
 4. **Verify changes** on live site

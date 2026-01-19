@@ -345,7 +345,7 @@ sudo cp -r torly-theme torly-theme-backup
 ### 2. Upload New Files
 ```bash
 # Copy updated theme files
-sudo cp -r /path/to/torly-wordpress-setup/theme/torly-theme/* /var/www/html/wp-content/themes/torly-theme/
+sudo cp -r /path/to/torly-blog/theme/torly-theme/* /var/www/html/wp-content/themes/torly-theme/
 
 # Set proper permissions
 sudo chown -R www-data:www-data /var/www/html/wp-content/themes/torly-theme

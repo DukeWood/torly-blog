@@ -2,7 +2,7 @@
 # View TorlyAI Waitlist Entries
 # Usage: bash deployment/view-waitlist.sh [count|export]
 
-SSH_KEY="/Users/Jason-uk/AI/AI_Coding/Repositories/torly-wordpress-setup/.credentials/ssh-key-2025-11-17.key"
+SSH_KEY="/Users/Jason-uk/AI/AI_Coding/Repositories/torly-blog/.credentials/ssh-key-2025-11-17.key"
 SERVER="ubuntu@141.147.89.179"
 
 case "$1" in

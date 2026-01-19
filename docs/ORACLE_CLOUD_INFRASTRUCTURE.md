@@ -44,7 +44,7 @@ TorlyAI operates a hybrid architecture:
 
 | Repository | Component | Deployment Status | Live URL |
 |------------|-----------|-------------------|----------|
-| **torly-wordpress-setup** | WordPress + Blog | ✅ **LIVE** on Oracle VM | https://torly.ai |
+| **torly-blog** | WordPress + Blog | ✅ **LIVE** on Oracle VM | https://torly.ai |
 | **torlyAI** | Next.js SaaS App | ❌ **NOT DEPLOYED** - Local dev only | None |
 
 **What's Actually Running at torly.ai:**
@@ -56,17 +56,17 @@ Link: <https://torly.ai/wp-json/>  ← WordPress REST API
 The domain `torly.ai` currently points to the **WordPress site** hosted on Oracle Cloud VM, NOT a Vercel deployment of the Next.js app.
 
 **Two Repositories:**
-1. **torlyAI** (this doc's original repo → moved to torly-wordpress-setup)
+1. **torlyAI** (this doc's original repo → moved to torly-blog)
    - Next.js 14 SaaS application with 31 AI Skills
    - Runs locally with `npm run dev` on port 3000
    - NOT connected to Vercel, no production deployment
 
-2. **torly-wordpress-setup** (contains this doc)
+2. **torly-blog** (contains this doc)
    - WordPress theme, deployment scripts, SSH/OCI credentials
    - **This is what's live** at https://torly.ai
-   - Located at: `/Users/Jason-uk/AI/AI_Coding/Repositories/torly-wordpress-setup/`
+   - Located at: `/Users/Jason-uk/AI/AI_Coding/Repositories/torly-blog/`
 
-**SSH Connection (from torly-wordpress-setup):**
+**SSH Connection (from torly-blog):**
 ```bash
 ssh -i .credentials/ssh-key-2025-11-17.key ubuntu@141.147.89.179
 ```
@@ -517,7 +517,7 @@ Location: `torlyAI/.ssh/ssh-key-2025-11-17.key`
 ssh -i /Users/Jason-uk/AI/AI_Coding/Repositories/torlyAI/.ssh/ssh-key-2025-11-17.key ubuntu@141.147.89.179
 ```
 
-**Also available at:** `/Users/Jason-uk/AI/AI_Coding/Repositories/torly-wordpress-setup/.credentials/ssh-key-2025-11-17.key`
+**Also available at:** `/Users/Jason-uk/AI/AI_Coding/Repositories/torly-blog/.credentials/ssh-key-2025-11-17.key`
 
 **Status**: ✅ WORKING - Successfully connects to Oracle VM
 
@@ -641,7 +641,7 @@ oci network vnic get --vnic-id $VNIC_ID
 **Impact**: ~~Cannot deploy code, cannot access server~~ SSH access restored
 
 **Resolution**:
-- Original SSH private key (`ssh-key-2025-11-17.key`) was found in `torly-wordpress-setup/.credentials/`
+- Original SSH private key (`ssh-key-2025-11-17.key`) was found in `torly-blog/.credentials/`
 - Key has been copied to `torlyAI/.ssh/ssh-key-2025-11-17.key`
 - SSH connection verified working
 

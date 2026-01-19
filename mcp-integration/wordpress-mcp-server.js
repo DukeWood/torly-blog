@@ -737,7 +737,7 @@ async function deployToOracleCloud(args) {
     }
 
     const validatedKeyPath = validatePath(ssh_key_path);
-    const scriptPath = deployment_script_path ? validatePath(deployment_script_path) : '/opt/torly-wordpress-setup/deployment/deploy-script.sh';
+    const scriptPath = deployment_script_path ? validatePath(deployment_script_path) : '/opt/torly-blog/deployment/deploy-script.sh';
 
     // Copy deployment script to VM
     const { stdout: scpOutput } = await execAsync(

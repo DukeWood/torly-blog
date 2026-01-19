@@ -2,7 +2,7 @@
 # TorlyAI Waitlist Analytics Report
 # Shows behavioral tracking insights from Phase 2
 
-SSH_KEY="/Users/Jason-uk/AI/AI_Coding/Repositories/torly-wordpress-setup/.credentials/ssh-key-2025-11-17.key"
+SSH_KEY="/Users/Jason-uk/AI/AI_Coding/Repositories/torly-blog/.credentials/ssh-key-2025-11-17.key"
 SERVER="ubuntu@141.147.89.179"
 
 echo "============================================"

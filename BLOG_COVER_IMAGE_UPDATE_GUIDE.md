@@ -10,7 +10,7 @@
 
 ## Downloaded Images
 
-All images have been downloaded to: `/Users/Jason-uk/AI/AI_Coding/Repositories/torly-wordpress-setup/temp-blog-images/`
+All images have been downloaded to: `/Users/Jason-uk/AI/AI_Coding/Repositories/torly-blog/temp-blog-images/`
 
 ### Image Inventory:
 

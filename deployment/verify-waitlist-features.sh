@@ -114,7 +114,7 @@ echo ""
 # Test 5: Database schema check
 echo "✓ TEST 5: Database Schema"
 echo "─────────────────────────────────"
-SSH_KEY="/Users/Jason-uk/AI/AI_Coding/Repositories/torly-wordpress-setup/.credentials/ssh-key-2025-11-17.key"
+SSH_KEY="/Users/Jason-uk/AI/AI_Coding/Repositories/torly-blog/.credentials/ssh-key-2025-11-17.key"
 SERVER="ubuntu@141.147.89.179"
 
 # Check for Phase 1 columns
