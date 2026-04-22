@@ -1,0 +1,372 @@
+/*
+ * TorlyAI Editorial Header + Footer
+ * Ported from torly.ai (Next.js). Matches TORLY_DESIGN_GUIDELINES.md §2 tokens,
+ * §3 typography, §5 nav/footer, §7 logo.
+ *
+ * Scoped to the .torly-editorial wrapper so it never bleeds into legacy page
+ * content on the blog. Header + footer elements are wrapped in .torly-editorial
+ * in header.php / footer.php.
+ */
+
+/* ── Tokens (mirror of torlyAI app/globals.css) ─────────────────────────── */
+.torly-editorial {
+    /* Surface */
+    --ed-bg:        #F5F1EA;
+    --ed-bg-2:      #EFEAE1;
+    --ed-card:      #FDFBF6;
+    --ed-chip:      #E8E1D4;
+
+    /* Ink */
+    --ed-ink:       #161411;
+    --ed-ink-2:     #3A342D;
+    --ed-muted:     #8B8275;
+
+    /* Lines */
+    --ed-line:      #D9D1C2;
+    --ed-line-2:    #E4DCCC;
+
+    /* Accent */
+    --ed-accent:    #1F7A4D;
+    --ed-accent-2:  #10B981;
+}
+
+/* ── Font utility classes (match torly.ai .serif / .mono) ───────────────── */
+.torly-editorial .ed-serif,
+.torly-editorial .ed-serif * {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+.torly-editorial .ed-italic-serif {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+}
+.torly-editorial .ed-mono {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-weight: 400;
+}
+.torly-editorial,
+.torly-editorial p,
+.torly-editorial a,
+.torly-editorial li {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * HEADER
+ * Fixed nav bar, ~68px tall, bone bg with backdrop blur on scroll.
+ * Logo tile + stacked Wordmark(Torly.AI, emerald ".", italic emerald "AI") + slogan.
+ * ───────────────────────────────────────────────────────────────────────── */
+.torly-editorial-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: rgba(245, 241, 234, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    padding-top: env(safe-area-inset-top);
+    transition: border-color 200ms ease, background 200ms ease;
+}
+.torly-editorial-header.is-scrolled {
+    border-bottom-color: var(--ed-line-2);
+}
+.torly-editorial-header .ed-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 28px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+.torly-editorial-header .ed-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--ed-ink);
+}
+@media (min-width: 640px) {
+    .torly-editorial-header .ed-brand { gap: 12px; }
+}
+.torly-editorial-header .ed-logo-tile {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: inline-block;
+}
+.torly-editorial-header .ed-logo-tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.torly-editorial-header .ed-brand-stack {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+.torly-editorial-header .ed-wordmark {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    color: var(--ed-ink);
+    line-height: 1;
+    display: inline-flex;
+    align-items: baseline;
+}
+.torly-editorial-header .ed-wordmark .ed-accent-dot { color: var(--ed-accent); }
+.torly-editorial-header .ed-wordmark .ed-accent-ai {
+    color: var(--ed-accent);
+    font-style: italic;
+}
+.torly-editorial-header .ed-slogan {
+    display: none;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--ed-muted);
+    margin-top: 6px;
+}
+@media (min-width: 640px) {
+    .torly-editorial-header .ed-slogan { display: block; }
+}
+.torly-editorial-header .ed-nav {
+    display: none;
+}
+@media (min-width: 1024px) {
+    .torly-editorial-header .ed-nav {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+    }
+}
+.torly-editorial-header .ed-nav a {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ed-ink-2);
+    text-decoration: none;
+    transition: color 160ms ease;
+}
+.torly-editorial-header .ed-nav a:hover { color: var(--ed-ink); }
+.torly-editorial-header .ed-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+.torly-editorial-header .ed-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ed-ink);
+    color: var(--ed-bg);
+    border: none;
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 180ms ease;
+    box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.3);
+}
+.torly-editorial-header .ed-cta:hover { background: #0c0b09; }
+.torly-editorial-header .ed-mobile-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--ed-line-2);
+    border-radius: 10px;
+    cursor: pointer;
+    color: var(--ed-ink);
+}
+@media (min-width: 1024px) {
+    .torly-editorial-header .ed-mobile-toggle { display: none; }
+}
+.torly-editorial-header .ed-mobile-toggle svg { width: 18px; height: 18px; }
+
+/* Mobile drawer — only visible when .is-open is toggled on the header */
+.torly-editorial-header .ed-mobile-drawer {
+    display: none;
+    position: fixed;
+    top: 68px;
+    left: 0;
+    right: 0;
+    background: var(--ed-bg);
+    border-top: 1px solid var(--ed-line-2);
+    padding: 12px 28px 24px;
+    max-height: calc(100vh - 68px);
+    overflow-y: auto;
+}
+.torly-editorial-header.is-open .ed-mobile-drawer { display: block; }
+.torly-editorial-header .ed-mobile-drawer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.torly-editorial-header .ed-mobile-drawer a {
+    display: block;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--ed-line-2);
+    color: var(--ed-ink);
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+}
+.torly-editorial-header .ed-mobile-drawer a.ed-cta {
+    margin-top: 16px;
+    border-bottom: none;
+    background: var(--ed-ink);
+    color: var(--ed-bg);
+    border-radius: 999px;
+    padding: 14px 18px;
+    text-align: center;
+}
+
+/* Offset content below fixed header */
+body.torly-editorial-active { padding-top: 68px; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * FOOTER
+ * Dark ink band with 4-column grid + bottom bar.
+ * Matches components/marketing/Footer.tsx on torly.ai.
+ * ───────────────────────────────────────────────────────────────────────── */
+.torly-editorial-footer {
+    background: var(--ed-ink);
+    color: var(--ed-bg);
+    border-top: 1px solid rgba(245, 241, 234, 0.18);
+    padding: 80px 0 32px;
+}
+.torly-editorial-footer .ed-footer-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 28px;
+}
+.torly-editorial-footer .ed-footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(245, 241, 234, 0.18);
+}
+@media (min-width: 768px) {
+    .torly-editorial-footer .ed-footer-grid {
+        grid-template-columns: 1.3fr 1fr 1fr 1fr;
+        gap: 48px;
+    }
+}
+.torly-editorial-footer .ed-footer-brand { display: flex; flex-direction: column; gap: 20px; }
+.torly-editorial-footer .ed-footer-brand-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+.torly-editorial-footer .ed-footer-brand-row img { width: 36px; height: 36px; object-fit: contain; }
+.torly-editorial-footer .ed-footer-brand-stack { display: flex; flex-direction: column; line-height: 1; }
+.torly-editorial-footer .ed-footer-wordmark {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    color: var(--ed-bg);
+    line-height: 1;
+    display: inline-flex;
+    align-items: baseline;
+}
+.torly-editorial-footer .ed-footer-wordmark .ed-accent-dot { color: var(--ed-accent); }
+.torly-editorial-footer .ed-footer-wordmark .ed-accent-ai { color: var(--ed-accent); font-style: italic; }
+.torly-editorial-footer .ed-footer-caption {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(245, 241, 234, 0.6);
+    margin-top: 6px;
+}
+.torly-editorial-footer .ed-footer-tagline {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: rgba(245, 241, 234, 0.6);
+    max-width: 260px;
+    margin: 0;
+}
+.torly-editorial-footer .ed-footer-socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+.torly-editorial-footer .ed-footer-socials a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(245, 241, 234, 0.2);
+    color: rgba(245, 241, 234, 0.8);
+    transition: color 160ms ease, border-color 160ms ease;
+}
+.torly-editorial-footer .ed-footer-socials a:hover {
+    color: var(--ed-bg);
+    border-color: rgba(245, 241, 234, 0.55);
+}
+.torly-editorial-footer .ed-footer-socials svg { width: 15px; height: 15px; }
+.torly-editorial-footer .ed-footer-col h4 {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: rgba(245, 241, 234, 0.6);
+    margin: 0 0 16px;
+    font-weight: 500;
+}
+.torly-editorial-footer .ed-footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.torly-editorial-footer .ed-footer-col li a {
+    color: rgba(245, 241, 234, 0.85);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 160ms ease;
+}
+.torly-editorial-footer .ed-footer-col li a:hover { color: var(--ed-bg); }
+
+.torly-editorial-footer .ed-footer-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 32px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: rgba(245, 241, 234, 0.5);
+}
+@media (min-width: 768px) {
+    .torly-editorial-footer .ed-footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+.torly-editorial-footer .ed-footer-bottom p { margin: 0; }

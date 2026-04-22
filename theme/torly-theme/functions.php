@@ -142,6 +142,52 @@ function torlyai_validate_and_fix_urls() {
 add_action('admin_init', 'torlyai_validate_and_fix_urls');
 add_action('init', 'torlyai_validate_and_fix_urls');
 
+// ─────────────────────────────────────────────────────────────────────────────
+// SEO: Rewrite all WP-emitted URLs from origin.torly.ai → torly.ai
+//
+// Why: WordPress is installed on origin.torly.ai but the public domain is
+// torly.ai (reverse-proxied via Vercel). Without this filter, canonical tags,
+// permalinks, OG URLs, RSS guids, and sitemap entries all expose the origin
+// host — splitting Google's link equity between the two domains. Rewriting at
+// the WP layer keeps every signal on torly.ai regardless of where the page
+// is physically served.
+// ─────────────────────────────────────────────────────────────────────────────
+function torlyai_rewrite_canonical_host($url) {
+    if (!is_string($url)) return $url;
+    return str_replace(array('https://origin.torly.ai', 'http://origin.torly.ai'), 'https://torly.ai', $url);
+}
+
+// Core URL filters (run late with priority 99)
+foreach (array('home_url', 'site_url', 'option_home', 'option_siteurl') as $f) {
+    add_filter($f, 'torlyai_rewrite_canonical_host', 99);
+}
+
+// Permalinks
+foreach (array(
+    'the_permalink', 'post_link', 'page_link', 'attachment_link',
+    'category_link', 'tag_link', 'term_link', 'author_link',
+    'day_link', 'month_link', 'year_link', 'post_type_link', 'get_the_guid',
+) as $f) {
+    add_filter($f, 'torlyai_rewrite_canonical_host', 99);
+}
+
+// SEO plugin canonical (if installed)
+foreach (array('wpseo_canonical', 'rank_math_canonical', 'aioseop_canonical_url') as $f) {
+    add_filter($f, 'torlyai_rewrite_canonical_host', 99);
+}
+
+// Rewrite any absolute origin.torly.ai link accidentally baked into post content
+add_filter('the_content', 'torlyai_rewrite_canonical_host', 99);
+
+// Feeds / OEmbed
+add_filter('feed_link', 'torlyai_rewrite_canonical_host', 99);
+add_filter('oembed_response_data', function($data) {
+    foreach (array('author_url', 'provider_url', 'url', 'thumbnail_url') as $k) {
+        if (isset($data[$k])) $data[$k] = torlyai_rewrite_canonical_host($data[$k]);
+    }
+    return $data;
+}, 99);
+
 // Enqueue Scripts and Styles
 function torlyai_enqueue_scripts() {
     // Get theme version dynamically from style.css header
@@ -149,6 +195,15 @@ function torlyai_enqueue_scripts() {
 
     // Theme stylesheet
     wp_enqueue_style('torlyai-style', get_stylesheet_uri(), array(), $theme_version);
+
+    // Editorial brand system (shared tokens + editorial header/footer styles)
+    // Matches the TORLY_DESIGN_GUIDELINES.md spec used on torly.ai.
+    wp_enqueue_style('torlyai-editorial', get_template_directory_uri() . '/assets/css/torlyai-editorial.css', array('torlyai-style'), $theme_version);
+
+    // Google Fonts — Instrument Serif (normal + italic), Inter (400-700), JetBrains Mono (400-500)
+    // Per design guide §3.3 (non-Next.js surfaces). The ital@0;1 axis loads both regular AND italic for Instrument Serif.
+    wp_enqueue_style('torlyai-fonts-preconnect', 'https://fonts.googleapis.com', array(), null);
+    wp_enqueue_style('torlyai-fonts', 'https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap', array(), null);
 
     // Custom JavaScript
     wp_enqueue_script('torlyai-script', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), $theme_version, true);
@@ -1121,6 +1176,76 @@ function torlyai_add_faq_schema_to_posts($content) {
     return $content . $faq_html;
 }
 add_filter('the_content', 'torlyai_add_faq_schema_to_posts');
+
+// Custom page titles for SEO (since Yoast is removed)
+function torlyai_custom_title($title) {
+    if (is_home() || is_front_page()) {
+        return 'UK Innovator Visa Blog | AI-Powered Insights - Torly AI';
+    }
+    if (is_category()) {
+        return single_cat_title('', false) . ' - Torly AI Blog';
+    }
+    if (is_single()) {
+        return get_the_title() . ' - Torly AI';
+    }
+    return $title;
+}
+add_filter('pre_get_document_title', 'torlyai_custom_title');
+
+// Blog sitemap at /blog/sitemap.xml
+function torlyai_blog_sitemap() {
+    add_rewrite_rule('^blog/sitemap\.xml$', 'index.php?torlyai_sitemap=1', 'top');
+}
+add_action('init', 'torlyai_blog_sitemap');
+
+function torlyai_sitemap_query_var($vars) {
+    $vars[] = 'torlyai_sitemap';
+    return $vars;
+}
+add_filter('query_vars', 'torlyai_sitemap_query_var');
+
+function torlyai_render_sitemap() {
+    if (!get_query_var('torlyai_sitemap')) return;
+
+    header('Content-Type: application/xml; charset=UTF-8');
+    header('X-Robots-Tag: noindex');
+
+    $posts = get_posts(array(
+        'post_type' => 'post',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        'orderby' => 'modified',
+        'order' => 'DESC',
+    ));
+
+    echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+
+    // Blog index
+    echo '<url><loc>https://torly.ai/blog/</loc>';
+    echo '<lastmod>' . date('Y-m-d') . '</lastmod>';
+    echo '<changefreq>daily</changefreq><priority>0.8</priority></url>' . "\n";
+
+    foreach ($posts as $post) {
+        $url = str_replace(home_url(), 'https://torly.ai', get_permalink($post));
+        $mod = get_the_modified_date('Y-m-d', $post);
+        echo '<url><loc>' . esc_url($url) . '</loc>';
+        echo '<lastmod>' . $mod . '</lastmod>';
+        echo '<changefreq>monthly</changefreq><priority>0.6</priority></url>' . "\n";
+    }
+
+    // Categories
+    $categories = get_categories(array('hide_empty' => true));
+    foreach ($categories as $cat) {
+        $cat_url = str_replace(home_url(), 'https://torly.ai', get_category_link($cat));
+        echo '<url><loc>' . esc_url($cat_url) . '</loc>';
+        echo '<changefreq>weekly</changefreq><priority>0.5</priority></url>' . "\n";
+    }
+
+    echo '</urlset>';
+    exit;
+}
+add_action('template_redirect', 'torlyai_render_sitemap');
 
 // Cleanup on theme deactivation
 function torlyai_cleanup() {
