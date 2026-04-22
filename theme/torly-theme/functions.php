@@ -171,6 +171,38 @@ foreach (array(
     add_filter($f, 'torlyai_rewrite_canonical_host', 99);
 }
 
+// Asset URLs — get_template_directory_uri(), wp_get_attachment_url(), etc. go
+// through these filters; without them the favicon + theme assets still emit
+// origin.torly.ai in the HTML of every page.
+foreach (array(
+    'content_url',
+    'stylesheet_directory_uri', 'template_directory_uri',
+    'stylesheet_uri',
+    'plugins_url',
+    'wp_get_attachment_url',
+    'theme_root_uri',
+) as $f) {
+    add_filter($f, 'torlyai_rewrite_canonical_host', 99);
+}
+
+// upload_dir returns an array — rewrite its url + baseurl fields.
+add_filter('upload_dir', function($dirs) {
+    if (is_array($dirs)) {
+        foreach (array('url', 'baseurl') as $k) {
+            if (isset($dirs[$k])) $dirs[$k] = torlyai_rewrite_canonical_host($dirs[$k]);
+        }
+    }
+    return $dirs;
+}, 99);
+
+// wp_get_attachment_image_src returns array($url, $w, $h, $is_intermediate).
+add_filter('wp_get_attachment_image_src', function($src) {
+    if (is_array($src) && isset($src[0]) && is_string($src[0])) {
+        $src[0] = torlyai_rewrite_canonical_host($src[0]);
+    }
+    return $src;
+}, 99);
+
 // SEO plugin canonical (if installed)
 foreach (array('wpseo_canonical', 'rank_math_canonical', 'aioseop_canonical_url') as $f) {
     add_filter($f, 'torlyai_rewrite_canonical_host', 99);
@@ -186,6 +218,48 @@ add_filter('oembed_response_data', function($data) {
         if (isset($data[$k])) $data[$k] = torlyai_rewrite_canonical_host($data[$k]);
     }
     return $data;
+}, 99);
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Cache-Control for anonymous blog views — feeds Vercel's edge cache so the
+// /blog/:path* rewrite in torlyAI/vercel.json doesn't re-burn the 2026-04-17
+// Fluid CPU incident. If this header disappears, revert the rewrite.
+//
+// Rules:
+//   - Only set for anonymous users (logged-in sessions get WP's default no-cache
+//     so the admin bar isn't served stale to everyone).
+//   - Only set for blog pages (single post / home / archive / feed) — not for
+//     wp-admin, wp-login, wp-json, or any POST request.
+//   - s-maxage=3600 (1h edge cache) + stale-while-revalidate=86400 (24h SWR).
+// ─────────────────────────────────────────────────────────────────────────────
+function torlyai_send_blog_cache_headers() {
+    // Skip non-GET requests (comments, searches, POSTs, admin).
+    if (empty($_SERVER['REQUEST_METHOD']) || $_SERVER['REQUEST_METHOD'] !== 'GET') return;
+    // Skip wp-admin / wp-login / wp-json / xmlrpc surfaces.
+    if (is_admin() || is_login() || defined('WP_CLI') || defined('DOING_AJAX') && DOING_AJAX) return;
+    if (isset($_SERVER['REQUEST_URI']) && preg_match('#^/(wp-admin|wp-login|wp-json|xmlrpc)#', $_SERVER['REQUEST_URI'])) return;
+    // Skip logged-in users (admin bar variant must not be cached for anon visitors).
+    if (is_user_logged_in()) return;
+    // Skip preview / customizer.
+    if (is_preview() || is_customize_preview()) return;
+    // Only cache the actual blog front-end: home, archive, single post, feed, page.
+    if (!(is_home() || is_front_page() || is_archive() || is_single() || is_page() || is_feed() || is_search())) return;
+
+    // 1 hour edge cache, 24 hours stale-while-revalidate — matches the Vercel
+    // edge caching contract documented in torlyAI/CLAUDE.md blog exception.
+    header('Cache-Control: public, s-maxage=3600, stale-while-revalidate=86400, max-age=0', true);
+    // Let Vercel vary on Accept-Encoding at minimum; helps prevent gzip/br mix-ups.
+    header('Vary: Accept-Encoding', false);
+}
+add_action('send_headers', 'torlyai_send_blog_cache_headers', 99);
+
+// Safety net: if WordPress's own nocache_headers() ran (e.g. after a plugin
+// called it), strip it for anonymous blog views so the edge can still cache.
+add_filter('nocache_headers', function($headers) {
+    if (is_user_logged_in() || is_admin() || is_login()) return $headers;
+    // Anonymous blog context — let our send_headers action own Cache-Control.
+    unset($headers['Cache-Control'], $headers['Pragma'], $headers['Expires']);
+    return $headers;
 }, 99);
 
 // Enqueue Scripts and Styles
