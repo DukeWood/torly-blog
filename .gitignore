@@ -5,8 +5,14 @@
 *credentials*.json
 *password*
 godaddy*.png
-*.png
+# Block stray PNG screenshots at repo root (where credential screenshots land)
+# but allow tracked assets under the theme directory — the brand logo MUST
+# ship to the VM via git, otherwise header <img src> 404s at deploy time.
+/*.png
+!theme/**/*.png
 *.pdf
+/*.pdf
+!theme/**/*.pdf
 
 # Environment variables (contains sensitive credentials)
 .env
