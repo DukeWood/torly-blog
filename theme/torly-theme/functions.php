@@ -200,6 +200,18 @@ function torlyai_enqueue_scripts() {
     // Matches the TORLY_DESIGN_GUIDELINES.md spec used on torly.ai.
     wp_enqueue_style('torlyai-editorial', get_template_directory_uri() . '/assets/css/torlyai-editorial.css', array('torlyai-style'), $theme_version);
 
+    // Blog index / archive card-grid enhancements — only loaded on home + archive
+    // routes so single-post pages (now editorial) don't ship these styles.
+    // Cache-bust piggybacks on $theme_version, same as every other asset.
+    if (is_home() || is_archive() || is_search()) {
+        wp_enqueue_style(
+            'torlyai-blog-redesign-enhanced',
+            get_template_directory_uri() . '/assets/css/blog-redesign-enhanced.css',
+            array('torlyai-style'),
+            $theme_version
+        );
+    }
+
     // Google Fonts — Instrument Serif (normal + italic), Inter (400-700), JetBrains Mono (400-500)
     // Per design guide §3.3 (non-Next.js surfaces). The ital@0;1 axis loads both regular AND italic for Instrument Serif.
     wp_enqueue_style('torlyai-fonts-preconnect', 'https://fonts.googleapis.com', array(), null);
