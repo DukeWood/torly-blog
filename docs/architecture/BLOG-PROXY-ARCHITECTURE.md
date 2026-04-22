@@ -418,7 +418,59 @@ git push origin main
 | 2026-04-17 | **CPU incident:** `/blog/*` rewrites without caching burned Hobby plan Fluid CPU to 296%. Account paused 2+ days. Flipped rewrites → 302 redirects. | — |
 | 2026-04-21 | **Editorial redesign shipped:** header/footer/single-post WP templates + canonical URL filter (torly-blog `398e40b`, `2cedb33`, `b27ddcc`). | torly-blog: 398e40b, 2cedb33, b27ddcc |
 | 2026-04-22 | **Origin-URL incident resolved** across four commits (see §5). Final state: Next.js rewrites + CDN cache headers + WP cache-control + URL filter = URL stays on torly.ai with safe CPU. | torlyAI: bd4bdf5, 3cf712f, 12b8f0d; torly-blog: 820d1d7 |
-| 2026-04-22 | **This doc created.** Saved identically to both repos. | — |
+| 2026-04-22 | **Admin-login incident resolved** (see §14). Three-layer nested bug in the host-rewrite filter silently broke `wp-admin` login. | torly-blog: ab5aa43, 2cbea5a + wp-config.php edit on VM |
+| 2026-04-22 | **This doc created + extended with admin-login incident.** Saved identically to both repos. | — |
+
+---
+
+## 14. Admin-login incident (2026-04-22, evening)
+
+### Symptom
+Visiting `https://origin.torly.ai/wp-login.php`, typing correct admin credentials, and clicking **Log In** did nothing. The page silently re-rendered with empty fields — no error banner, no red notice. Classic WP "cookies blocked" silent-fail pattern. But cookies were NOT blocked at the browser level — the bug was deeper.
+
+### Root cause (three nested layers)
+
+**Layer 1 — Cross-origin form POST.** The login form's `action` attribute was `https://torly.ai/wp-login.php`, but the browser was at `https://origin.torly.ai`. Form POSTs to torly.ai → Vercel 302 redirects back to origin → browser converts POST→GET on redirect, stripping the form body → WP sees a bodyless GET and re-renders the empty login form.
+
+**Layer 2 — The URL filter's admin-path exemption never matched.** Added an exemption regex for `/(wp-admin|wp-login\.php|wp-json|xmlrpc\.php)` in `torlyai_rewrite_canonical_host()` to keep admin URLs on origin. Live instrumentation (trace probe) showed the filter input was already `https://torly.ai/wp-login.php` — fully rewritten before our regex could examine it.
+
+**Layer 3 — `option_siteurl` runs before WP concatenates the path.** The filter was hooked on four functions: `home_url`, `site_url`, `option_home`, `option_siteurl`. The `option_*` variants fire on the bare base URL (`https://origin.torly.ai`), BEFORE WP concatenates `/wp-login.php`. So the option filter rewrote origin→torly.ai on the base, WP then appended `/wp-login.php` → final URL `https://torly.ai/wp-login.php`. The `site_url` filter fired next but received the already-rewritten URL.
+
+### Fix (paired with `COOKIE_DOMAIN = false`)
+
+1. **`torly-blog@ab5aa43`** — add regex exemption for admin/login/REST paths:
+   ```php
+   if (preg_match('#/(wp-admin|wp-login\.php|wp-json|xmlrpc\.php)(/|$|\?)#', $url)) {
+       return $url;
+   }
+   ```
+
+2. **`torly-blog@2cbea5a`** — drop `option_home` / `option_siteurl` from the filter chain, keeping only `home_url` / `site_url` which receive the full URL post-concatenation. Now the exemption regex has access to the path and can correctly skip admin URLs.
+
+3. **`wp-config.php` on VM (backup at `wp-config.php.bak-20260422-214159`)** — added `define('COOKIE_DOMAIN', false);`. Before this, auth cookies were being set with `Domain=torly.ai` (derived from option_siteurl), so browsers at origin.torly.ai silently rejected them. `false` tells WP to omit the Domain attribute, making cookies scope to the current request host.
+
+### Verification (end-to-end via Playwright)
+- Login form action is `https://origin.torly.ai/wp-login.php` (same-origin) ✓
+- Admin login with correct credentials lands on `/wp-admin/` dashboard showing "Howdy, admin" ✓
+- `<link rel="canonical">` on blog posts still emits `torly.ai/blog/...` — SEO preserved ✓
+- `og:url`, `og:image`, `twitter:image`, RSS `<link>`, blog-index post URLs all still emit `torly.ai` ✓
+- Only URLs now emitting `origin.torly.ai`: `/wp-admin/admin-ajax.php`, `/wp-json` self-links, `xmlrpc.php?rsd` — all intentionally exempt, none indexed by Google
+
+### Load-bearing invariants (add to §7 rules in spirit)
+
+- **URL-rewrite host filter must hook at the URL-output stage (`home_url` / `site_url`), NOT at the option stage (`option_home` / `option_siteurl`).** The option filters fire before path concatenation, so any path-based exemption logic won't work. If you ever see an admin URL being rewritten that shouldn't be, check if the filter list accidentally includes the option_* variants.
+- **Admin paths (`/wp-admin`, `/wp-login.php`, `/wp-json`, `/xmlrpc.php`) must be exempted from host rewriting.** Cross-origin form POSTs + 302 redirects = lost POST bodies = silent login failures. Same rule applies to any future admin/API path we add.
+- **`COOKIE_DOMAIN = false` in wp-config.php must stay.** Without it, WP derives cookie domain from siteurl, which the theme's auto-fix keeps forcing to `torly.ai`. Cookies then don't stick at origin.torly.ai, breaking admin login.
+- **Admin UI URL is `https://origin.torly.ai/wp-admin/`, NOT through the Vercel proxy.** Vercel's firewall (`x-vercel-mitigated: deny`) blocks `/wp-admin/*` and `/wp-json/*` at the edge by default. This is a platform-level decision by Vercel (WP admin is treated as an attack signature on Next.js projects). Admin users bookmark the origin URL.
+
+### Debugging playbook — "admin login silently fails"
+
+If this happens again:
+
+1. **Check the form action host** — `curl -s <login-url> | grep -oE '<form[^>]*action="[^"]*"'`. If action host ≠ current host, that's the bug. Cross-origin POSTs die on 302s.
+2. **Check `site_url()` with and without path** — deploy a trace probe (see commit `2cbea5a` comments) that logs the filter input. If the input is already fully rewritten when your filter sees it, the rewrite is happening upstream (probably at `option_*url` stage).
+3. **Check browser `Set-Cookie` headers** — they must NOT have `Domain=torly.ai` when the browser is on `origin.torly.ai`. If they do, `COOKIE_DOMAIN` config is missing or wrong.
+4. **Don't trust "no error" as "no bug"** — WP's login handler fails silently when cookies are malformed. Use server-side session table (`wp user meta get admin session_tokens`) to see whether WP is creating sessions at all. If yes, browser is rejecting cookies; if no, POST isn't reaching the handler.
 
 ---
 
