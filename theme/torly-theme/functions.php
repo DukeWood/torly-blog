@@ -172,7 +172,16 @@ function torlyai_rewrite_canonical_host($url) {
 }
 
 // Core URL filters (run late with priority 99)
-foreach (array('home_url', 'site_url', 'option_home', 'option_siteurl') as $f) {
+//
+// IMPORTANT: we do NOT hook option_home / option_siteurl. Those run BEFORE
+// WP concatenates the path onto the base URL, so a URL like
+// `https://origin.torly.ai/wp-login.php` arrives at our filter as two halves:
+// the base `https://origin.torly.ai` (via option_siteurl) + the path
+// `/wp-login.php` (appended afterwards). If we rewrite the base, the admin
+// /login/REST path-exemption regex below can never match — it only sees the
+// base URL. By filtering only the full-URL outputs (home_url, site_url), we
+// always see the complete URL and can correctly exempt admin paths.
+foreach (array('home_url', 'site_url') as $f) {
     add_filter($f, 'torlyai_rewrite_canonical_host', 99);
 }
 
