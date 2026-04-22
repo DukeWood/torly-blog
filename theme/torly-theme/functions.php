@@ -233,8 +233,9 @@ add_filter('oembed_response_data', function($data) {
 //   - s-maxage=3600 (1h edge cache) + stale-while-revalidate=86400 (24h SWR).
 // ─────────────────────────────────────────────────────────────────────────────
 function torlyai_send_blog_cache_headers() {
-    // Skip non-GET requests (comments, searches, POSTs, admin).
-    if (empty($_SERVER['REQUEST_METHOD']) || $_SERVER['REQUEST_METHOD'] !== 'GET') return;
+    // Only cache safe read methods. POST / PUT / DELETE are never cached.
+    $method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : '';
+    if ($method !== 'GET' && $method !== 'HEAD') return;
     // Skip wp-admin / AJAX / CLI contexts.
     if (is_admin() || defined('WP_CLI') || (defined('DOING_AJAX') && DOING_AJAX)) return;
     // Skip wp-admin / wp-login / wp-json / xmlrpc URIs (the theme can still be
