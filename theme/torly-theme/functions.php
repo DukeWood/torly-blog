@@ -235,8 +235,10 @@ add_filter('oembed_response_data', function($data) {
 function torlyai_send_blog_cache_headers() {
     // Skip non-GET requests (comments, searches, POSTs, admin).
     if (empty($_SERVER['REQUEST_METHOD']) || $_SERVER['REQUEST_METHOD'] !== 'GET') return;
-    // Skip wp-admin / wp-login / wp-json / xmlrpc surfaces.
-    if (is_admin() || is_login() || defined('WP_CLI') || defined('DOING_AJAX') && DOING_AJAX) return;
+    // Skip wp-admin / AJAX / CLI contexts.
+    if (is_admin() || defined('WP_CLI') || (defined('DOING_AJAX') && DOING_AJAX)) return;
+    // Skip wp-admin / wp-login / wp-json / xmlrpc URIs (the theme can still be
+    // loaded in an unusual request context; the URI regex is the backstop).
     if (isset($_SERVER['REQUEST_URI']) && preg_match('#^/(wp-admin|wp-login|wp-json|xmlrpc)#', $_SERVER['REQUEST_URI'])) return;
     // Skip logged-in users (admin bar variant must not be cached for anon visitors).
     if (is_user_logged_in()) return;
