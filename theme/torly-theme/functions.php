@@ -154,6 +154,20 @@ add_action('init', 'torlyai_validate_and_fix_urls');
 // ─────────────────────────────────────────────────────────────────────────────
 function torlyai_rewrite_canonical_host($url) {
     if (!is_string($url)) return $url;
+    // Don't rewrite admin / login / REST endpoints — those MUST stay on the
+    // actual host the user is browsing (origin.torly.ai for direct admin,
+    // or torly.ai if we ever proxy admin through Vercel) so form POSTs and
+    // auth cookies land at the same origin.
+    //
+    // Why this matters: the login form's action attribute is built from
+    // site_url('wp-login.php'). Without this exemption, WP rewrites the
+    // action to https://torly.ai/wp-login.php → browser at origin.torly.ai
+    // POSTs cross-origin → Vercel 302-redirects → browser converts POST→GET
+    // and DROPS the form body → WP sees a bodyless GET → silently re-renders
+    // the empty login form. This is exactly the 2026-04-22 login-loop bug.
+    if (preg_match('#/(wp-admin|wp-login\.php|wp-json|xmlrpc\.php)(/|$|\?)#', $url)) {
+        return $url;
+    }
     return str_replace(array('https://origin.torly.ai', 'http://origin.torly.ai'), 'https://torly.ai', $url);
 }
 
