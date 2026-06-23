@@ -247,7 +247,7 @@
                 <span class="ed-wordmark">
                     <span>Torly</span><span class="ed-accent-dot">.</span><span class="ed-accent-ai">AI</span>
                 </span>
-                <span class="ed-slogan">Dream it · Build it · Endorsed</span>
+                <span class="ed-slogan">Dream it · Build it · Scaled</span>
             </span>
         </a>
 
