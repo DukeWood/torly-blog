@@ -47,7 +47,9 @@
     <?php endif; ?>
     <?php endif; ?>
 
-    <?php if (is_home() || is_front_page()) : // Blog index ?>
+    <?php if (is_search() || is_author() || is_date() || is_tag()) : // thin/duplicate archives FIRST — is_home() is also true for /blog/?s=… on this install ?>
+    <meta name="robots" content="noindex, follow">
+    <?php elseif (is_home() || is_front_page()) : // Blog index ?>
     <meta name="description" content="Expert insights on UK Innovator Visa, business immigration strategies, and AI-powered visa preparation from TorlyAI.">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
     <link rel="canonical" href="<?php echo esc_url(home_url('/blog/')); ?>">
@@ -60,8 +62,6 @@
     <meta name="description" content="<?php echo esc_attr(category_description()); ?>">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="<?php echo esc_url(get_category_link(get_queried_object_id())); ?>">
-    <?php elseif (is_search() || is_author() || is_date() || is_tag()) : // thin/duplicate archives — keep out of the index, let link equity flow ?>
-    <meta name="robots" content="noindex, follow">
     <?php endif; ?>
 
     <style>
