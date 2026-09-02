@@ -226,6 +226,13 @@ add_filter('wp_get_attachment_image_src', function($src) {
     return $src;
 }, 99);
 
+// header.php already prints ONE <link rel="canonical"> per view (single / home /
+// category). WordPress core's rel_canonical() printed a SECOND one on singular
+// posts (audit 2026-09-02: every /blog/<post>/ carried two identical canonical
+// tags). Duplicate canonicals are ignored by some crawlers and flagged by SEO
+// tooling — drop core's copy and keep the theme's host-rewritten one.
+remove_action('wp_head', 'rel_canonical');
+
 // SEO plugin canonical (if installed)
 foreach (array('wpseo_canonical', 'rank_math_canonical', 'aioseop_canonical_url') as $f) {
     add_filter($f, 'torlyai_rewrite_canonical_host', 99);

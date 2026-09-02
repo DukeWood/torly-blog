@@ -19,8 +19,8 @@ get_header(); ?>
   "dateModified": "<?php echo get_the_modified_date('c'); ?>",
   "author": {
     "@type": "Person",
-    "name": "<?php the_author(); ?>",
-    "url": "https://torly.ai/about"
+    "name": "<?php echo esc_js(get_the_author() ?: 'TorlyAI Editorial'); ?>",
+    "url": "https://torly.ai/authors/torly-editorial/"
   },
   "publisher": {
     "@type": "Organization",
@@ -209,19 +209,16 @@ if (!empty($faq_items)) : ?>
             <?php endif;
         } ?>
 
-        <!-- Newsletter CTA (editorial dark band) -->
-        <section class="ed-newsletter">
-            <p class="ed-newsletter-kicker">Subscribe</p>
-            <h3>Stay close to the <em>UK Innovator Visa.</em></h3>
-            <p>Expert insights on UK Innovator Founder Visa delivered straight to your inbox — no fluff, no spam.</p>
-            <form class="newsletter-form ed-newsletter-form" action="<?php echo esc_url(home_url('/wp-json/torlyai/v1/newsletter-signup')); ?>" method="post">
-                <input type="email" name="email" placeholder="you@company.com" required />
-                <button type="submit" class="newsletter-btn">
-                    Subscribe
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                </button>
-            </form>
-            <p class="ed-newsletter-privacy">We respect your privacy · Unsubscribe anytime</p>
+        <!-- Product CTA (replaces former newsletter band) -->
+        <section class="ed-product-cta" aria-label="Try torly.ai instant assessment">
+            <a class="ed-product-cta-link" href="https://torly.ai/assess?utm_source=blog&amp;utm_medium=article-cta&amp;utm_campaign=hero-preview" target="_blank" rel="noopener">
+                <img
+                    src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/torlyai-hero-preview.png'); ?>"
+                    alt="torly.ai instant assessment — sample preview showing a 4F scorecard with Product–Market Fit 82, Founder–Market Fit 71, British Market Fit 88, and Fortune (moat) 64."
+                    loading="lazy"
+                    decoding="async"
+                />
+            </a>
         </section>
 
         <!-- Previous / next post nav -->
@@ -291,50 +288,6 @@ function copyArticleLink(event) {
     });
 }
 
-// Newsletter form submission
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('.newsletter-form');
-    if (form) {
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const emailInput = form.querySelector('input[name="email"]');
-            const email = emailInput.value;
-            const button = form.querySelector('.newsletter-btn');
-            const buttonText = button.childNodes[0];
-            const originalText = buttonText.textContent;
-
-            buttonText.textContent = 'Subscribing...';
-            button.disabled = true;
-
-            try {
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email })
-                });
-
-                if (response.ok) {
-                    buttonText.textContent = 'Subscribed! ✓';
-                    emailInput.value = '';
-                    setTimeout(() => {
-                        buttonText.textContent = originalText;
-                        button.disabled = false;
-                    }, 3000);
-                } else {
-                    throw new Error('Subscription failed');
-                }
-            } catch (error) {
-                buttonText.textContent = 'Try again';
-                setTimeout(() => {
-                    buttonText.textContent = originalText;
-                    button.disabled = false;
-                }, 2000);
-            }
-        });
-    }
-});
 </script>
 
 <?php get_footer(); ?>
