@@ -60,6 +60,8 @@
     <meta name="description" content="<?php echo esc_attr(category_description()); ?>">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="<?php echo esc_url(get_category_link(get_queried_object_id())); ?>">
+    <?php elseif (is_search() || is_author() || is_date() || is_tag()) : // thin/duplicate archives — keep out of the index, let link equity flow ?>
+    <meta name="robots" content="noindex, follow">
     <?php endif; ?>
 
     <style>
